@@ -11,6 +11,9 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by root on 9/6/17.
@@ -28,9 +31,32 @@ public class ActivityMapReducer {
         }
     }
     static class ActivityReducer extends Reducer<DateCityWritable,Text,DateCityWritable,IntPairWritable> {
+        Set<String> set;
+
+        @Override
+        protected void setup(Context context) throws IOException, InterruptedException {
+            super.setup(context);
+            set=new TreeSet<String>();
+        }
+
         @Override
         protected void reduce(DateCityWritable key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
-            
+            int pv=0,uv=0;
+            for(Text text:values){
+                String mac=text.toString();
+                pv++;
+                if(!set.contains(mac)){
+                    uv++;
+                    set.add(mac);
+                }
+            }
+            context.write(key,new IntPairWritable(new IntWritable(pv),new IntWritable(uv)));
+        }
+
+        @Override
+        protected void cleanup(Context context) throws IOException, InterruptedException {
+            super.cleanup(context);
+            set.clear();
         }
     }
 }
