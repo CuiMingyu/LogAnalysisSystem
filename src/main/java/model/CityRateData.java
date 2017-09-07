@@ -2,14 +2,14 @@ package model;
 
 import java.sql.Date;
 
-public class CityData{
+public class CityRateData{
     private Date date;
     private String name=null;
     private int PV=0;
     private int UV=0;
     private double rate=0;
 
-    public void setCityData(Date date,String name,int PV,int UV, double rate){
+    public void setCityRateData(Date date,String name,int PV,int UV, double rate){
         this.date=date;
         this.name=name;
         this.PV=PV;
