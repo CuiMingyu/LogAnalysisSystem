@@ -57,10 +57,10 @@
             <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <marker date="1504712439163" expanded="true" signature="59:49269" ph="..." />
-                <marker date="1504712439163" expanded="true" signature="98:214" ph="..." />
-                <marker date="1504712439163" expanded="true" signature="192:214" ph="..." />
-                <marker date="1504712439163" expanded="true" signature="49243:49258" ph="..." />
+                <marker date="1504711919026" expanded="true" signature="59:84073" ph="..." />
+                <marker date="1504711919026" expanded="true" signature="98:34918" ph="..." />
+                <marker date="1504711919026" expanded="true" signature="192:34918" ph="..." />
+                <marker date="1504711919026" expanded="true" signature="84047:84062" ph="..." />
               </folding>
             </state>
           </provider>
@@ -89,8 +89,8 @@
       <file leaf-file-name="ActivityMapReducer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/mapreduce/ActivityMapReducer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="38" column="38" selection-start-line="38" selection-start-column="38" selection-end-line="38" selection-end-column="38" />
+            <state relative-caret-position="196">
+              <caret line="32" column="12" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -670,14 +670,6 @@
       <option name="presentableId" value="Default" />
       <updated>1504702206482</updated>
     </task>
-    <task id="LOCAL-00001" summary="added some writable classes">
-      <created>1504711970055</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1504711970055</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -720,10 +712,6 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="added some writable classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="added some writable classes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -785,10 +773,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1504712439163" expanded="true" signature="59:49269" ph="..." />
-            <marker date="1504712439163" expanded="true" signature="98:214" ph="..." />
-            <marker date="1504712439163" expanded="true" signature="192:214" ph="..." />
-            <marker date="1504712439163" expanded="true" signature="49243:49258" ph="..." />
+            <marker date="1504711919026" expanded="true" signature="59:84073" ph="..." />
+            <marker date="1504711919026" expanded="true" signature="98:34918" ph="..." />
+            <marker date="1504711919026" expanded="true" signature="192:34918" ph="..." />
+            <marker date="1504711919026" expanded="true" signature="84047:84062" ph="..." />
           </folding>
         </state>
       </provider>
@@ -878,8 +866,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/mapreduce/ActivityMapReducer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="38" column="38" selection-start-line="38" selection-start-column="38" selection-end-line="38" selection-end-column="38" />
+        <state relative-caret-position="196">
+          <caret line="32" column="12" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
