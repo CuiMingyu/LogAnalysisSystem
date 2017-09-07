@@ -22,11 +22,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="LogAnalysisSystem" />
+        <module name="MapReduce" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="LogAnalysisSystem" target="1.7" />
+      <module name="MapReduce" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
