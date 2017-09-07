@@ -2,12 +2,20 @@ package mapreduce;
 
 import mapreduce.writable.DateCityWritable;
 import mapreduce.writable.IntPairWritable;
+import org.apache.calcite.util.mapping.IntPair;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hive.serde2.io.DateWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -19,6 +27,8 @@ import java.util.TreeSet;
  * Created by root on 9/6/17.
  */
 public class ActivityMapReducer {
+    static private String inputPath="";
+    static private String outputPath="";
     static class ActivityMapper extends Mapper<LongWritable,Text,DateCityWritable,Text>{
         @Override
         protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -58,5 +68,25 @@ public class ActivityMapReducer {
             super.cleanup(context);
             set.clear();
         }
+    }
+    public static void run()
+            throws IOException,InterruptedException,ClassNotFoundException{
+        Configuration conf=new Configuration();
+        Job job=new Job(conf);
+        job.setJarByClass(ActivityMapReducer.class);
+        job.setJobName("ActivityAnalysis");
+        job.setOutputKeyClass(DateCityWritable.class);
+        job.setOutputValueClass(IntPairWritable.class);
+        job.setMapperClass(ActivityMapper.class);
+        job.setReducerClass(ActivityReducer.class);
+        job.setInputFormatClass(TextInputFormat.class);
+        job.setOutputFormatClass(TextOutputFormat.class);
+        FileInputFormat.addInputPath(job,new Path(inputPath));
+        FileOutputFormat.setOutputPath(job,new Path(outputPath));
+        job.waitForCompletion(true);
+    }
+    public static void main(String[] args)
+            throws IOException,InterruptedException,ClassNotFoundException{
+        run();
     }
 }

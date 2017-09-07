@@ -1,8 +1,9 @@
+package mapreduce.util;
+
+import model.CityData;
+
 import java.sql.*;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.ArrayList;
 
 public class Sqldb {

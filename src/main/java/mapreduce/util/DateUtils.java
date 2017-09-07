@@ -1,3 +1,5 @@
+package mapreduce.util;
+
 import java.beans.PropertyEditorSupport;
 import java.sql.Timestamp;
 import java.text.DateFormat;
