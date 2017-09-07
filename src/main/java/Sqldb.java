@@ -6,6 +6,7 @@ import java.util.ListIterator;
 import java.util.ArrayList;
 
 public class Sqldb {
+    //连接数据库
     public static Connection getConnection(){
         Connection conn=null;
         try{
@@ -19,6 +20,7 @@ public class Sqldb {
         return conn;
     }
 
+    //断开连接
     public static void Free(ResultSet rs,Connection conn,Statement stmt){
         try{
             if(rs!=null)
@@ -42,6 +44,7 @@ public class Sqldb {
         }
     }
 
+    //添加一行数据到rateinfo表中
     public void addRateInfo(Date date,String city,int PV,int UV,double rate){
         Connection con=null;
         PreparedStatement ps=null;
@@ -67,6 +70,7 @@ public class Sqldb {
         }
     }
 
+    //通过CityData实体类获得rateinfo中的数据id
     public int getrateid(CityData cd){
         Connection con=null;
         Statement st=null;
@@ -91,6 +95,7 @@ public class Sqldb {
         return num;
     }
 
+    //通过城市名称选择相应数据
     public List<CityData> SelectByCityName(String cityName){
         Connection con=null;
         PreparedStatement ps=null;
@@ -116,6 +121,7 @@ public class Sqldb {
         return cdList;
     }
 
+    //通过日期选择相应数据
     public List<CityData> SelectByDate(Date date){
         Connection con=null;
         PreparedStatement ps=null;
@@ -141,6 +147,7 @@ public class Sqldb {
         return cdList;
     }
 
+    //通过城市编码得到城市名称
     public String SelectCityByID(String id){
         Connection con=null;
         PreparedStatement ps=null;
@@ -163,6 +170,36 @@ public class Sqldb {
         return city;
     }
 
+    /*
+    public void CreateTable(){
+        Connection con=null;
+        PreparedStatement ps=null;
+        PreparedStatement ps2=null;
+        ResultSet rs=null;
+        try{
+            con=Sqldb.getConnection();
+            ps=con.prepareStatement("select timestamp,city_id,MAC from log ");
+            rs=ps.executeQuery();
+
+            while(rs.next()){
+                long time=Long.parseLong(rs.getString("timestamp"));
+                java.util.Date date=DateUtils.getDate(time);
+                java.sql.Date date1=new java.sql.Date(date.getTime());
+                String sql="INSERT INTO temp(date,city_num,MAC) values(?,?,?)";
+                ps2=con.prepareStatement(sql);
+                ps2.setDate(1,date1);
+                ps2.setString(2,rs.getString("city_id"));
+                ps2.setString(3,rs.getString("MAC"));
+                ps2.executeUpdate();
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            Sqldb.Free(rs, con, ps);
+        }
+    }*/
+
+    //测试函数
     public static void main(String args[]){
         Sqldb sqldb=new Sqldb();
         Date date=Date.valueOf("2010-12-01");
@@ -178,5 +215,6 @@ public class Sqldb {
             System.out.println(ds.get(i));
         }
         System.out.println(sqldb.SelectCityByID("10"));
+        //sqldb.CreateTable();
     }
 }
