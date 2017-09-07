@@ -30,6 +30,6 @@ public class CityRateDataNameServlet extends HttpServlet{
         CityRateDataService service=new CityRateDataService();
         List<CityRateData> crdlist=service.SelectByCityName(cityName);
 
-        
+
     }
 }

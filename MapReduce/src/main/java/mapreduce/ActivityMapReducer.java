@@ -28,7 +28,7 @@ import java.util.TreeSet;
  * Created by root on 9/6/17.
  */
 public class ActivityMapReducer {
-    static private String inputPath="/user/hive/warehouse/log/log.txt";
+    static private String inputPath="/user/root/log";
     static private String outputPath="/LogAnalysisSystem/ActivityAnalysis/output";
     static class ActivityMapper extends Mapper<LongWritable,Text,DateCityWritable,Text>{
         @Override
@@ -73,7 +73,7 @@ public class ActivityMapReducer {
     public static void run()
             throws IOException,InterruptedException,ClassNotFoundException{
         Configuration conf=new Configuration();
-        conf.set("fs.default.name", "hdfs://scm001:9000");
+        conf.set("fs.default.name", "hdfs://yxy:9000");
         conf.set("fs.hdfs.impl",org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
         conf.set("fs.file.impl", org.apache.hadoop.fs.LocalFileSystem.class.getName());
         FileSystem fs = FileSystem.get(conf);
