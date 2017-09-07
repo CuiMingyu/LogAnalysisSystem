@@ -27,7 +27,7 @@ import java.util.TreeSet;
  * Created by root on 9/6/17.
  */
 public class ActivityMapReducer {
-    static private String inputPath="";
+    static private String inputPath="/user/hive/warehouse/";
     static private String outputPath="";
     static class ActivityMapper extends Mapper<LongWritable,Text,DateCityWritable,Text>{
         @Override

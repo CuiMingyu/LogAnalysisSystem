@@ -1,4 +1,4 @@
-package mapreduce.util;
+package util;
 
 import java.beans.PropertyEditorSupport;
 import java.sql.Timestamp;

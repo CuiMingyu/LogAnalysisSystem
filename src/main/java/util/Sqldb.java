@@ -1,4 +1,4 @@
-package mapreduce.util;
+package util;
 
 import model.CityData;
 
