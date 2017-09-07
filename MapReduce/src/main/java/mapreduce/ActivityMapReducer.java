@@ -4,6 +4,7 @@ import mapreduce.writable.DateCityWritable;
 import mapreduce.writable.IntPairWritable;
 import org.apache.calcite.util.mapping.IntPair;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hive.serde2.io.DateWritable;
 import org.apache.hadoop.io.IntWritable;
@@ -27,8 +28,8 @@ import java.util.TreeSet;
  * Created by root on 9/6/17.
  */
 public class ActivityMapReducer {
-    static private String inputPath="/user/hive/warehouse/";
-    static private String outputPath="";
+    static private String inputPath="/user/hive/warehouse/log/log.txt";
+    static private String outputPath="/LogAnalysisSystem/ActivityAnalysis/output";
     static class ActivityMapper extends Mapper<LongWritable,Text,DateCityWritable,Text>{
         @Override
         protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -36,8 +37,8 @@ public class ActivityMapReducer {
             String[] parts=line.split("\t");
             Date d=new Date(Long.parseLong(parts[0]));
             Integer cid=Integer.parseInt(parts[2]);
-            String mac=parts[5];
-            context.write(new DateCityWritable(new DateWritable(d),new IntWritable(cid)),new Text(mac));
+            String phone=parts[3];
+            context.write(new DateCityWritable(new DateWritable(d),new IntWritable(cid)),new Text(phone));
         }
     }
     static class ActivityReducer extends Reducer<DateCityWritable,Text,DateCityWritable,IntPairWritable> {
@@ -72,11 +73,19 @@ public class ActivityMapReducer {
     public static void run()
             throws IOException,InterruptedException,ClassNotFoundException{
         Configuration conf=new Configuration();
-        Job job=new Job(conf);
+        conf.set("fs.default.name", "hdfs://scm001:9000");
+        conf.set("fs.hdfs.impl",org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
+        conf.set("fs.file.impl", org.apache.hadoop.fs.LocalFileSystem.class.getName());
+        FileSystem fs = FileSystem.get(conf);
+        fs.delete(new Path(outputPath), true);
+        fs.close();
+        Job job=Job.getInstance(conf);
         job.setJarByClass(ActivityMapReducer.class);
         job.setJobName("ActivityAnalysis");
         job.setOutputKeyClass(DateCityWritable.class);
         job.setOutputValueClass(IntPairWritable.class);
+        job.setMapOutputKeyClass(DateCityWritable.class);
+        job.setMapOutputValueClass(Text.class);
         job.setMapperClass(ActivityMapper.class);
         job.setReducerClass(ActivityReducer.class);
         job.setInputFormatClass(TextInputFormat.class);
@@ -85,8 +94,11 @@ public class ActivityMapReducer {
         FileOutputFormat.setOutputPath(job,new Path(outputPath));
         job.waitForCompletion(true);
     }
-    public static void main(String[] args)
-            throws IOException,InterruptedException,ClassNotFoundException{
-        run();
+    public static void main(String[] args) {
+        try {
+            run();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

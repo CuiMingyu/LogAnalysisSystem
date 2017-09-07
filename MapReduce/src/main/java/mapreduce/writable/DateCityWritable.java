@@ -3,7 +3,6 @@ package mapreduce.writable;
 
 import org.apache.hadoop.hive.serde2.io.DateWritable;
 import org.apache.hadoop.io.IntWritable;
-
 /**
  * Created by root on 9/6/17.
  */

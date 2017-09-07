@@ -7,7 +7,10 @@
     <groupId>org.maven</groupId>
     <artifactId>LogAnalysisSystem</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <modules>
+        <module>MapReduce</module>
+    </modules>
+    <packaging>pom</packaging>
     <name>LogAnalysisSystem</name>
     <url>http://maven.apache.org</url>
     <!--<repositories>
@@ -378,6 +381,7 @@
                     </httpConnector>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
