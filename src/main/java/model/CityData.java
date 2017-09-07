@@ -1,6 +1,8 @@
+package model;
+
 import java.sql.Date;
 
-class CityData{
+public class CityData{
     private Date date;
     private String name=null;
     private int PV=0;
