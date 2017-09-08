@@ -40,8 +40,8 @@ public class ActivityMapReducer {
             String[] parts=line.split("\t");
             Date d=new Date(Long.parseLong(parts[0]));
             Integer cid=Integer.parseInt(parts[2]);
-            String phone=parts[3];
-            context.write(new DateCityWritable(new DateWritable(DateUtil.transform(d,gmt),new SimpleDateFormat(dateFormatPattern)),
+            String phone=parts[1];
+            context.write(new DateCityWritable(new DateWritable(DateUtil.transform(d,gmt),dateFormatPattern),
                     new IntWritable(cid)),new Text(phone));
         }
     }

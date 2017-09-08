@@ -1,11 +1,13 @@
 package mapreduce.devicestatistic;
 
+import mapreduce.writable.DateDevWritable;
 import mapreduce.writable.DateWritable;
 import mapreduce.writable.PhoneDevWritable;
 import mapreduce.writable.TextComparable;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -18,7 +20,7 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import util.DateUtil;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 
 /**
@@ -27,29 +29,34 @@ import java.text.SimpleDateFormat;
  * calculate New Device amount of each Date;
  */
 public class NDDMapReducer {
-    static private String MRName="Device's earliest present date";
+    static private String MRName="New Device Amount of Date";
     static private String inputPath="/LogAnalysisSystem/DFPD/output";
     static private String outputPath="/LogAnalysisSystem/NDD/output";
     static private String hdfsURL="hdfs://scm001:9000";
     static private int gmt=8;
     static private String dateFormatPattern="yyyy-MM-dd";
-    static class NDDMapper extends Mapper<LongWritable,Text,PhoneDevWritable,DateWritable> {
+    static class NDDMapper extends Mapper<LongWritable,Text,DateDevWritable,IntWritable> {
         @Override
         protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
             String line=value.toString();
             String[] parts=line.split("\t");
-            Date d=new Date(Long.parseLong(parts[0]));
-            String phone=parts[1];
-            String dev=parts[4];
-            System.out.println(parts[1]+"\t"+parts[4]);
-            context.write(new PhoneDevWritable(new TextComparable(phone),new TextComparable(dev)),
-                    new DateWritable(DateUtil.transform(d,gmt),new SimpleDateFormat(dateFormatPattern)));
+            SimpleDateFormat format=new SimpleDateFormat(dateFormatPattern);
+            Date d;
+            try {
+                d = format.parse(parts[2]);
+            }catch(Exception e){
+                e.printStackTrace();
+                d=new Date();
+            }
+            String dev=parts[1];
+            System.out.println(parts[2]+"\t"+parts[1]);
+            context.write(new DateDevWritable(new DateWritable(d,dateFormatPattern),new TextComparable(dev)),new IntWritable(1));
         }
     }
-    static class DFPDReducer extends Reducer<PhoneDevWritable,DateWritable,PhoneDevWritable,DateWritable> {
+    static class NDDReducer extends Reducer<DateDevWritable,IntWritable,DateDevWritable,IntWritable> {
 
         /**
-         * find the earliest Date in values
+         * merge the counter of each (date,dev) pair;
          * @param key
          * @param values
          * @param context
@@ -57,15 +64,13 @@ public class NDDMapReducer {
          * @throws InterruptedException
          */
         @Override
-        protected void reduce(PhoneDevWritable key, Iterable<DateWritable> values, Context context)
+        protected void reduce(DateDevWritable key, Iterable<IntWritable> values, Context context)
                 throws IOException, InterruptedException {
-            java.util.Date earliest=null;
-            for(DateWritable dw:values){
-                java.util.Date d=dw.getDate();
-                if(earliest==null||d.compareTo(earliest)<0)
-                    earliest=d;
+            int sum=0;
+            for(IntWritable cnt:values){
+                sum+=cnt.get();
             }
-            context.write(key,new DateWritable(earliest,new SimpleDateFormat(dateFormatPattern)));
+            context.write(key,new IntWritable(sum));
         }
     }
     public static void run()
@@ -80,12 +85,12 @@ public class NDDMapReducer {
         Job job=Job.getInstance(conf);
         job.setJarByClass(DFPDMapReducer.class);
         job.setJobName(MRName);
-        job.setOutputKeyClass(PhoneDevWritable.class);
-        job.setOutputValueClass(DateWritable.class);
-        job.setMapOutputValueClass(DateWritable.class);
-        job.setMapOutputKeyClass(PhoneDevWritable.class);
-        job.setMapperClass(DFPDMapReducer.DFPDMapper.class);
-        job.setReducerClass(DFPDMapReducer.DFPDReducer.class);
+        job.setOutputKeyClass(DateDevWritable.class);
+        job.setOutputValueClass(IntWritable.class);
+        job.setMapOutputValueClass(IntWritable.class);
+        job.setMapOutputKeyClass(DateDevWritable.class);
+        job.setMapperClass(NDDMapper.class);
+        job.setReducerClass(NDDReducer.class);
         job.setInputFormatClass(TextInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
         FileInputFormat.addInputPath(job,new Path(inputPath));
