@@ -29,7 +29,7 @@ import java.util.TreeSet;
  * Created by root on 9/6/17.
  */
 public class ActivityMapReducer {
-    static private String inputPath="/user/hive/warehouse/log/log.txt";
+    static private String inputPath="/user/hive/warehouse/log";
     static private String outputPath="/LogAnalysisSystem/ActivityAnalysis/output";
     static private String hdfsURL="hdfs://scm001:9000";
     static private int gmt=8;
