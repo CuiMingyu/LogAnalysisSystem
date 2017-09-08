@@ -1,12 +1,11 @@
-package mapreduce;
+package mapreduce.activitystatistic;
 
 import mapreduce.writable.DateCityWritable;
+import mapreduce.writable.DateWritable;
 import mapreduce.writable.IntPairWritable;
-import org.apache.calcite.util.mapping.IntPair;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.hive.serde2.io.DateWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -17,10 +16,11 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+import util.DateUtil;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.HashSet;
+import java.text.SimpleDateFormat;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -28,8 +28,11 @@ import java.util.TreeSet;
  * Created by root on 9/6/17.
  */
 public class ActivityMapReducer {
-    static private String inputPath="/user/root/log";
+    static private String inputPath="/user/hive/warehouse/log";
     static private String outputPath="/LogAnalysisSystem/ActivityAnalysis/output";
+    static private String hdfsURL="hdfs://scm001:9000";
+    static private int gmt=8;
+    static private String dateFormatPattern="yyyy-MM-dd";
     static class ActivityMapper extends Mapper<LongWritable,Text,DateCityWritable,Text>{
         @Override
         protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -37,43 +40,34 @@ public class ActivityMapReducer {
             String[] parts=line.split("\t");
             Date d=new Date(Long.parseLong(parts[0]));
             Integer cid=Integer.parseInt(parts[2]);
-            String phone=parts[3];
-            context.write(new DateCityWritable(new DateWritable(d),new IntWritable(cid)),new Text(phone));
+            String phone=parts[1];
+            context.write(new DateCityWritable(new DateWritable(DateUtil.transform(d,gmt),dateFormatPattern),
+                    new IntWritable(cid)),new Text(phone));
         }
     }
     static class ActivityReducer extends Reducer<DateCityWritable,Text,DateCityWritable,IntPairWritable> {
-        Set<String> set;
+
 
         @Override
-        protected void setup(Context context) throws IOException, InterruptedException {
-            super.setup(context);
-            set=new TreeSet<String>();
-        }
-
-        @Override
-        protected void reduce(DateCityWritable key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+        protected void reduce(DateCityWritable key, Iterable<Text> values, Context context)
+                throws IOException, InterruptedException {
             int pv=0,uv=0;
+            Set<String> set=new TreeSet<String>();
             for(Text text:values){
-                String mac=text.toString();
+                String phone=text.toString();
                 pv++;
-                if(!set.contains(mac)){
+                if(!set.contains(phone)){
                     uv++;
-                    set.add(mac);
+                    set.add(phone);
                 }
             }
             context.write(key,new IntPairWritable(new IntWritable(pv),new IntWritable(uv)));
-        }
-
-        @Override
-        protected void cleanup(Context context) throws IOException, InterruptedException {
-            super.cleanup(context);
-            set.clear();
         }
     }
     public static void run()
             throws IOException,InterruptedException,ClassNotFoundException{
         Configuration conf=new Configuration();
-        conf.set("fs.default.name", "hdfs://yxy:9000");
+        conf.set("fs.default.name", hdfsURL);
         conf.set("fs.hdfs.impl",org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
         conf.set("fs.file.impl", org.apache.hadoop.fs.LocalFileSystem.class.getName());
         FileSystem fs = FileSystem.get(conf);
