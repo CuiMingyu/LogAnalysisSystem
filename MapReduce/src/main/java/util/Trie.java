@@ -1,5 +1,6 @@
 package util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ public class Trie<Key extends Comparable<Key>,Value> {
     public Trie() {
         root=new TrieNode<Key,Value>();
     }
-    public void insert(List<Key> list,Value v){
+    public void insert(Iterable<Key> list,Value v){
         TrieNode<Key,Value> pointer=root;
         boolean found;
         for(Key key:list){
@@ -31,7 +32,7 @@ public class Trie<Key extends Comparable<Key>,Value> {
         }
         pointer.setNode(v);
     }
-    public Value matchPrefix(List<Key> list){
+    public Value matchPrefix(Iterable<Key> list){
         TrieNode<Key,Value> pointer=root;
         boolean found;
         for(Key key:list){
@@ -50,6 +51,14 @@ public class Trie<Key extends Comparable<Key>,Value> {
         return pointer.getNode();
     }
     public static void main(String[] args){
-        Trie<Character,String> trie;
+        Trie<Character,String> trie=new Trie<Character,String>();
+        String pat="1234";
+        ArrayList<Character> patarray=new ArrayList<Character>();
+        for(int i=0;i<pat.length();i++)
+            patarray.add(pat.charAt(i));
+        String mat="12345";
+        trie.insert(patarray,pat);
+        System.out.println(trie.matchPrefix(patarray));
+
     }
 }

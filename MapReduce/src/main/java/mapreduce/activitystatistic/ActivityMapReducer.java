@@ -1,4 +1,4 @@
-package mapreduce;
+package mapreduce.activitystatistic;
 
 import mapreduce.writable.DateCityWritable;
 import mapreduce.writable.DateWritable;
@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Set;
-import java.util.TimeZone;
 import java.util.TreeSet;
 
 /**
@@ -55,11 +54,11 @@ public class ActivityMapReducer {
             int pv=0,uv=0;
             Set<String> set=new TreeSet<String>();
             for(Text text:values){
-                String mac=text.toString();
+                String phone=text.toString();
                 pv++;
-                if(!set.contains(mac)){
+                if(!set.contains(phone)){
                     uv++;
-                    set.add(mac);
+                    set.add(phone);
                 }
             }
             context.write(key,new IntPairWritable(new IntWritable(pv),new IntWritable(uv)));

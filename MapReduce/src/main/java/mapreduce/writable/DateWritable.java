@@ -67,7 +67,7 @@ public class DateWritable implements WritableComparable<DateWritable>{
     @Override
     public void readFields(DataInput dataInput) throws IOException {
         String datestr=dataInput.readUTF();
-        System.out.println(datestr);
+        //System.out.println(datestr);
         try {
             date = format.parse(datestr);
         }catch(Exception e){
