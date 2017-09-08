@@ -37,7 +37,7 @@
 
     <dependencies>
 
-        <!-- test begin -->
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -50,7 +50,7 @@
             <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- test end -->
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -324,6 +324,12 @@
             <groupId>com.huaban</groupId>
             <artifactId>jieba-analysis</artifactId>
             <version>1.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.1.36</version>
         </dependency>
 
     </dependencies>
