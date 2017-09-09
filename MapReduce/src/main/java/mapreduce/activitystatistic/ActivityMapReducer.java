@@ -28,11 +28,72 @@ import java.util.TreeSet;
  * Created by root on 9/6/17.
  */
 public class ActivityMapReducer {
-    static private String inputPath="/user/hive/warehouse/log";
-    static private String outputPath="/LogAnalysisSystem/ActivityAnalysis/output";
-    static private String hdfsURL="hdfs://scm001:9000";
-    static private int gmt=8;
-    static private String dateFormatPattern="yyyy-MM-dd";
+    static private String JobName;
+    static private String inputPath;
+    static private String outputPath;
+    static private String hdfsURL;
+    static private int gmt;
+    static private String dateFormatPattern;
+
+    public static String getJobName() {
+        return JobName;
+    }
+
+    public static void setJobName(String jobName) {
+        JobName = jobName;
+    }
+
+    public static String getInputPath() {
+        return inputPath;
+    }
+
+    public static void setInputPath(String inputPath) {
+        ActivityMapReducer.inputPath = inputPath;
+    }
+
+    public static String getOutputPath() {
+        return outputPath;
+    }
+
+    public static void setOutputPath(String outputPath) {
+        ActivityMapReducer.outputPath = outputPath;
+    }
+
+    public static String getHdfsURL() {
+        return hdfsURL;
+    }
+
+    public static void setHdfsURL(String hdfsURL) {
+        ActivityMapReducer.hdfsURL = hdfsURL;
+    }
+
+    public static int getGmt() {
+        return gmt;
+    }
+
+    public static void setGmt(int gmt) {
+        ActivityMapReducer.gmt = gmt;
+    }
+
+    public static String getDateFormatPattern() {
+        return dateFormatPattern;
+    }
+
+    public static void setDateFormatPattern(String dateFormatPattern) {
+        ActivityMapReducer.dateFormatPattern = dateFormatPattern;
+    }
+
+    static{
+
+        setJobName("Activity Statistic");
+        setInputPath(System.getProperty("user.dir"));
+        setOutputPath(inputPath+"/ASoutput");
+        setHdfsURL("hdfs:/localhost:9000");
+        setGmt(8);
+        setDateFormatPattern("yyyy-MM-dd");
+    }
+
+
     static class ActivityMapper extends Mapper<LongWritable,Text,DateCityWritable,Text>{
         @Override
         protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -41,12 +102,13 @@ public class ActivityMapReducer {
             Date d=new Date(Long.parseLong(parts[0]));
             Integer cid=Integer.parseInt(parts[2]);
             String phone=parts[1];
+            System.out.println(phone);
+            System.out.println(phone);
             context.write(new DateCityWritable(new DateWritable(DateUtil.transform(d,gmt),dateFormatPattern),
                     new IntWritable(cid)),new Text(phone));
         }
     }
     static class ActivityReducer extends Reducer<DateCityWritable,Text,DateCityWritable,IntPairWritable> {
-
 
         @Override
         protected void reduce(DateCityWritable key, Iterable<Text> values, Context context)
@@ -64,7 +126,7 @@ public class ActivityMapReducer {
             context.write(key,new IntPairWritable(new IntWritable(pv),new IntWritable(uv)));
         }
     }
-    public static void run()
+    static public void run()
             throws IOException,InterruptedException,ClassNotFoundException{
         Configuration conf=new Configuration();
         conf.set("fs.default.name", hdfsURL);
@@ -75,7 +137,7 @@ public class ActivityMapReducer {
         fs.close();
         Job job=Job.getInstance(conf);
         job.setJarByClass(ActivityMapReducer.class);
-        job.setJobName("ActivityAnalysis");
+        job.setJobName(JobName);
         job.setOutputKeyClass(DateCityWritable.class);
         job.setOutputValueClass(IntPairWritable.class);
         job.setMapOutputKeyClass(DateCityWritable.class);

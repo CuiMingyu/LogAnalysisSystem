@@ -7,10 +7,10 @@ import java.sql.SQLException;
 public class Sqldb {
     private static Connection conn=null;
     //连接数据库
-    public static Connection getConnection(){
+    public static Connection getConnection(String url,String uname,String pword){
         try{
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn=DriverManager.getConnection("jdbc:mysql://192.168.56.1/city","demo","5428");
+            conn=DriverManager.getConnection(url,uname,pword);
             if(!conn.isClosed())
                 System.out.println("Successfully connected to MySQL server...");
         }catch(Exception e){

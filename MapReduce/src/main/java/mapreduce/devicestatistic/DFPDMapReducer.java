@@ -24,12 +24,69 @@ import java.text.SimpleDateFormat;
  * Created by root on 9/7/17.
  */
 public class DFPDMapReducer {
-    static private String MRName="Device's earliest present date";
-    static private String inputPath="/user/hive/warehouse/log";
-    static private String outputPath="/LogAnalysisSystem/DFPD/output";
-    static private String hdfsURL="hdfs://scm001:9000";
-    static private int gmt=8;
-    static private String dateFormatPattern="yyyy-MM-dd";
+    static private String JobName;
+    static private String inputPath;
+    static private String outputPath;
+    static private String hdfsURL;
+    static private int gmt;
+    static private String dateFormatPattern;
+    static{
+        setJobName("Earliest present date of device");
+        setInputPath(System.getProperty("user.dir"));
+        setOutputPath(inputPath+"/DFPDoutput");
+        setHdfsURL("hdfs://localhost:9000");
+        setGmt(8);
+        setDateFormatPattern("yyyy-MM-dd");
+    }
+
+    public static String getJobName() {
+        return JobName;
+    }
+
+    public static void setJobName(String jobName) {
+        JobName = jobName;
+    }
+
+    public static String getInputPath() {
+        return inputPath;
+    }
+
+    public static void setInputPath(String inputPath) {
+        DFPDMapReducer.inputPath = inputPath;
+    }
+
+    public static String getOutputPath() {
+        return outputPath;
+    }
+
+    public static void setOutputPath(String outputPath) {
+        DFPDMapReducer.outputPath = outputPath;
+    }
+
+    public static String getHdfsURL() {
+        return hdfsURL;
+    }
+
+    public static void setHdfsURL(String hdfsURL) {
+        DFPDMapReducer.hdfsURL = hdfsURL;
+    }
+
+    public static int getGmt() {
+        return gmt;
+    }
+
+    public static void setGmt(int gmt) {
+        DFPDMapReducer.gmt = gmt;
+    }
+
+    public static String getDateFormatPattern() {
+        return dateFormatPattern;
+    }
+
+    public static void setDateFormatPattern(String dateFormatPattern) {
+        DFPDMapReducer.dateFormatPattern = dateFormatPattern;
+    }
+
     static class DFPDMapper extends Mapper<LongWritable,Text,PhoneDevWritable,DateWritable> {
         @Override
         protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -38,7 +95,7 @@ public class DFPDMapReducer {
             Date d=new Date(Long.parseLong(parts[0]));
             String phone=parts[1];
             String dev=parts[4];
-            System.out.println(parts[1]+"\t"+parts[4]);
+            //System.out.println(parts[1]+"\t"+parts[4]);
             context.write(new PhoneDevWritable(new TextComparable(phone),new TextComparable(dev)),
                     new DateWritable(DateUtil.transform(d,gmt),dateFormatPattern));
         }
@@ -65,7 +122,7 @@ public class DFPDMapReducer {
             context.write(key,new DateWritable(earliest,dateFormatPattern));
         }
     }
-    public static void run()
+    static public void run()
             throws IOException,InterruptedException,ClassNotFoundException{
         Configuration conf=new Configuration();
         conf.set("fs.default.name", hdfsURL);
@@ -76,7 +133,7 @@ public class DFPDMapReducer {
         fs.close();
         Job job=Job.getInstance(conf);
         job.setJarByClass(DFPDMapReducer.class);
-        job.setJobName(MRName);
+        job.setJobName(JobName);
         job.setOutputKeyClass(PhoneDevWritable.class);
         job.setOutputValueClass(DateWritable.class);
         job.setMapOutputValueClass(DateWritable.class);
