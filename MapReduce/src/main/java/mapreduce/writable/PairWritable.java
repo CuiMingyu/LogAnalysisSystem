@@ -55,7 +55,7 @@ abstract public class PairWritable<FWritable extends WritableComparable<FWritabl
             return result;
         else return second.compareTo(o.second);
     }
-<<<<<<< HEAD
+//<<<<<<< HEAD
     @Override
     public String toString() {
         return first.toString() +"\t" + second.toString();
