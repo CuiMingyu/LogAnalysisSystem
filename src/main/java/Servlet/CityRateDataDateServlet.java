@@ -60,10 +60,10 @@ public class CityRateDataDateServlet extends HttpServlet{
         }catch(Exception e){
             e.printStackTrace();
         }
-        java.sql.Date date= java.sql.Date.valueOf("2010-12-01");
+        /*java.sql.Date date= java.sql.Date.valueOf("2010-12-01");
         CityRateData cd=new CityRateData();
         cd.setCityRateData(date,"南京",10,20,0.5);
-        crdlist.add(cd);
+        crdlist.add(cd);*/
         getJson(request,response,crdlist);
     }
 
