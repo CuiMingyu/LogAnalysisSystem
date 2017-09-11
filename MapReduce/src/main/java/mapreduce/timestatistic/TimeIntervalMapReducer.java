@@ -31,12 +31,61 @@ import java.util.TreeSet;
  * Created by root on 9/8/17.
  */
 public class TimeIntervalMapReducer {
-    static private String MRName="TimeIntervalStatistic";
-    static private String inputPath="/user/hive/warehouse/log";
-    static private String outputPath="/LogAnalysisSystem/TimeIntervalStatistic/output";
-    static private String hdfsURL="hdfs://scm001:9000";
-    static private int gmt=8;
-    static private String dateFormatPattern="yyyy-MM-dd\tHH";
+    static private String JobName;
+    static private String inputPath;
+    static private String outputPath;
+    static private int gmt;
+    static private String dateFormatPattern;
+
+    static {
+        setJobName("Time interval statistic");
+        String currentDir=System.getProperty("user.dir");
+        setInputPath(currentDir);
+        setOutputPath(currentDir+"/TimeIntervalOutput");
+        setGmt(8);
+        setDateFormatPattern("yyyy-MM-dd\tHH");
+    }
+
+    public static String getJobName() {
+        return JobName;
+    }
+
+    public static void setJobName(String jobName) {
+        JobName = jobName;
+    }
+
+    public static String getInputPath() {
+        return inputPath;
+    }
+
+    public static void setInputPath(String inputPath) {
+        TimeIntervalMapReducer.inputPath = inputPath;
+    }
+
+    public static String getOutputPath() {
+        return outputPath;
+    }
+
+    public static void setOutputPath(String outputPath) {
+        TimeIntervalMapReducer.outputPath = outputPath;
+    }
+
+    public static int getGmt() {
+        return gmt;
+    }
+
+    public static void setGmt(int gmt) {
+        TimeIntervalMapReducer.gmt = gmt;
+    }
+
+    public static String getDateFormatPattern() {
+        return dateFormatPattern;
+    }
+
+    public static void setDateFormatPattern(String dateFormatPattern) {
+        TimeIntervalMapReducer.dateFormatPattern = dateFormatPattern;
+    }
+
     static class TimeIntervalMapper extends Mapper<LongWritable,Text,DateWritable,Text> {
         @Override
         protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -76,18 +125,14 @@ public class TimeIntervalMapReducer {
             context.write(key,new IntPairWritable(new IntWritable(pv),new IntWritable(uv)));
         }
     }
-    public static void run()
+    static public void run(Configuration conf)
             throws IOException,InterruptedException,ClassNotFoundException{
-        Configuration conf=new Configuration();
-        conf.set("fs.default.name", hdfsURL);
-        conf.set("fs.hdfs.impl",org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
-        conf.set("fs.file.impl", org.apache.hadoop.fs.LocalFileSystem.class.getName());
         FileSystem fs = FileSystem.get(conf);
-        fs.delete(new Path(outputPath), true);
+        fs.delete(new Path(getOutputPath()), true);
         fs.close();
         Job job=Job.getInstance(conf);
         job.setJarByClass(DFPDMapReducer.class);
-        job.setJobName(MRName);
+        job.setJobName(getJobName());
         job.setOutputKeyClass(DateWritable.class);
         job.setOutputValueClass(IntWritable.class);
         job.setMapOutputValueClass(Text.class);
@@ -96,13 +141,17 @@ public class TimeIntervalMapReducer {
         job.setReducerClass(TimeIntervalReducer.class);
         job.setInputFormatClass(TextInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
-        FileInputFormat.addInputPath(job,new Path(inputPath));
-        FileOutputFormat.setOutputPath(job,new Path(outputPath));
+        FileInputFormat.addInputPath(job,new Path(getInputPath()));
+        FileOutputFormat.setOutputPath(job,new Path(getOutputPath()));
         job.waitForCompletion(true);
     }
     public static void main(String[] args) {
+        Configuration conf=new Configuration();
+        conf.set("fs.default.name", "hdfs://scm001:9000");
+        conf.set("fs.hdfs.impl",org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
+        conf.set("fs.file.impl", org.apache.hadoop.fs.LocalFileSystem.class.getName());
         try {
-            run();
+            run(conf);
         }catch(Exception e){
             e.printStackTrace();
         }

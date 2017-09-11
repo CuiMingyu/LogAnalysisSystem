@@ -29,12 +29,60 @@ import java.text.SimpleDateFormat;
  * calculate New Device amount of each Date;
  */
 public class NDDMapReducer {
-    static private String MRName="New Device Amount of Date";
-    static private String inputPath="/LogAnalysisSystem/DFPD/output";
-    static private String outputPath="/LogAnalysisSystem/NDD/output";
-    static private String hdfsURL="hdfs://scm001:9000";
-    static private int gmt=8;
-    static private String dateFormatPattern="yyyy-MM-dd";
+    static private String JobName;
+    static private String inputPath;
+    static private String outputPath;
+    static private int gmt;
+    static private String dateFormatPattern;
+    static {
+        setJobName("Calculate New Device Amount of Date");
+        String currentDir=System.getProperty("user.dir");
+        setInputPath(currentDir);
+        setOutputPath(currentDir+"/NDDoutput");
+        setGmt(8);
+        setDateFormatPattern("yyyy-MM-dd");
+    }
+
+    public static String getJobName() {
+        return JobName;
+    }
+
+    public static void setJobName(String jobName) {
+        JobName = jobName;
+    }
+
+    public static String getInputPath() {
+        return inputPath;
+    }
+
+    public static void setInputPath(String inputPath) {
+        NDDMapReducer.inputPath = inputPath;
+    }
+
+    public static String getOutputPath() {
+        return outputPath;
+    }
+
+    public static void setOutputPath(String outputPath) {
+        NDDMapReducer.outputPath = outputPath;
+    }
+
+    public static int getGmt() {
+        return gmt;
+    }
+
+    public static void setGmt(int gmt) {
+        NDDMapReducer.gmt = gmt;
+    }
+
+    public static String getDateFormatPattern() {
+        return dateFormatPattern;
+    }
+
+    public static void setDateFormatPattern(String dateFormatPattern) {
+        NDDMapReducer.dateFormatPattern = dateFormatPattern;
+    }
+
     static class NDDMapper extends Mapper<LongWritable,Text,DateDevWritable,IntWritable> {
         @Override
         protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -49,7 +97,7 @@ public class NDDMapReducer {
                 d=new Date();
             }
             String dev=parts[1];
-            System.out.println(parts[2]+"\t"+parts[1]);
+            //System.out.println(parts[2]+"\t"+parts[1]);
             context.write(new DateDevWritable(new DateWritable(d,dateFormatPattern),new TextComparable(dev)),new IntWritable(1));
         }
     }
@@ -73,18 +121,14 @@ public class NDDMapReducer {
             context.write(key,new IntWritable(sum));
         }
     }
-    public static void run()
+    static public void run(Configuration conf)
             throws IOException,InterruptedException,ClassNotFoundException{
-        Configuration conf=new Configuration();
-        conf.set("fs.default.name", hdfsURL);
-        conf.set("fs.hdfs.impl",org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
-        conf.set("fs.file.impl", org.apache.hadoop.fs.LocalFileSystem.class.getName());
         FileSystem fs = FileSystem.get(conf);
         fs.delete(new Path(outputPath), true);
         fs.close();
         Job job=Job.getInstance(conf);
         job.setJarByClass(DFPDMapReducer.class);
-        job.setJobName(MRName);
+        job.setJobName(JobName);
         job.setOutputKeyClass(DateDevWritable.class);
         job.setOutputValueClass(IntWritable.class);
         job.setMapOutputValueClass(IntWritable.class);
@@ -98,8 +142,12 @@ public class NDDMapReducer {
         job.waitForCompletion(true);
     }
     public static void main(String[] args) {
+        Configuration conf=new Configuration();
+        conf.set("fs.default.name", "hdfs://scm001:9000");
+        conf.set("fs.hdfs.impl",org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
+        conf.set("fs.file.impl", org.apache.hadoop.fs.LocalFileSystem.class.getName());
         try {
-            run();
+            run(conf);
         }catch(Exception e){
             e.printStackTrace();
         }
