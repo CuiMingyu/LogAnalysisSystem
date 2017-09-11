@@ -79,9 +79,29 @@ public class StatisticService {
     }
     public static void loadIntoMysql() throws SQLException{
         Connection conn=Mysqldb.getConnection("scm001:3306/loganalysis","admin","123456");
-        System.out.println("Load ASOutput into database...");
-        SqldbService.loadIntoRateInfo(conn,localPath+activityStatisticDir+"/part-r-00000");
-        System.out.println("Completed.");
+
+        try {
+            System.out.println("Load ASOutput into database...");
+            SqldbService.loadIntoRateInfo(conn, localPath + activityStatisticDir + "/part-r-00000");
+            System.out.println("Completed.");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        try{
+            System.out.println("Load NDDOutput into database...");
+            SqldbService.loadIntoNewStyle(conn,localPath+NDDStatisticDir+"/part-r-00000");
+            System.out.println("Completed.");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        try{
+            System.out.println("Load TIOutput into database...");
+            SqldbService.loadIntoTimeRate(conn,localPath+TIStatisticDir+"/part-r-00000");
+            System.out.println("Completed.");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        Mysqldb.closeConection();
     }
     public static void copyTolocal()
         throws IOException{
@@ -91,6 +111,7 @@ public class StatisticService {
         Path dstPath=new Path(localPath+activityStatisticDir);
         try {
             fs.copyToLocalFile(false, srcPath, dstPath);
+            System.out.println("Completed.");
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -99,20 +120,19 @@ public class StatisticService {
         srcPath=new Path(NDDOutputPath);
         try {
             fs.copyToLocalFile(false, srcPath, dstPath);
+            System.out.println("Completed.");
         }catch(Exception e){
             e.printStackTrace();
         }
-        System.out.println("Completed.");
         System.out.println("Starting for copying TIOutput to local..");
         dstPath=new Path(localPath+TIStatisticDir);
         srcPath=new Path(TIOutputPath);
         try {
             fs.copyToLocalFile(false, srcPath, dstPath);
+            System.out.println("Completed.");
         }catch(Exception e){
             e.printStackTrace();
         }
-        System.out.println("Completed.");
-
     }
     public static void init(){
         conf.set("fs.default.name", hdfsUrl);
