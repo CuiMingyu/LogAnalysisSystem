@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="Maven: com.univocity:univocity-parsers:2.1.1">
     <CLASSES>
+<<<<<<< HEAD
       <root url="jar://$USER_HOME$/.m2/repository/com/univocity/univocity-parsers/2.1.1/univocity-parsers-2.1.1.jar!/" />
     </CLASSES>
     <JAVADOC>
@@ -8,6 +9,15 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.m2/repository/com/univocity/univocity-parsers/2.1.1/univocity-parsers-2.1.1-sources.jar!/" />
+=======
+      <root url="jar://$MAVEN_REPOSITORY$/com/univocity/univocity-parsers/2.1.1/univocity-parsers-2.1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/univocity/univocity-parsers/2.1.1/univocity-parsers-2.1.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/univocity/univocity-parsers/2.1.1/univocity-parsers-2.1.1-sources.jar!/" />
+>>>>>>> CuiMingyu-master
     </SOURCES>
   </library>
 </component>

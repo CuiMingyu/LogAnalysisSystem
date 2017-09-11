@@ -32,7 +32,7 @@ function showMenu() {
   newMenu.style.position = 'fixed';
   newMenu.style.width = '400px';
   newMenu.style.background = '#2c3544';
-  newMenu.style.top = '100px';
-  newMenu.style.left = '650px';
+  newMenu.style.top = '50px';
+  newMenu.style.left = '200px';
   newMenu.style.padding = '0';
 }

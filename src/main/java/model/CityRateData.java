@@ -1,6 +1,9 @@
 package model;
 
+import util.DateUtils;
+
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class CityRateData{
     private Date date;
@@ -57,7 +60,8 @@ public class CityRateData{
         this.rate=rate;
     }
 
+    @Override
     public String toString(){
-        return date.toString()+'\t'+name+'\t'+String.valueOf(PV)+'\t'+String.valueOf(UV)+'\t'+Double.toString(rate);
+        return new SimpleDateFormat("yyyy-MM-dd").format(date)+'\t'+name+'\t'+String.valueOf(PV)+'\t'+String.valueOf(UV)+'\t'+Double.toString(rate);
     }
 }
