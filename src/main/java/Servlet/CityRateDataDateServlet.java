@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.*;
+import com.alibaba.fastjson.annotation.JSONField;
 import model.CityRateData;
 import util.*;
 
@@ -19,6 +21,7 @@ import util.*;
  * Created by yxy on 9/7/17.
  */
 public class CityRateDataDateServlet extends HttpServlet{
+
 
     protected void getJson(HttpServletRequest request,HttpServletResponse response,Object object){
         //response.setContentType("text/html;charset=UTF-8");
@@ -68,4 +71,12 @@ public class CityRateDataDateServlet extends HttpServlet{
     }
 
 
+    public static void main(String args[]){
+        List<CityRateData> crdlist=null;
+        java.sql.Date date= java.sql.Date.valueOf("2017-01-01");
+        CityRateDataService crds=new CityRateDataService();
+        crdlist=crds.SelectByDate(date);
+        String jsonStr= JSON.toJSONString(crdlist);
+        System.out.println(jsonStr);
+    }
 }
