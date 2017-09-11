@@ -12,6 +12,25 @@
     <link rel="stylesheet" href="css/activity.css">
     <link rel="stylesheet" href="css/toolbar.css">
     <script src="js/toolbar.js"></script>
+	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+      function show( data,status)
+      {
+         alert(data+status);
+      }
+            $(document).ready(function()
+            {
+            $("form").submit(function()
+    {
+    $.post("192.168.157.1",$("#date").value,
+          show(data,status)
+//          {
+//                alert(data+status);
+//          }
+    );
+    });
+    });
+  </script>
 </head>
 
 <body>
