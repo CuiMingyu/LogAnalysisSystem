@@ -11,10 +11,11 @@ abstract public class Sqldb {
     public static Connection getConnection(String url,String username,String password){
         return conn;
     }
-    public static void closeConection(){
+    public static void closeConnection(){
         if(conn!=null){
             try{
                 conn.close();
+                conn=null;
             }catch(SQLException e){
                 e.printStackTrace();
             }

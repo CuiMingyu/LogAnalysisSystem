@@ -7,6 +7,8 @@ public class Mysqldb extends Sqldb{
     //连接数据库
     public static Connection getConnection(String url,String username,String password){
         try{
+            if(conn!=null)
+                closeConnection();
             System.out.println("Connecting to Mysql server...");
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             conn=DriverManager.getConnection("jdbc:mysql://"+url,username,password);

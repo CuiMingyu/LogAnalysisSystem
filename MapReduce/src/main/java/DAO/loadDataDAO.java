@@ -1,17 +1,16 @@
-package main.java.service;
+package main.java.DAO;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Created by root on 9/10/17.
  */
-public class SqldbService {
+public class loadDataDAO {
     private static String astable="cityrate";
     private static String nddtable="newstyle";
     private static String titable="timerate";
-    public static boolean createRateInfo(Connection conn)
+    private static String rateinfo="rateinfo";
+    public static boolean createASTable(Connection conn)
             throws SQLException{
         Statement stat=conn.createStatement();
         boolean result=stat.execute("DROP TABLE IF EXISTS "+astable);
@@ -23,9 +22,9 @@ public class SqldbService {
                 ");");
         return result;
     }
-    public static int loadIntoRateInfo(Connection conn,String inputPath)
+    public static int loadIntoASTable(Connection conn,String inputPath)
             throws SQLException{
-        createRateInfo(conn);
+        createASTable(conn);
         Statement stat=conn.createStatement();
         int result=stat.executeUpdate("LOAD DATA LOCAL INFILE '" +
                 inputPath+
@@ -35,7 +34,7 @@ public class SqldbService {
                 ";");
         return result;
     }
-    public static boolean createNewStyle(Connection conn)
+    public static boolean createNDDTable(Connection conn)
             throws SQLException{
         Statement stat=conn.createStatement();
         boolean result=stat.execute("DROP TABLE IF EXISTS "+nddtable);
@@ -47,9 +46,9 @@ public class SqldbService {
                 ");");
         return result;
     }
-    public static int loadIntoNewStyle(Connection conn,String inputPath)
+    public static int loadIntoNDDTable(Connection conn,String inputPath)
             throws SQLException{
-        createNewStyle(conn);
+        createNDDTable(conn);
         Statement stat=conn.createStatement();
         int result=stat.executeUpdate("LOAD DATA LOCAL INFILE '" +
                 inputPath+
@@ -60,7 +59,7 @@ public class SqldbService {
                 ";");
         return result;
     }
-    public static boolean createTimeRate(Connection conn)
+    public static boolean createTITable(Connection conn)
             throws SQLException{
         Statement stat=conn.createStatement();
         boolean result=stat.execute("DROP TABLE IF EXISTS "+titable);
@@ -72,9 +71,9 @@ public class SqldbService {
                 ");");
         return result;
     }
-    public static int loadIntoTimeRate(Connection conn,String inputPath)
+    public static int loadIntoTITable(Connection conn,String inputPath)
             throws SQLException{
-        createTimeRate(conn);
+        createTITable(conn);
         Statement stat=conn.createStatement();
         int result=stat.executeUpdate("LOAD DATA LOCAL INFILE '" +
                 inputPath+
@@ -84,5 +83,39 @@ public class SqldbService {
                 "set date=STR_TO_DATE(@date,'%Y-%m-%d') " +
                 ";");
         return result;
+    }
+    public static boolean createRateInfo(Connection conn) throws SQLException{
+        Statement stat=conn.createStatement();
+        boolean result=stat.execute("DROP TABLE IF EXISTS "+rateinfo);
+        result&=stat.execute("CREATE TABLE IF NOT EXISTS "+rateinfo +"(" +
+                "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+                "date DATE," +
+                "city VARCHAR(20)," +
+                "PV INT," +
+                "UV INT," +
+                "rate DOUBLE);");
+        return result;
+    }
+    public void transferASTable(Connection conn){
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        List<CityRateData> cdList=new ArrayList<CityRateData>();
+        try{
+            ps=con.prepareStatement("select * from cityrate");
+            rs=ps.executeQuery();
+
+            while(rs.next()){
+                CityRateData cd=new CityRateData();
+                double rate=(rs.getInt("PV")/rs.getInt("UV"));
+                CityRateDataDAO dao=new CityRateDataDAO();
+                String city=dao.SelectCityByID(rs.getString("city_id"));
+                CityRateDataDAO dao2=new CityRateDataDAO();
+                dao2.addRateInfo(Date.valueOf(rs.getString("time")),city,rs.getInt("PV"),rs.getInt("UV"),rate);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            Sqldb.closeConection();
+        }
     }
 }

@@ -5,18 +5,20 @@ import org.apache.spark.sql.SparkSession
 object top20 {
   def main(args: Array[String]): Unit = {
     val spark = SparkSession.builder().appName("top20").master("local").enableHiveSupport().getOrCreate()
-    val sc= spark.sparkContext
+    val sc = spark.sparkContext
 
     //生成广播变量
-    val fields = List("NodeID","CI","IMEI","APP","Time","UplinkBytes","DownlinkBytes")
+    val fields = List("time_stamp", "phone", "city_id", "IP", "device", "devmac", "apmac",
+      "acmac", "url", "response", "uplink_packets", "uplink_flow", "downlink_packets", "downlink_flow")
     val bcfields = sc.broadcast(fields)
 
     //对APP字段访问次数进行统计，并进行排序
-    val mobile = sc.textFile("data/day_03_mobile.txt").map(_.split(","))
-    mobile.map(m => (m(bcfields.value.indexOf("APP")),1))
-      .reduceByKey(_+_).map(m => (m._2,m._1)).sortByKey(false).map(m => (m._2,m._1)).collect()
-      .foreach(m => println(m._1+"的访问次数是："+m._2))
-
+    val inputPath = "hdfs://scm001:9000/user/hive/warehouse/loganalysis/log/"
+    val mobile = sc.textFile(inputPath).map(_.split("\t"))
+    mobile.map(m => (m(bcfields.value.indexOf("devmac")), 1))
+      .reduceByKey(_ + _).map(m => (m._2, m._1)).sortByKey(false).map(m => (m._2, m._1)).collect()
+      .foreach(m => println(m._1 + "的访问次数是：" + m._2))
+    /*
     //移动互联网日活跃用户（DAU）的统计
     mobile.map{m =>
       val imei = m(bcfields.value.indexOf("IMEI"))//取出IMEI
@@ -47,5 +49,6 @@ object top20 {
       .reduceByKey((a, b) => List(a(0)+b(0), a(1)+b(1)))
       .foreach(m => println(m._1 + "应用上行的流量是：" + m._2(0) + "\t" +
         "下行的流量是：" + m._2(1)))
+  }*/
   }
 }

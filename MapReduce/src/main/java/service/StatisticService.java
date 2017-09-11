@@ -1,5 +1,6 @@
 package main.java.service;
 
+import main.java.DAO.loadDataDAO;
 import main.java.mapreduce.activitystatistic.ActivityMapReducer;
 import main.java.mapreduce.devicestatistic.DFPDMapReducer;
 import main.java.mapreduce.devicestatistic.NDDMapReducer;
@@ -76,31 +77,31 @@ public class StatisticService {
         TimeIntervalStatistic();
         System.out.println("Time Interval Statistic ended");
     }
-    public static void loadIntoMysql() throws SQLException{
-        Connection conn=Mysqldb.getConnection("scm001:3306/loganalysis","admin","123456");
+    public static void loadIntoMysql(String url,String username,String password) throws SQLException{
+        Connection conn=Mysqldb.getConnection(url,username,password);
 
         try {
             System.out.println("Load ASOutput into database...");
-            SqldbService.loadIntoRateInfo(conn, localPath + activityStatisticDir + "/part-r-00000");
+            loadDataDAO.loadIntoASTable(conn, localPath + activityStatisticDir + "/part-r-00000");
             System.out.println("Completed.");
         }catch(Exception e){
             e.printStackTrace();
         }
         try{
             System.out.println("Load NDDOutput into database...");
-            SqldbService.loadIntoNewStyle(conn,localPath+NDDStatisticDir+"/part-r-00000");
+            loadDataDAO.loadIntoNDDTable(conn,localPath+NDDStatisticDir+"/part-r-00000");
             System.out.println("Completed.");
         }catch(Exception e){
             e.printStackTrace();
         }
         try{
             System.out.println("Load TIOutput into database...");
-            SqldbService.loadIntoTimeRate(conn,localPath+TIStatisticDir+"/part-r-00000");
+            loadDataDAO.loadIntoTITable(conn,localPath+TIStatisticDir+"/part-r-00000");
             System.out.println("Completed.");
         }catch(Exception e){
             e.printStackTrace();
         }
-        Mysqldb.closeConection();
+        Mysqldb.closeConnection();
     }
     public static void copyTolocal()
         throws IOException{
@@ -141,9 +142,9 @@ public class StatisticService {
     public static void  main(String[] args){
         try {
             init();
-            //runStatistic();
+            runStatistic();
             copyTolocal();
-            loadIntoMysql();
+            loadIntoMysql("scm001:3306/loganalysis","admin","123456");
         }catch(Exception e){
             e.printStackTrace();
         }
