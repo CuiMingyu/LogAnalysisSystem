@@ -1,6 +1,15 @@
 <component name="libraryTable">
   <library name="Maven: com.ning:compress-lzf:1.0.3">
     <CLASSES>
+<<<<<<< HEAD
+      <root url="jar://$USER_HOME$/.m2/repository/com/ning/compress-lzf/1.0.3/compress-lzf-1.0.3.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/com/ning/compress-lzf/1.0.3/compress-lzf-1.0.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/ning/compress-lzf/1.0.3/compress-lzf-1.0.3-sources.jar!/" />
+=======
       <root url="jar://$MAVEN_REPOSITORY$/com/ning/compress-lzf/1.0.3/compress-lzf-1.0.3.jar!/" />
     </CLASSES>
     <JAVADOC>
@@ -8,6 +17,7 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/com/ning/compress-lzf/1.0.3/compress-lzf-1.0.3-sources.jar!/" />
+>>>>>>> CuiMingyu-master
     </SOURCES>
   </library>
 </component>

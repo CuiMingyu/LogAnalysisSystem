@@ -1,6 +1,15 @@
 <component name="libraryTable">
   <library name="Maven: org.glassfish.hk2:hk2-api:2.4.0-b34">
     <CLASSES>
+<<<<<<< HEAD
+      <root url="jar://$USER_HOME$/.m2/repository/org/glassfish/hk2/hk2-api/2.4.0-b34/hk2-api-2.4.0-b34.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/org/glassfish/hk2/hk2-api/2.4.0-b34/hk2-api-2.4.0-b34-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/org/glassfish/hk2/hk2-api/2.4.0-b34/hk2-api-2.4.0-b34-sources.jar!/" />
+=======
       <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/hk2/hk2-api/2.4.0-b34/hk2-api-2.4.0-b34.jar!/" />
     </CLASSES>
     <JAVADOC>
@@ -8,6 +17,7 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/hk2/hk2-api/2.4.0-b34/hk2-api-2.4.0-b34-sources.jar!/" />
+>>>>>>> CuiMingyu-master
     </SOURCES>
   </library>
 </component>
