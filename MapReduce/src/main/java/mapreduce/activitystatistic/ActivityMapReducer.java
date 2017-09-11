@@ -31,7 +31,6 @@ public class ActivityMapReducer {
     static private String JobName;
     static private String inputPath;
     static private String outputPath;
-    static private String hdfsURL;
     static private int gmt;
     static private String dateFormatPattern;
 
@@ -59,14 +58,6 @@ public class ActivityMapReducer {
         ActivityMapReducer.outputPath = outputPath;
     }
 
-    public static String getHdfsURL() {
-        return hdfsURL;
-    }
-
-    public static void setHdfsURL(String hdfsURL) {
-        ActivityMapReducer.hdfsURL = hdfsURL;
-    }
-
     public static int getGmt() {
         return gmt;
     }
@@ -88,7 +79,6 @@ public class ActivityMapReducer {
         setJobName("Activity Statistic");
         setInputPath(System.getProperty("user.dir"));
         setOutputPath(inputPath+"/ASoutput");
-        setHdfsURL("hdfs:/localhost:9000");
         setGmt(8);
         setDateFormatPattern("yyyy-MM-dd");
     }
@@ -126,12 +116,8 @@ public class ActivityMapReducer {
             context.write(key,new IntPairWritable(new IntWritable(pv),new IntWritable(uv)));
         }
     }
-    static public void run()
+    static public void run(Configuration conf)
             throws IOException,InterruptedException,ClassNotFoundException{
-        Configuration conf=new Configuration();
-        conf.set("fs.default.name", hdfsURL);
-        conf.set("fs.hdfs.impl",org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
-        conf.set("fs.file.impl", org.apache.hadoop.fs.LocalFileSystem.class.getName());
         FileSystem fs = FileSystem.get(conf);
         fs.delete(new Path(outputPath), true);
         fs.close();
@@ -151,8 +137,12 @@ public class ActivityMapReducer {
         job.waitForCompletion(true);
     }
     public static void main(String[] args) {
+        Configuration conf=new Configuration();
+        conf.set("fs.default.name", "hdfs://scm001:9000");
+        conf.set("fs.hdfs.impl",org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
+        conf.set("fs.file.impl", org.apache.hadoop.fs.LocalFileSystem.class.getName());
         try {
-            run();
+            run(conf);
         }catch(Exception e){
             e.printStackTrace();
         }
