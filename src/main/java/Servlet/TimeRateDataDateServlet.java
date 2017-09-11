@@ -1,6 +1,9 @@
 package Servlet;
 
-import Service.CityRateDataService;
+import Service.TimeRateDataService;
+import com.alibaba.fastjson.JSON;
+import model.TimeRateData;
+import util.DateUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +14,13 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 
-import com.alibaba.fastjson.JSON;
-import model.CityRateData;
-import util.*;
-
 /**
- * Created by yxy on 9/7/17.
+ * Created by yxy on 9/10/17.
+ * 给出日期，返回该日期下的所有时间段的PV，UV
  */
-public class CityRateDataDateServlet extends HttpServlet{
+public class TimeRateDataDateServlet extends HttpServlet{
 
-    protected void getJson(HttpServletRequest request,HttpServletResponse response,Object object){
+    protected void getJson(HttpServletRequest request, HttpServletResponse response, Object object){
         //response.setContentType("text/html;charset=UTF-8");
         //禁用缓存，确保网页信息是最新数据
         response.setHeader("Pragma","No-cache");
@@ -41,9 +41,8 @@ public class CityRateDataDateServlet extends HttpServlet{
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException ,IOException{
+            throws ServletException,IOException{
         doPost(request,response);
-        //response.getWriter().write("111");
     }
 
     public void doPost(HttpServletRequest request,HttpServletResponse response)
@@ -52,20 +51,15 @@ public class CityRateDataDateServlet extends HttpServlet{
 
         String dateString=request.getParameter("date");
 
-        List<CityRateData> crdlist=null;
+        List<TimeRateData> trdlist=null;
         try{
-            CityRateDataService crds=new CityRateDataService();
-            Date date=DateUtils.parseDate(dateString,"yyyy-MM-dd");
-            crdlist=crds.SelectByDate(date);
+            TimeRateDataService crds=new TimeRateDataService();
+            Date date= DateUtils.parseDate(dateString,"yyyy-MM-dd");
+            trdlist=crds.SelectByDate(date);
         }catch(Exception e){
             e.printStackTrace();
         }
-        /*java.sql.Date date= java.sql.Date.valueOf("2010-12-01");
-        CityRateData cd=new CityRateData();
-        cd.setCityRateData(date,"南京",10,20,0.5);
-        crdlist.add(cd);*/
-        getJson(request,response,crdlist);
+        getJson(request,response,trdlist);
     }
-
 
 }

@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LogAnalysisSystem.iml" filepath="$PROJECT_DIR$/LogAnalysisSystem.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MapReduce/MapReduce.iml" filepath="$PROJECT_DIR$/MapReduce/MapReduce.iml" />
     </modules>
   </component>
 </project>
