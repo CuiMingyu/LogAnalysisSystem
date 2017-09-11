@@ -1,14 +1,10 @@
-package mapreduce.writable;
+package main.java.mapreduce.writable;
 
-import org.apache.hadoop.hive.serde2.io.DateWritable;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.WritableComparable;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.sql.Date;
 
 /**
  * Created by root on 9/6/17.

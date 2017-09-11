@@ -1,17 +1,12 @@
-package mapreduce.writable;
+package main.java.mapreduce.writable;
 
-import org.apache.hadoop.hbase.security.visibility.ParseException;
 import org.apache.hadoop.io.WritableComparable;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.TimeZone;
+import java.util.Date;
 
 /**
  * Created by root on 9/7/17.

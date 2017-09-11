@@ -145,8 +145,8 @@ public class CityRateDataDAO {
         }
         System.out.println(crda2.SelectCityByID("10"));
     }*/
-
-    /*public void transfertable(){
+    /*
+    public void transfertable(){
         PreparedStatement ps=null;
         ResultSet rs=null;
         List<CityRateData> cdList=new ArrayList<CityRateData>();

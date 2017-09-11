@@ -1,6 +1,8 @@
-package mapreduce.devicestatistic;
+package main.java.mapreduce.devicestatistic;
 
-import mapreduce.writable.*;
+import main.java.mapreduce.writable.DateWritable;
+import main.java.mapreduce.writable.PhoneDevWritable;
+import main.java.mapreduce.writable.TextComparable;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -13,11 +15,10 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
-import util.DateUtil;
+import main.java.util.DateUtil;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 /**
  * find out the earliest present date of each device;

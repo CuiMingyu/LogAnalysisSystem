@@ -1,8 +1,7 @@
-package util.sql;
+package main.java.util.sql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class Mysqldb extends Sqldb{
     //连接数据库

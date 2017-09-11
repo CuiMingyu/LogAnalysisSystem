@@ -1,6 +1,7 @@
-package mapreduce.writable;
+package main.java.mapreduce.writable;
 
 import org.apache.hadoop.io.IntWritable;
+
 /**
  * Created by root on 9/6/17.
  */

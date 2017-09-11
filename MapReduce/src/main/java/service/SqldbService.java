@@ -1,8 +1,8 @@
-package service;
+package main.java.service;
 
-import org.apache.directory.api.util.DateUtils;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Created by root on 9/10/17.

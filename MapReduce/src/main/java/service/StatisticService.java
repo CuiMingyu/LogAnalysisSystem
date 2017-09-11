@@ -1,18 +1,17 @@
-package service;
+package main.java.service;
 
-import mapreduce.activitystatistic.ActivityMapReducer;
-import mapreduce.devicestatistic.DFPDMapReducer;
-import mapreduce.devicestatistic.NDDMapReducer;
-import mapreduce.timestatistic.TimeIntervalMapReducer;
+import main.java.mapreduce.activitystatistic.ActivityMapReducer;
+import main.java.mapreduce.devicestatistic.DFPDMapReducer;
+import main.java.mapreduce.devicestatistic.NDDMapReducer;
+import main.java.mapreduce.timestatistic.TimeIntervalMapReducer;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import util.sql.Mysqldb;
+import main.java.util.sql.Mysqldb;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Created by root on 9/8/17.

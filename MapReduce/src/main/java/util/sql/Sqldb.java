@@ -1,4 +1,4 @@
-package util.sql;
+package main.java.util.sql;
 
 import java.sql.Connection;
 import java.sql.SQLException;
