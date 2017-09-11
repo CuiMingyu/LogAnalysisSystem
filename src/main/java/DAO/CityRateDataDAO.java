@@ -127,7 +127,7 @@ public class CityRateDataDAO {
     }
 
     //测试函数
-    public static void main(String args[]){
+    /*public static void main(String args[]){
         CityRateDataDAO crda2=new CityRateDataDAO();
         CityRateDataDAO crdd=new CityRateDataDAO();
         Date date=Date.valueOf("2010-12-01");
@@ -144,5 +144,34 @@ public class CityRateDataDAO {
             System.out.println(ds.get(i));
         }
         System.out.println(crda2.SelectCityByID("10"));
+    }*/
+
+    /*public void transfertable(){
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        List<CityRateData> cdList=new ArrayList<CityRateData>();
+        try{
+            ps=con.prepareStatement("select * from cityrate");
+            rs=ps.executeQuery();
+
+            while(rs.next()){
+                CityRateData cd=new CityRateData();
+                double rate=(rs.getInt("PV")/rs.getInt("UV"));
+                CityRateDataDAO dao=new CityRateDataDAO();
+                String city=dao.SelectCityByID(rs.getString("city_id"));
+                CityRateDataDAO dao2=new CityRateDataDAO();
+                dao2.addRateInfo(Date.valueOf(rs.getString("time")),city,rs.getInt("PV"),rs.getInt("UV"),rate);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            Sqldb.closeConection();
+        }
     }
+
+    public static void main(String args[]){
+        CityRateDataDAO crda=new CityRateDataDAO();
+        crda.transfertable();
+
+    }*/
 }

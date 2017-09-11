@@ -12,7 +12,7 @@ public class Sqldb {
     public static Connection getConnection(){
         try{
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn=DriverManager.getConnection("jdbc:mysql://192.168.56.1/city","demo","5428");
+            conn=DriverManager.getConnection("jdbc:mysql://192.168.157.1/city","demo","5428");
             if(!conn.isClosed())
                 System.out.println("Successfully connected to MySQL server...");
         }catch(Exception e){
