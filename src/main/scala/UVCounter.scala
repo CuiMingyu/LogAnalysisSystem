@@ -1,4 +1,5 @@
 import org.apache.spark.sql.SparkSession
+import util.UrlUtil
 
 /**
   * Created by root on 9/12/17.
@@ -17,11 +18,9 @@ object UVCounter {
     val uvcounts=data.map{m=>
       val url=m(bcfields.value.indexOf("Url"))
       val mac=m(bcfields.value.indexOf("Devmac"))
-      val splits=url.split('/')
-      val weburl=splits(0)+"/"+splits(1)+"/"+splits(2)
-      (weburl,mac)
+      (UrlUtil.getHostName(url),mac)
     }.distinct().map(m=> (m._1,1)).reduceByKey(_+_).sortByKey(ascending=false)
-    uvcounts.foreach(m => println(m._1+" uv: "+m._2))
+    //uvcounts.foreach(m => println(m._1+" uv: "+m._2))
   }
   def main(args:Array[String]): Unit ={
     run()
