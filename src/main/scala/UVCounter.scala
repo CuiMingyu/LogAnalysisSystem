@@ -19,7 +19,7 @@ object UVCounter {
       val url=m(bcfields.value.indexOf("Url"))
       val mac=m(bcfields.value.indexOf("Devmac"))
       (UrlUtil.getHostName(url),mac)
-    }.distinct().map(m=> (m._1,1)).reduceByKey(_+_).sortByKey(ascending=false)
+    }.distinct().map(m=> (m._1,1)).reduceByKey(_+_).map(m=>(m._2,m._1)).sortByKey(ascending=false)
     //uvcounts.foreach(m => println(m._1+" uv: "+m._2))
   }
   def main(args:Array[String]): Unit ={
