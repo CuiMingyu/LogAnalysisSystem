@@ -1,8 +1,8 @@
-package service;
+package main.java.service;
 
-import dao.CityRateDataDAO;
-import model.CityRateData;
-import util.Sqldb;
+import main.java.dao.CityRateDataDAO;
+import main.java.model.CityRateData;
+import main.java.util.Sqldb;
 
 import java.sql.Connection;
 import java.sql.SQLException;

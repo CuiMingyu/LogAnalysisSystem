@@ -1,15 +1,18 @@
-package service;
+package main.java.service;
 
-import dao.LoadDataDAO;
-import mapreduce.activitystatistic.ActivityMapReducer;
-import mapreduce.devicestatistic.DFPDMapReducer;
-import mapreduce.devicestatistic.NDDMapReducer;
-import mapreduce.timestatistic.TimeIntervalMapReducer;
+import main.java.dao.LoadDataDAO;
+import main.java.mapreduce.activitystatistic.ActivityMapReducer;
+import main.java.mapreduce.devicestatistic.DFPDMapReducer;
+import main.java.mapreduce.devicestatistic.NDDMapReducer;
+import main.java.mapreduce.timestatistic.TimeIntervalMapReducer;
+import main.scala.IPCounter;
+import main.scala.PVCounter;
+import main.scala.UVCounter;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import util.FileUtil;
-import util.Sqldb;
+import main.java.util.FileUtil;
+import main.java.util.Sqldb;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -71,6 +74,17 @@ public class StatisticService {
             e.printStackTrace();
         }
     }
+    public static void TopSiteStatistic(){
+        System.out.println("Starting PV Statistic...");
+        PVCounter.run(inputPath,hdfsUrl+outputPath+PVStatisticDir,20);
+        System.out.println("Completed.");
+        System.out.println("Starting UV Statistic...");
+        UVCounter.run(inputPath,hdfsUrl+outputPath+UVStatisticDir,20);
+        System.out.println("Completed.");
+        System.out.println("Starting IP Statistic...");
+        IPCounter.run(inputPath,hdfsUrl+outputPath+IPStatisticDir,20);
+        System.out.println("Completed.");
+    }
     public static void runStatistic(){
         System.out.println("Starting Activity Statistic...");
         ActivityStatistic();
@@ -81,6 +95,7 @@ public class StatisticService {
         System.out.println("Starting Time Interval Statistic...");
         TimeIntervalStatistic();
         System.out.println("Time Interval Statistic ended");
+        TopSiteStatistic();
     }
     public static void loadIntoMysql() throws SQLException{
         Connection conn=null;
@@ -166,6 +181,12 @@ public class StatisticService {
         }catch(Exception e){
             e.printStackTrace();
         }*/
+        System.out.println("Starting for copying PVOutput to local..");
+        HDFSTolocal(fs,outputPath+PVStatisticDir,localPath+PVStatisticDir);
+        System.out.println("Starting for copying UVOutput to local..");
+        HDFSTolocal(fs,outputPath+UVStatisticDir,localPath+UVStatisticDir);
+        System.out.println("Starting for copying IPOutput to local..");
+        HDFSTolocal(fs,outputPath+IPStatisticDir,localPath+IPStatisticDir);
     }
     public static void init(){
         conf.set("fs.default.name", hdfsUrl);

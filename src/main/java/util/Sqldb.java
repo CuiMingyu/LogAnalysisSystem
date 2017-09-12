@@ -1,6 +1,6 @@
-package util;
+package main.java.util;
 
-import model.CityRateData;
+import main.java.model.CityRateData;
 
 import java.sql.*;
 import java.util.List;

@@ -1,4 +1,4 @@
-package util
+package main.scala.util
 
 /**
   * Created by root on 9/12/17.

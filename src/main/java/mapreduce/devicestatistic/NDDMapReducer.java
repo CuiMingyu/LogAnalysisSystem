@@ -1,8 +1,8 @@
-package mapreduce.devicestatistic;
+package main.java.mapreduce.devicestatistic;
 
-import mapreduce.writable.DateDevWritable;
-import mapreduce.writable.DateWritable;
-import mapreduce.writable.TextComparable;
+import main.java.mapreduce.writable.DateDevWritable;
+import main.java.mapreduce.writable.DateWritable;
+import main.java.mapreduce.writable.TextComparable;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;

@@ -1,11 +1,11 @@
-package dao;
+package main.java.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.*;
-import util.Sqldb;
+import main.java.model.*;
+import main.java.util.Sqldb;
 
 public class CityRateDataDAO {
     //添加一行数据到rateinfo表中

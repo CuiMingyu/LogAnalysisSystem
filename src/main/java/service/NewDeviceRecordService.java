@@ -1,11 +1,11 @@
-package service;
+package main.java.service;
 
-import dao.NewDeviceRecordDAO;
-import dao.MachineNameDAO;
-import model.NewDeviceMachine;
-import model.NewDeviceRecord;
-import model.NewDeviceStyle;
-import util.Sqldb;
+import main.java.dao.NewDeviceRecordDAO;
+import main.java.dao.MachineNameDAO;
+import main.java.model.NewDeviceMachine;
+import main.java.model.NewDeviceRecord;
+import main.java.model.NewDeviceStyle;
+import main.java.util.Sqldb;
 
 import java.sql.Connection;
 import java.util.ArrayList;

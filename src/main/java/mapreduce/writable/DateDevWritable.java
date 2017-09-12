@@ -1,4 +1,4 @@
-package mapreduce.writable;
+package main.java.mapreduce.writable;
 
 /**
  * Created by root on 9/7/17.

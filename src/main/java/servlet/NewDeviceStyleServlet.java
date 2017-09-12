@@ -1,9 +1,9 @@
-package servlet;
+package main.java.servlet;
 
-import service.NewDeviceRecordService;
+import main.java.service.NewDeviceRecordService;
 import com.alibaba.fastjson.JSON;
-import model.NewDeviceStyle;
-import util.DateUtils;
+import main.java.model.NewDeviceStyle;
+import main.java.util.DateUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
