@@ -3,7 +3,7 @@
   */
 import org.apache.spark.sql.SparkSession
 
-object MostUrl {
+object PVCounter {
   def main(args:Array[String]):Unit={
     val spark= SparkSession.builder().appName("MostUrl").master("local").enableHiveSupport().getOrCreate()
     val sc=spark.sparkContext
