@@ -27,6 +27,9 @@ public class StatisticService {
     static private String DFPDStatisticDir="/DFPDOutput";
     static private String NDDStatisticDir="/NDDOutput";
     static private String TIStatisticDir="/TimeIntervalOutput";
+    static private String PVStatisticDir="/PVOutput";
+    static private String UVStatisticDir="/UVOutput";
+    static private String IPStatisticDir="/IPOutput";
     static private String ASOutputPath=outputPath+activityStatisticDir;
     static private String DFPDOutputPath=outputPath+DFPDStatisticDir;
     static private String NDDOutputPath=outputPath+NDDStatisticDir;
@@ -94,6 +97,18 @@ public class StatisticService {
 
             System.out.println("Load TIOutput into database...");
             LoadDataDAO.loadIntoTITable(conn,localPath+TIStatisticDir+"/part-r-00000");
+            System.out.println("Completed.");
+
+            System.out.println("Load PVOutput into database...");
+            LoadDataDAO.loadIntoPVTable(conn,localPath+PVStatisticDir+"/part-r-00000");
+            System.out.println("Completed.");
+
+            System.out.println("Load UVOutput into database...");
+            LoadDataDAO.loadIntoUVTable(conn,localPath+UVStatisticDir+"/part-r-00000");
+            System.out.println("Completed.");
+
+            System.out.println("Load IPOutput into database...");
+            LoadDataDAO.loadIntoIPTable(conn,localPath+IPStatisticDir+"/part-r-00000");
             System.out.println("Completed.");
         }catch(Exception e){
             e.printStackTrace();
