@@ -1,7 +1,6 @@
 <component name="libraryTable">
   <library name="Maven: org.jpmml:pmml-model:1.2.15">
     <CLASSES>
-<<<<<<< HEAD
       <root url="jar://$USER_HOME$/.m2/repository/org/jpmml/pmml-model/1.2.15/pmml-model-1.2.15.jar!/" />
     </CLASSES>
     <JAVADOC>
@@ -9,15 +8,6 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.m2/repository/org/jpmml/pmml-model/1.2.15/pmml-model-1.2.15-sources.jar!/" />
-=======
-      <root url="jar://$MAVEN_REPOSITORY$/org/jpmml/pmml-model/1.2.15/pmml-model-1.2.15.jar!/" />
-    </CLASSES>
-    <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/jpmml/pmml-model/1.2.15/pmml-model-1.2.15-javadoc.jar!/" />
-    </JAVADOC>
-    <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/jpmml/pmml-model/1.2.15/pmml-model-1.2.15-sources.jar!/" />
->>>>>>> CuiMingyu-master
     </SOURCES>
   </library>
 </component>
