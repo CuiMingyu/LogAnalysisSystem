@@ -15,9 +15,10 @@ object MostUrl {
 
     val data=sc.textFile("hdfs://yxy:9000/user/root/input/data").map(_.split("\t"))
     data.map{m=>
-      val url=m(bcfields.value.indexOf("URL"))
-      val weburl=url.substring(0,url.indexOf('/',3))
+      val url=m(bcfields.value.indexOf("Url"))
+      //val weburl=url.substring(0,url.indexOf('/',3))
+      val weburl=url.split('/')(0)+"/"+url.split('/')(1)+"/"+url.split('/')(2)
       weburl
-    }.distinct().map(m=>(m(1),1)).reduceByKey(_+_).foreach(m=>println(m._1+"url num:"+m._2))
+    }.map(m=>(m,1)).reduceByKey(_+_).foreach(m=>println(m._1+" url num:"+m._2))
   }
 }
