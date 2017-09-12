@@ -1,6 +1,6 @@
-package dao;
+package main.java.dao;
 
-import model.TimeRateData;
+import main.java.model.TimeRateData;
 
 import java.sql.*;
 import java.util.ArrayList;

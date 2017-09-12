@@ -1,7 +1,7 @@
-package dao;
+package main.java.dao;
 
-import model.MostPV;
-import model.MostUV;
+import main.java.model.MostPV;
+import main.java.model.MostUV;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

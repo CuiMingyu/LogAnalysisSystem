@@ -1,8 +1,8 @@
-package service;
+package main.java.service;
 
-import dao.TimeRateDataDAO;
-import model.TimeRateData;
-import util.Sqldb;
+import main.java.dao.TimeRateDataDAO;
+import main.java.model.TimeRateData;
+import main.java.util.Sqldb;
 
 import java.sql.Connection;
 import java.util.Date;

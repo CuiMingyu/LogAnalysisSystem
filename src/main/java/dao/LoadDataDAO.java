@@ -1,7 +1,7 @@
-package dao;
+package main.java.dao;
 
-import model.CityRateData;
-import model.MostPV;
+import main.java.model.CityRateData;
+import main.java.model.MostPV;
 
 import java.sql.*;
 import java.util.ArrayList;

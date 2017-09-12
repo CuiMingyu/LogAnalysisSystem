@@ -1,9 +1,9 @@
-package service;
+package main.java.service;
 
-import dao.MostPVDAO;
-import dao.MostUVDAO;
-import model.MostUV;
-import util.Sqldb;
+import main.java.dao.MostPVDAO;
+import main.java.dao.MostUVDAO;
+import main.java.model.MostUV;
+import main.java.util.Sqldb;
 
 import java.sql.Connection;
 import java.util.List;

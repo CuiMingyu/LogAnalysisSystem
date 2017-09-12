@@ -1,9 +1,9 @@
-package servlet;
+package main.java.servlet;
 
-import service.TimeRateDataService;
+import main.java.service.TimeRateDataService;
 import com.alibaba.fastjson.JSON;
-import model.TimeRateData;
-import util.DateUtils;
+import main.java.model.TimeRateData;
+import main.java.util.DateUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

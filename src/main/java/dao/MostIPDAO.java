@@ -1,6 +1,6 @@
-package dao;
+package main.java.dao;
 
-import model.MostIP;
+import main.java.model.MostIP;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

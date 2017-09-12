@@ -1,8 +1,8 @@
-package service;
+package main.java.service;
 
-import dao.MostIPDAO;
-import model.MostIP;
-import util.Sqldb;
+import main.java.dao.MostIPDAO;
+import main.java.model.MostIP;
+import main.java.util.Sqldb;
 
 import java.sql.Connection;
 import java.util.List;
