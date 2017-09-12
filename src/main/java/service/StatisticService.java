@@ -101,11 +101,26 @@ public class StatisticService {
             Sqldb.closeConnection(conn);
         }
     }
+
+    public static void HDFSTolocal(FileSystem fs,String oldpath,String newpath){
+        Path srcPath=new Path(oldpath);
+        Path dstPath=new Path(newpath);
+        try {
+            FileUtil.deleteFile(newpath);
+            fs.copyToLocalFile(false, srcPath, dstPath);
+            System.out.println("Completed.");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public static void copyTolocal()
         throws IOException{
         FileSystem fs=FileSystem.get(conf);
+
         System.out.println("Starting for copying ASOutput to local..");
-        Path srcPath=new Path(ASOutputPath);
+        HDFSTolocal(fs,ASOutputPath,localPath+activityStatisticDir);
+        /*Path srcPath=new Path(ASOutputPath);
         Path dstPath=new Path(localPath+activityStatisticDir);
         try {
             FileUtil.deleteFile(localPath+activityStatisticDir);
@@ -113,9 +128,10 @@ public class StatisticService {
             System.out.println("Completed.");
         }catch(Exception e){
             e.printStackTrace();
-        }
+        }*/
         System.out.println("Starting for copying NDDOutput to local..");
-        dstPath=new Path(localPath+NDDStatisticDir);
+        HDFSTolocal(fs,NDDOutputPath,localPath+NDDStatisticDir);
+        /*dstPath=new Path(localPath+NDDStatisticDir);
         srcPath=new Path(NDDOutputPath);
         try {
             FileUtil.deleteFile(localPath+NDDStatisticDir);
@@ -123,9 +139,10 @@ public class StatisticService {
             System.out.println("Completed.");
         }catch(Exception e){
             e.printStackTrace();
-        }
+        }*/
         System.out.println("Starting for copying TIOutput to local..");
-        dstPath=new Path(localPath+TIStatisticDir);
+        HDFSTolocal(fs,TIOutputPath,localPath+TIStatisticDir);
+        /*dstPath=new Path(localPath+TIStatisticDir);
         srcPath=new Path(TIOutputPath);
         try {
             FileUtil.deleteFile(localPath+TIStatisticDir);
@@ -133,7 +150,7 @@ public class StatisticService {
             System.out.println("Completed.");
         }catch(Exception e){
             e.printStackTrace();
-        }
+        }*/
     }
     public static void init(){
         conf.set("fs.default.name", hdfsUrl);
