@@ -3,7 +3,7 @@
   */
 import org.apache.spark.sql.SparkSession
 
-object MostUrl {
+object PVCounter {
   def main(args:Array[String]):Unit={
     val spark= SparkSession.builder().appName("MostUrl").master("local").enableHiveSupport().getOrCreate()
     val sc=spark.sparkContext
@@ -14,11 +14,12 @@ object MostUrl {
     val bcfields=sc.broadcast(fields)
 
     val data=sc.textFile("hdfs://yxy:9000/user/root/input/data").map(_.split("\t"))
-    data.map{m=>
+    val urlcounts=data.map{m=>
       val url=m(bcfields.value.indexOf("Url"))
-      //val weburl=url.substring(0,url.indexOf('/',3))
       val weburl=url.split('/')(0)+"/"+url.split('/')(1)+"/"+url.split('/')(2)
       weburl
-    }.map(m=>(m,1)).reduceByKey(_+_).foreach(m=>println(m._1+" url num:"+m._2))
+    }.map(m=>(m,1)).reduceByKey(_+_).map(m=>(m._2,m._1)).sortByKey(ascending=false)//.foreach(m=>println(m._1+" url num:"+m._2))
+    urlcounts.take(20).foreach(m=>println(m._1+"\t"+m._2))
+    //urlcounts.saveAsTextFile("hdfs://yxy:9000/user/output")
   }
 }
