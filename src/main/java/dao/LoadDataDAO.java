@@ -32,7 +32,8 @@ public class LoadDataDAO {
     }
     public static int loadIntoASTable(Connection conn,String inputPath)
             throws SQLException{
-        createASTable(conn);
+        if(createASTable(conn))
+            System.out.println("create astable successfully.");
         Statement stat=conn.createStatement();
         int result=stat.executeUpdate("LOAD DATA LOCAL INFILE '" +
                 inputPath+

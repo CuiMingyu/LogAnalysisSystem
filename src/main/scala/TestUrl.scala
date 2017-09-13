@@ -25,16 +25,16 @@ object TestUrl {
     }
     return ans
   }
-  def main(args : Array[String]) {
+  def main(args : Array[String]):Unit= {
 
-    val conf = new SparkConf().setAppName("TrainingUrl").setMaster("local")
+    val conf = new SparkConf().setAppName("TestUrl").setMaster("local")
     val sc = new SparkContext(conf)
 
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
     import sqlContext.implicits._
 
     //从hdfs上获取分析数据
-    var srcRDD = sc.textFile("hdfs://yxy:9000/user/root/input/url_trainning_date").map {
+    var srcRDD = sc.textFile("hdfs://scm001:9000/input/url_trainning_date.txt").map {
       x =>
         var data = x.split("\t")
         var worddata=ListToString((new JiebaSegmenter).sentenceProcess(data(3)))//分词
@@ -42,7 +42,7 @@ object TestUrl {
     }
 
     //从hdfs上获取测试数据
-    var testRDD=sc.textFile("hdfs://yxy:9000/user/root/input/url_test_data").map{
+    var testRDD=sc.textFile("hdfs://scm001:9000/input/url_test_data.txt").map{
       x=>
         var data = x.split("\t")
         var worddata=ListToString((new JiebaSegmenter).sentenceProcess(data(0)))
