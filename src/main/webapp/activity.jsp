@@ -12,28 +12,10 @@
     <link rel="stylesheet" href="css/activity.css">
     <link rel="stylesheet" href="css/toolbar.css">
     <script src="js/toolbar.js"></script>
-	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script>
-      function show( data,status)
-      {
-         alert(data+status);
-      }
-            $(document).ready(function()
-            {
-            $("form").submit(function()
-    {
-    $.post("192.168.157.1",$("#date").value,
-          show(data,status)
-//          {
-//                alert(data+status);
-//          }
-    );
-    });
-    });
-  </script>
 </head>
 
 <body>
+<div id="background" >
 <header>
     <nav>
         <ul>
@@ -55,6 +37,7 @@
             <li><a href="phone.jsp">Phone analysis</a></li>
             <li><a href="timeline.jsp">Timeline analysis</a></li>
             <li><a href="personas.jsp">Personas analysis</a></li>
+            <li><a href="website.jsp">Hot100 websites</a></li>
         </ul>
     </div>
 </div>
@@ -72,6 +55,6 @@
         </form>
     </div>
 </div>
-
+</div>
 </body>
 </html>

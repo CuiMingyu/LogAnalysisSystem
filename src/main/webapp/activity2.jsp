@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.CityRateData" %><%--
   Created by IntelliJ IDEA.
   User: swz
   Date: 2017/9/11
@@ -16,6 +17,7 @@
 </head>
 
 <body>
+<div id="background" >
 <header>
     <nav>
         <ul>
@@ -37,6 +39,7 @@
             <li><a href="phone.jsp">Phone analysis</a></li>
             <li><a href="timeline.jsp">Timeline analysis</a></li>
             <li><a href="personas.jsp">Personas analysis</a></li>
+            <li><a href="website.jsp">Hot100 websites</a></li>
         </ul>
     </div>
 </div>
@@ -50,6 +53,11 @@
 
 <div>
     <body style="height:500px; margin: 0">
+    <%
+        ArrayList list=(ArrayList)request.getAttribute("city");
+        System.out.println(list.get(2));
+
+    %>
     <div id="container" style="width: 100%;height:1000px"></div>
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
@@ -536,7 +544,7 @@
     </script>
     </body>
 
-
+</div>
 </div>
 </body>
 </html>
