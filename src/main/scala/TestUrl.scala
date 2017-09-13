@@ -1,6 +1,4 @@
-/**
-  * Created by yxy on 9/12/17.
-  */
+package main.scala
 
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.ml.feature.{HashingTF, IDF, Tokenizer}
@@ -12,11 +10,14 @@ import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.sql.Row
 import com.huaban.analysis.jieba.JiebaSegmenter
 
-
-object TrainingUrl{
+/**
+  * Created by yxy on 9/12/17.
+  */
+object TestUrl {
 
   case class RawDataRecord(category: String, text: String)
 
+  //将java.util.List转化成String格式
   def ListToString(list: java.util.List[String]):String={
     var ans=new String()
     for (elem <- 0 to list.size()-1) {
@@ -32,18 +33,25 @@ object TrainingUrl{
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
     import sqlContext.implicits._
 
+    //从hdfs上获取分析数据
     var srcRDD = sc.textFile("hdfs://yxy:9000/user/root/input/url_trainning_date").map {
       x =>
         var data = x.split("\t")
-        var worddata=ListToString((new JiebaSegmenter).sentenceProcess(data(3)))
+        var worddata=ListToString((new JiebaSegmenter).sentenceProcess(data(3)))//分词
         RawDataRecord(data(2),worddata)
     }
 
+    //从hdfs上获取测试数据
+    var testRDD=sc.textFile("hdfs://yxy:9000/user/root/input/url_test_data").map{
+      x=>
+        var data = x.split("\t")
+        var worddata=ListToString((new JiebaSegmenter).sentenceProcess(data(0)))
+        RawDataRecord("0",worddata)
+    }
 
-    //70%作为训练数据，30%作为测试数据
-    val splits = srcRDD.randomSplit(Array(0.7,0.3))
-    var trainingDF = splits(0).toDF()
-    var testDF = splits(1).toDF()
+    //分析数据和测试数据
+    var trainingDF=srcRDD.toDF()
+    var testDF=testRDD.toDF()
 
     //将词语转换成数组
     var tokenizer = new Tokenizer().setInputCol("text").setOutputCol("words")
@@ -86,13 +94,9 @@ object TrainingUrl{
 
     //对测试数据集使用训练模型进行分类预测
     val testpredictionAndLabel = testDataRdd.map(p => (model.predict(p.features), p.label))//注意模型预测时的数据输入合适
-    //统计分类准确率
-    //println( testDataRdd.rdd.count())
-    //println(testpredictionAndLabel.rdd.filter(x => x._1 == x._2).count())
-    var testaccuracy = 1.0 * testpredictionAndLabel.rdd.filter(x => x._1 == x._2).count() / testDataRdd.rdd.count()
-    println("准确率为 ：" +  testaccuracy)
 
+    //输出计算结果
+    testpredictionAndLabel.rdd.foreach(x=>println(x._1.toInt))
 
   }
 }
-
