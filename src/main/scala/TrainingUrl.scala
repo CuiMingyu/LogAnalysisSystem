@@ -19,7 +19,7 @@ object TrainingUrl{
 
   def ListToString(list: java.util.List[String]):String={
     var ans=new String()
-    for (elem <- 0 to list.size()) {
+    for (elem <- 0 to list.size()-1) {
       ans=ans+'\t'+list.get(elem)
     }
     return ans
@@ -32,7 +32,7 @@ object TrainingUrl{
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
     import sqlContext.implicits._
 
-    var srcRDD = sc.textFile("hdfs://yxy:9000/user/root/input/url_trainning_date").map {
+    var srcRDD = sc.textFile("hdfs://scm001:9000/input/url_trainning_date.txt").map {
       x =>
         var data = x.split("\t")
         var worddata=ListToString((new JiebaSegmenter).sentenceProcess(data(3)))

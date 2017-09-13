@@ -74,18 +74,25 @@ public class StatisticService {
             e.printStackTrace();
         }
     }
-    public static void TopSiteStatistic(){
+    public static void TopSiteStatistic()
+            throws IOException{
         System.out.println("Starting PV Statistic...");
-        PVCounter.run(inputPath,hdfsUrl+outputPath+PVStatisticDir,20);
+        FileSystem fs = FileSystem.get(conf);
+        fs.delete(new Path(hdfsUrl+outputPath+PVStatisticDir), true);
+        PVCounter.run(hdfsUrl+inputPath,hdfsUrl+outputPath+PVStatisticDir,20);
         System.out.println("Completed.");
         System.out.println("Starting UV Statistic...");
-        UVCounter.run(inputPath,hdfsUrl+outputPath+UVStatisticDir,20);
+        fs.delete(new Path(hdfsUrl+outputPath+UVStatisticDir), true);
+        UVCounter.run(hdfsUrl+inputPath,hdfsUrl+outputPath+UVStatisticDir,20);
         System.out.println("Completed.");
         System.out.println("Starting IP Statistic...");
-        IPCounter.run(inputPath,hdfsUrl+outputPath+IPStatisticDir,20);
+        fs.delete(new Path(hdfsUrl+outputPath+IPStatisticDir), true);
+        IPCounter.run(hdfsUrl+inputPath,hdfsUrl+outputPath+IPStatisticDir,20);
         System.out.println("Completed.");
+        fs.close();
     }
-    public static void runStatistic(){
+    public static void runStatistic()
+            throws IOException{
         System.out.println("Starting Activity Statistic...");
         ActivityStatistic();
         System.out.println("Activity Statistic ended");
@@ -115,15 +122,15 @@ public class StatisticService {
             System.out.println("Completed.");
 
             System.out.println("Load PVOutput into database...");
-            LoadDataDAO.loadIntoPVTable(conn,localPath+PVStatisticDir+"/part-r-00000");
+            LoadDataDAO.loadIntoPVTable(conn,localPath+PVStatisticDir+"/part-00000");
             System.out.println("Completed.");
 
             System.out.println("Load UVOutput into database...");
-            LoadDataDAO.loadIntoUVTable(conn,localPath+UVStatisticDir+"/part-r-00000");
+            LoadDataDAO.loadIntoUVTable(conn,localPath+UVStatisticDir+"/part-00000");
             System.out.println("Completed.");
 
             System.out.println("Load IPOutput into database...");
-            LoadDataDAO.loadIntoIPTable(conn,localPath+IPStatisticDir+"/part-r-00000");
+            LoadDataDAO.loadIntoIPTable(conn,localPath+IPStatisticDir+"/part-00000");
             System.out.println("Completed.");
         }catch(Exception e){
             e.printStackTrace();
@@ -196,8 +203,8 @@ public class StatisticService {
     public static void  main(String[] args){
         try {
             init();
-            runStatistic();
-            copyTolocal();
+            //runStatistic();
+            //copyTolocal();
             loadIntoMysql();
         }catch(Exception e){
             e.printStackTrace();
