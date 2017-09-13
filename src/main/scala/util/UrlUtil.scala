@@ -1,5 +1,7 @@
 package main.scala.util
 
+import main.java.util.Spider
+
 /**
   * Created by root on 9/12/17.
   */
@@ -12,6 +14,9 @@ object UrlUtil {
   def getHostName(url:String): String ={
     val splits=url.split('/')
     val weburl=splits(2)
-    return weburl
+    weburl
+  }
+  def getTitle(url:String):String={
+    Spider.getTitle(url)
   }
 }

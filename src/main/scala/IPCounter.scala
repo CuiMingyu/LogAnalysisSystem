@@ -9,11 +9,7 @@ object IPCounter {
   def run(inputPath:String,outputPath:String,num: Int){
     val spark= SparkSession.builder().appName("MostUrl").master("local").enableHiveSupport().getOrCreate()
     val sc=spark.sparkContext
-
-    val fields=List("Time_stamp","Phone","Cityid","IP",
-      "Device","Devmac","Apmac","Acmac","Url",
-      "Response","Uplink_packets","Uplink_flow","Downlink_packets","Downlink_flow")
-    val bcfields=sc.broadcast(fields)
+    val bcfields=sc.broadcast(Global.fields)
     val data=sc.textFile(inputPath).map(_.split("\t"))
     //counts the IP of each hosts and sorts by it, then take the top [num] (host,IP) pairs
     val ipcounts=data.map{m=>
