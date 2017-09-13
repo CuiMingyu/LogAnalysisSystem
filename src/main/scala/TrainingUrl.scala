@@ -19,7 +19,7 @@ object TrainingUrl{
 
   def ListToString(list: java.util.List[String]):String={
     var ans=new String()
-    for (elem <- 0 to list.size()) {
+    for (elem <- 0 to list.size()-1) {
       ans=ans+'\t'+list.get(elem)
     }
     return ans
@@ -86,7 +86,9 @@ object TrainingUrl{
     //对测试数据集使用训练模型进行分类预测
     val testpredictionAndLabel = testDataRdd.map(p => (model.predict(p.features), p.label))//注意模型预测时的数据输入合适
     //统计分类准确率
-    var testaccuracy = 1.0 * testpredictionAndLabel.filter(x => x._1 == x._2).count() / testDataRdd.count()
+    //println( testDataRdd.rdd.count())
+    //println(testpredictionAndLabel.rdd.filter(x => x._1 == x._2).count())
+    var testaccuracy = 1.0 * testpredictionAndLabel.rdd.filter(x => x._1 == x._2).count() / testDataRdd.rdd.count()
     println("准确率为 ：" +  testaccuracy)
 
 
