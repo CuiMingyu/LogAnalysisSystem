@@ -1,8 +1,8 @@
-package dao;
+package main.java.dao;
 
-import model.NewDeviceRecord;
+import main.java.model.NewDeviceRecord;
 import org.apache.ibatis.jdbc.SQL;
-import util.Sqldb;
+import main.java.util.Sqldb;
 
 import java.sql.*;
 import java.util.ArrayList;

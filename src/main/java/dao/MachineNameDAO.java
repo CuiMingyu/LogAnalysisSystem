@@ -1,6 +1,6 @@
-package dao;
+package main.java.dao;
 
-import util.Sqldb;
+import main.java.util.Sqldb;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

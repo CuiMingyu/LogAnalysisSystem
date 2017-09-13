@@ -1,15 +1,18 @@
-package service;
+package main.java.service;
 
-import dao.LoadDataDAO;
-import mapreduce.activitystatistic.ActivityMapReducer;
-import mapreduce.devicestatistic.DFPDMapReducer;
-import mapreduce.devicestatistic.NDDMapReducer;
-import mapreduce.timestatistic.TimeIntervalMapReducer;
+import main.java.dao.LoadDataDAO;
+import main.java.mapreduce.activitystatistic.ActivityMapReducer;
+import main.java.mapreduce.devicestatistic.DFPDMapReducer;
+import main.java.mapreduce.devicestatistic.NDDMapReducer;
+import main.java.mapreduce.timestatistic.TimeIntervalMapReducer;
+import main.scala.IPCounter;
+import main.scala.PVCounter;
+import main.scala.UVCounter;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import util.FileUtil;
-import util.Sqldb;
+import main.java.util.FileUtil;
+import main.java.util.Sqldb;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -71,7 +74,25 @@ public class StatisticService {
             e.printStackTrace();
         }
     }
-    public static void runStatistic(){
+    public static void TopSiteStatistic()
+            throws IOException{
+        System.out.println("Starting PV Statistic...");
+        FileSystem fs = FileSystem.get(conf);
+        fs.delete(new Path(hdfsUrl+outputPath+PVStatisticDir), true);
+        PVCounter.run(hdfsUrl+inputPath,hdfsUrl+outputPath+PVStatisticDir,20);
+        System.out.println("Completed.");
+        System.out.println("Starting UV Statistic...");
+        fs.delete(new Path(hdfsUrl+outputPath+UVStatisticDir), true);
+        UVCounter.run(hdfsUrl+inputPath,hdfsUrl+outputPath+UVStatisticDir,20);
+        System.out.println("Completed.");
+        System.out.println("Starting IP Statistic...");
+        fs.delete(new Path(hdfsUrl+outputPath+IPStatisticDir), true);
+        IPCounter.run(hdfsUrl+inputPath,hdfsUrl+outputPath+IPStatisticDir,20);
+        System.out.println("Completed.");
+        fs.close();
+    }
+    public static void runStatistic()
+            throws IOException{
         System.out.println("Starting Activity Statistic...");
         ActivityStatistic();
         System.out.println("Activity Statistic ended");
@@ -81,6 +102,7 @@ public class StatisticService {
         System.out.println("Starting Time Interval Statistic...");
         TimeIntervalStatistic();
         System.out.println("Time Interval Statistic ended");
+        TopSiteStatistic();
     }
     public static void loadIntoMysql() throws SQLException{
         Connection conn=null;
@@ -100,15 +122,15 @@ public class StatisticService {
             System.out.println("Completed.");
 
             System.out.println("Load PVOutput into database...");
-            LoadDataDAO.loadIntoPVTable(conn,localPath+PVStatisticDir+"/part-r-00000");
+            LoadDataDAO.loadIntoPVTable(conn,localPath+PVStatisticDir+"/part-00000");
             System.out.println("Completed.");
 
             System.out.println("Load UVOutput into database...");
-            LoadDataDAO.loadIntoUVTable(conn,localPath+UVStatisticDir+"/part-r-00000");
+            LoadDataDAO.loadIntoUVTable(conn,localPath+UVStatisticDir+"/part-00000");
             System.out.println("Completed.");
 
             System.out.println("Load IPOutput into database...");
-            LoadDataDAO.loadIntoIPTable(conn,localPath+IPStatisticDir+"/part-r-00000");
+            LoadDataDAO.loadIntoIPTable(conn,localPath+IPStatisticDir+"/part-00000");
             System.out.println("Completed.");
         }catch(Exception e){
             e.printStackTrace();
@@ -166,6 +188,12 @@ public class StatisticService {
         }catch(Exception e){
             e.printStackTrace();
         }*/
+        System.out.println("Starting for copying PVOutput to local..");
+        HDFSTolocal(fs,outputPath+PVStatisticDir,localPath+PVStatisticDir);
+        System.out.println("Starting for copying UVOutput to local..");
+        HDFSTolocal(fs,outputPath+UVStatisticDir,localPath+UVStatisticDir);
+        System.out.println("Starting for copying IPOutput to local..");
+        HDFSTolocal(fs,outputPath+IPStatisticDir,localPath+IPStatisticDir);
     }
     public static void init(){
         conf.set("fs.default.name", hdfsUrl);
@@ -175,8 +203,8 @@ public class StatisticService {
     public static void  main(String[] args){
         try {
             init();
-            runStatistic();
-            copyTolocal();
+            //runStatistic();
+            //copyTolocal();
             loadIntoMysql();
         }catch(Exception e){
             e.printStackTrace();

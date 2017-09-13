@@ -1,7 +1,7 @@
-package dao;
+package main.java.dao;
 
-import model.CityRateData;
-import model.MostPV;
+import main.java.model.CityRateData;
+import main.java.model.MostPV;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -127,7 +127,7 @@ public class LoadDataDAO {
         boolean result=stat.execute("DROP TABLE IF EXISTS "+mostpv);
         result&=stat.execute("CREATE TABLE IF NOT EXISTS "+mostpv +"(" +
                 "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
-                "urlname VARCHAR(20)," +
+                "urlname VARCHAR(100)," +
                 "PV INT);");
         return result;
     }
@@ -139,7 +139,7 @@ public class LoadDataDAO {
                 inputPath+
                 "' INTO TABLE "+mostpv+
                 " FIELDS TERMINATED BY '\\t' " +
-                "(urlname,PV) " +
+                "(urlname,pv) " +
                 ";");
         return result;
     }
@@ -149,7 +149,7 @@ public class LoadDataDAO {
         boolean result=stat.execute("DROP TABLE IF EXISTS "+mostuv);
         result&=stat.execute("CREATE TABLE IF NOT EXISTS "+mostuv +"(" +
                 "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
-                "urlname VARCHAR(20)," +
+                "urlname VARCHAR(100)," +
                 "UV INT);");
         return result;
     }
@@ -159,9 +159,9 @@ public class LoadDataDAO {
         Statement stat=conn.createStatement();
         int result=stat.executeUpdate("LOAD DATA LOCAL INFILE '" +
                 inputPath+
-                "' INTO TABLE "+mostpv+
+                "' INTO TABLE "+mostuv+
                 " FIELDS TERMINATED BY '\\t' " +
-                "(urlname,UV) " +
+                "(urlname,uv) " +
                 ";");
         return result;
     }
@@ -171,7 +171,7 @@ public class LoadDataDAO {
         boolean result=stat.execute("DROP TABLE IF EXISTS "+mostip);
         result&=stat.execute("CREATE TABLE IF NOT EXISTS "+mostip +"(" +
                 "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
-                "urlname VARCHAR(20)," +
+                "urlname VARCHAR(100)," +
                 "IP INT);");
         return result;
     }
@@ -183,7 +183,7 @@ public class LoadDataDAO {
                 inputPath+
                 "' INTO TABLE "+mostip+
                 " FIELDS TERMINATED BY '\\t' " +
-                "(urlname,IP) " +
+                "(urlname,ip) " +
                 ";");
         return result;
     }

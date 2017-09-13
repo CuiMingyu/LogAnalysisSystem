@@ -1,6 +1,6 @@
-package model;
+package main.java.model;
 
-import util.DateUtils;
+import main.java.util.DateUtils;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;

@@ -1,7 +1,7 @@
-package servlet;
+package main.java.servlet;
 
-import service.CityRateDataService;
-import model.CityRateData;
+import main.java.service.CityRateDataService;
+import main.java.model.CityRateData;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

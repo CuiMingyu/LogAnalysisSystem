@@ -1,6 +1,6 @@
-package servlet;
+package main.java.servlet;
 
-import service.CityRateDataService;
+import main.java.service.CityRateDataService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +14,8 @@ import java.util.List;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.*;
 import com.alibaba.fastjson.annotation.JSONField;
-import model.CityRateData;
-import util.*;
+import main.java.model.CityRateData;
+import main.java.util.*;
 
 /**
  * Created by yxy on 9/7/17.

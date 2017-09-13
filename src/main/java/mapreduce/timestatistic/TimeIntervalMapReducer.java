@@ -1,8 +1,8 @@
-package mapreduce.timestatistic;
+package main.java.mapreduce.timestatistic;
 
-import mapreduce.devicestatistic.DFPDMapReducer;
-import mapreduce.writable.DateWritable;
-import mapreduce.writable.IntPairWritable;
+import main.java.mapreduce.devicestatistic.DFPDMapReducer;
+import main.java.mapreduce.writable.DateWritable;
+import main.java.mapreduce.writable.IntPairWritable;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -16,7 +16,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
-import util.DateUtil;
+import main.java.util.DateUtil;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
