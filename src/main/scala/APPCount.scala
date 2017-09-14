@@ -13,6 +13,7 @@ object APPCount {
   def main(args:Array[String]):Unit={
     val spark= SparkSession.builder().appName("APPCount").master("local").enableHiveSupport().getOrCreate()
     val sc=spark.sparkContext
+
     val data=sc.textFile("hdfs://yxy:9000/user/root/input/day_03_data").map(_.split(","))
     //对所有app进行流量和排名
     val appdata=data.map{m=>
