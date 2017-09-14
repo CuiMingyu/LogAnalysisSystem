@@ -21,7 +21,9 @@ public class Spider {
         try{
             Document doc=getDocument(url);
             title=doc.title();
+            System.out.println(url+" succeed");
         }catch(Exception e){
+            System.out.println("When connecting "+url);
             e.printStackTrace();
         }
         return title;

@@ -17,6 +17,6 @@ object UrlUtil {
     weburl
   }
   def getTitle(url:String):String={
-    Spider.getTitle(url)
+      Spider.getTitle(url)
   }
 }

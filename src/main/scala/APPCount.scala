@@ -13,7 +13,7 @@ object APPCount {
   def main(args:Array[String]):Unit={
     val spark= SparkSession.builder().appName("APPCount").master("local").enableHiveSupport().getOrCreate()
     val sc=spark.sparkContext
-    val data=sc.textFile("hdfs://yxy:9000/user/root/input/day_03_data").map(_.split(","))
+    val data=sc.textFile("hdfs://scm001:9000/input/day_03_data").map(_.split(","))
     val appdata=data.map{m=>
       val appname=m(3)
       val byte=m(5).toInt+m(6).toInt
