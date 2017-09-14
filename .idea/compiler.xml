@@ -28,7 +28,6 @@
     <bytecodeTargetLevel>
       <module name="dataanalysis" target="1.7" />
       <module name="LogAnalysisSystem" target="1.7" />
-      <module name="MapReduce" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
