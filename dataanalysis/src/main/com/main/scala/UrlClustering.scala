@@ -55,7 +55,7 @@ object UrlClustering {
     println("output1：")
     wordsData.select($"text", $"words").show(2)
     //计算每个词在文档中的词频
-    val hashingTF = new HashingTF().setNumFeatures(1000).setInputCol("words").setOutputCol("rawFeatures")
+    val hashingTF = new HashingTF().setNumFeatures(10000).setInputCol("words").setOutputCol("rawFeatures")
     val featurizedData = hashingTF.transform(wordsData)
     println("output2：")
     featurizedData.select($"words", $"rawFeatures").show(2)
@@ -74,9 +74,9 @@ object UrlClustering {
       case Row(normFeatures: mlV) =>
         Vectors.dense(normFeatures.toArray)
     }
-    val gmm = new GaussianMixture().setK(10).run(normDataRdd)
-    val resultRdd = normDataRdd.map(m => gmm.predict(m))
-    resultRdd.foreach(m => println(m))
+    val gmm = new GaussianMixture().setK(5).run(normDataRdd)
+    val resultRdd = normDataRdd.map(m => (gmm.predict(m),m))
+    resultRdd.foreach(m => println(m._1+"\t"+m._2))
   }
 
   case class RawDataRecord(text: String)

@@ -1,5 +1,7 @@
 package main.scala.util
 
+import main.java.util.Spider
+
 /**
   * Created by root on 9/12/17.
   */
