@@ -1,0 +1,60 @@
+#banner {
+  background: #242735;
+  height: 820px;
+}
+
+#banner .inner {
+  max-width: 700px;
+  text-align: center;
+  margin: 0 auto;
+  position: relative;
+  top: 300px;
+}
+
+#banner .inner .a1 {
+  color: #FFF;
+  font-size: 30px;
+  display: block;
+  line-height: 70px;
+  text-decoration: none;
+}
+
+#banner .inner .a2 {
+  display: block;
+  line-height: 40px;
+  text-decoration: none;
+  color: #FFF;
+  margin-top: 20px;
+}
+
+#activity-div {
+  background: #1b1e2a;
+  height: 820px;
+  margin-top: 0;
+}
+
+#activity-div .wrapper1 {
+  color: #FFF;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  top: 300px;
+  text-align: center;
+}
+
+#activity-div .wrapper1 .a1 {
+  color: #FFF;
+  font-size: 30px;
+  display: block;
+  line-height: 70px;
+  text-decoration: none;
+  margin-top: 0;
+}
+
+#activity-div .wrapper1 .a2 {
+  display: block;
+  line-height: 40px;
+  text-decoration: none;
+  color: #FFF;
+  margin-top: 20px;
+}
