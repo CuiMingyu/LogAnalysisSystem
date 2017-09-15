@@ -1,6 +1,6 @@
-package servlet;
-import model.MostPV;
-import service.MostPVService;
+package main.java.servlet;
+import main.java.model.MostPV;
+import main.java.service.MostPVService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

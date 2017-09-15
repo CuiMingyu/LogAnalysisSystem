@@ -8,10 +8,10 @@ document.onclick = function() {
   menu.style.display = 'none';
 }
 
-document.getElementById("newMenu").onclick = function() {
+/*document.getElementById("newMenu").onclick = function() {
   var menu = document.getElementById("newMenu");
   menu.style.display = 'block';
-}
+}*/
 
 // document.onclick = function()
 // {

@@ -435,7 +435,7 @@
                     </webApp>
                     <stopKey>exit</stopKey>
                     <stopPort>9092</stopPort>
-                    <webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory>
+                    <webAppSourceDirectory>src/webapp</webAppSourceDirectory>
                     <scanIntervalSeconds>0</scanIntervalSeconds>
                     <httpConnector>
                         <port>8086</port>

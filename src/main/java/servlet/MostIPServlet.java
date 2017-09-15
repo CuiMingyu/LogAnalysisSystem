@@ -1,6 +1,6 @@
-package servlet;
-import model.MostIP;
-import service.MostIPService;
+package main.java.servlet;
+import main.java.model.MostIP;
+import main.java.service.MostIPService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

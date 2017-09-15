@@ -12,6 +12,34 @@
     <link rel="stylesheet" href="css/activity.css">
     <link rel="stylesheet" href="css/toolbar.css">
     <script src="js/toolbar.js"></script>
+    <script src = "js/jquery-3.2.1.min.js"></script>
+    <script>
+      /*  $(function() {
+
+            $("#form").submit(function () {
+                var date = $("#date").val();
+                getData(date);
+            });
+
+
+        })*/
+
+      /*  function getData(date) {
+            $.ajax({
+                type : "POST",  //提交方式
+                url : "CityRateDataDateServlet.do",//路径
+                data :  {date: date},//数据，这里使用的是Json格式进行传输
+                dataType:"json",
+                success : function(result) {//返回数据根据结果进行相应的处理
+                    alert(0);
+                },
+                error:function(){
+                    alert(1);
+                }
+            });
+        }*/
+
+    </script>
 </head>
 
 <body>
@@ -49,7 +77,7 @@
         <p>
             Please input the date you want to query.
         </p>
-        <form id="form" action="activity2.jsp" method="post">
+        <form id="form" action="CityRateDataDateServlet.do">
             <input type="text" name="date" value="2017-01-01" id="date">
             <input type="submit" value="query" id="querybutton">
         </form>

@@ -1,7 +1,7 @@
-package servlet;
-import model.MostUV;
-import model.MostUV;
-import service.MostUVService;
+package main.java.servlet;
+import main.java.model.MostUV;
+import main.java.model.MostUV;
+import main.java.service.MostUVService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
