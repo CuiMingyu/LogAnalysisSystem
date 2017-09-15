@@ -1,7 +1,14 @@
 body {
   margin: 0;
   padding: 0;
-  background: url(images/bg.jpg);
+}
+
+#background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: url(../images/bg.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -12,6 +19,7 @@ nav {
   width: 100%;
   position: fixed;
   z-index: 100;
+  opacity: 0.6;
 }
 
 nav ul {
@@ -46,8 +54,10 @@ nav ul li.logo a {
 }
 
 #newMenu {
+  background: #242735;
   z-index: 100;
   border-radius: 40px;
+  opacity: 0.8;
 }
 
 #newMenu div {
@@ -88,5 +98,6 @@ nav ul li.logo a {
 }
 
 #newMenu ul li a:hover {
-  background: #ccc;
+  background: #000;
+  color: #FFF;
 }

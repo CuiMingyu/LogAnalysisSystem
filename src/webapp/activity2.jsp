@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="main.java.model.CityRateData" %><%--
   Created by IntelliJ IDEA.
   User: swz
   Date: 2017/9/11
@@ -16,6 +17,7 @@
 </head>
 
 <body>
+<div id="background" >
 <header>
     <nav>
         <ul>
@@ -37,6 +39,7 @@
             <li><a href="phone.jsp">Phone analysis</a></li>
             <li><a href="timeline.jsp">Timeline analysis</a></li>
             <li><a href="personas.jsp">Personas analysis</a></li>
+            <li><a href="website.jsp">Hot100 websites</a></li>
         </ul>
     </div>
 </div>
@@ -534,9 +537,10 @@
             myChart.setOption(option, true);
         }
     </script>
+
     </body>
 
-
+</div>
 </div>
 </body>
 </html>

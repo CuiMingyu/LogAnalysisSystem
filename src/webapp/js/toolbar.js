@@ -8,10 +8,10 @@ document.onclick = function() {
   menu.style.display = 'none';
 }
 
-document.getElementById("newMenu").onclick = function() {
+/*document.getElementById("newMenu").onclick = function() {
   var menu = document.getElementById("newMenu");
   menu.style.display = 'block';
-}
+}*/
 
 // document.onclick = function()
 // {
@@ -32,7 +32,7 @@ function showMenu() {
   newMenu.style.position = 'fixed';
   newMenu.style.width = '400px';
   newMenu.style.background = '#2c3544';
-  newMenu.style.top = '50px';
-  newMenu.style.left = '200px';
+  newMenu.style.top = '10%';
+  newMenu.style.left = '40%';
   newMenu.style.padding = '0';
 }

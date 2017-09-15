@@ -15,6 +15,7 @@
 </head>
 
 <body>
+<div id="background" >
 <header>
     <nav>
         <ul>
@@ -36,6 +37,7 @@
             <li><a href="phone.jsp">Phone analysis</a></li>
             <li><a href="timeline.jsp">Timeline analysis</a></li>
             <li><a href="personas.jsp">Personas analysis</a></li>
+            <li><a href="website.jsp">Hot100 websites</a></li>
         </ul>
     </div>
 </div>
@@ -49,6 +51,6 @@
         </p>
     </div>
 </div>
-
+</div>
 </body>
 </html>

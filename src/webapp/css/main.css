@@ -1,10 +1,11 @@
 #banner {
   background: #242735;
   height: 820px;
+  opacity: 0.5;
 }
 
 #banner .inner {
-  max-width: 700px;
+  max-width: 800px;
   text-align: center;
   margin: 0 auto;
   position: relative;
@@ -13,7 +14,7 @@
 
 #banner .inner .a1 {
   color: #FFF;
-  font-size: 30px;
+  font-size: 40px;
   display: block;
   line-height: 70px;
   text-decoration: none;
@@ -21,12 +22,14 @@
 
 #banner .inner .a2 {
   display: block;
+  font-size: 18px;
   line-height: 40px;
   text-decoration: none;
   color: #FFF;
   margin-top: 20px;
 }
 
+/*
 #activity-div {
   background: #1b1e2a;
   height: 820px;
@@ -52,6 +55,62 @@
 }
 
 #activity-div .wrapper1 .a2 {
+  display: block;
+  line-height: 40px;
+  text-decoration: none;
+  color: #FFF;
+  margin-top: 20px;
+}
+*/
+
+#content {
+  margin: 0;
+  background: #1b1e2a;
+  height: 1800px;
+  opacity: 0.5;
+}
+
+#content .content-title {
+  margin-top: 0;
+  margin-left: 600px;
+  padding-top: 30px;
+  height: 200px;
+  width: 500px;
+  font-size: 50px;
+  color: #FFFFFF;
+  letter-spacing: 2px;
+}
+
+#content div {
+  width: 500px;
+  height: 500px;
+  float: left;
+  background: #1b1e2a;
+  /*border: 1px solid #333;*/
+  color: #FFF;
+}
+
+#content1, #content4, #content7 {
+  margin-left: 100px;
+}
+
+#content2 {
+
+}
+
+#content3 {
+}
+
+#content .a1 {
+  color: #FFF;
+  font-size: 30px;
+  display: block;
+  line-height: 70px;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+#content .a2 {
   display: block;
   line-height: 40px;
   text-decoration: none;

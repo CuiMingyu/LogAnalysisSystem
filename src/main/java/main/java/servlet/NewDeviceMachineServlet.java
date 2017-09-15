@@ -62,5 +62,6 @@ public class NewDeviceMachineServlet extends HttpServlet{
         }
 
         getJson(request, response, ndmlist);//retrun a list
+
     }
 }
