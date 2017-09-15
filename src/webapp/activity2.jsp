@@ -53,6 +53,11 @@
 
 <div>
     <body style="height:500px; margin: 0">
+    <%
+    ArrayList list=(ArrayList)request.getAttribute("crdlist");
+    CityRateData city=(CityRateData)list.get(0);
+    System.out.println(city);
+    %>
     <div id="container" style="width: 100%;height:1000px"></div>
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
