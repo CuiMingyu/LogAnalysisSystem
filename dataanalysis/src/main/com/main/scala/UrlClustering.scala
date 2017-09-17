@@ -2,10 +2,13 @@ package main.scala
 
 import com.huaban.analysis.jieba.JiebaSegmenter
 import main.scala.util.{StringUtil, UrlUtil}
+import org.apache.hadoop.conf.Configuration
+import org.apache.hadoop.fs.{FileSystem, Path}
 import org.apache.spark.ml.feature.{HashingTF, IDF, Normalizer, Tokenizer}
 import org.apache.spark.ml.linalg.{Vector => mlV}
-import org.apache.spark.mllib.clustering.GaussianMixture
+import org.apache.spark.mllib.clustering.{GaussianMixture, KMeans, KMeansModel}
 import org.apache.spark.mllib.linalg.Vectors
+import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.Row
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -13,49 +16,80 @@ import org.apache.spark.{SparkConf, SparkContext}
   * Created by root on 9/13/17.
   */
 object UrlClustering {
-
-  def PrepareUrlData(inputPath: String, outputPath: String): Unit = {
-    val conf = new SparkConf().setAppName("PrepareUrlData").setMaster("local").set("spark.executor.memory", "1g")
-    val sc = new SparkContext(conf)
-    val bcfields = sc.broadcast(Global.fields)
-    val data = sc.textFile(inputPath).map(_.split("\t"))
-    //read in url and get their title
-    val titleUrlPair = data.map { m =>
-      m(bcfields.value.indexOf("Url"))
-    }.distinct().map(m => UrlUtil.getTitle(m)).filter(_ != null) //delete elements whose title is null
-    titleUrlPair.repartition(1).saveAsTextFile(outputPath)
+  val conf = new SparkConf().setAppName("UrlClustering").setMaster("local").set("spark.executor.memory", "1g")
+  val sc = new SparkContext(conf)
+  val modelPath=Global.hdfsUrl+"/LogAnalysis/model"
+  def PrepareUrlData(inputPath: String): RDD[(String,String)]= {
+    val bcfields = sc.broadcast(List("title","url"))
+    val data = sc.textFile(inputPath).map { m =>
+      val splits=m.split("\t")
+      val title=splits(bcfields.value.indexOf("title"))
+      val url=splits(bcfields.value.indexOf("url"))
+      (title,url)
+    }
+    //read in url and their title
+    val srcRDD = data
+      .map { m =>
+        (m._2,StringUtil.ListToString((new JiebaSegmenter).sentenceProcess(m._1)))
+      }
+    srcRDD
   }
 
   def main(args: Array[String]): Unit = {
     //PrepareUrlData("hdfs://scm001:9000/user/hive/warehouse/loganalysis.db/log/log.txt",
     //"hdfs://scm001:9000/LogAnalysisSystem/TitleList/part1")
-    clustering("hdfs://scm001:9000/input/url_trainning_date.txt", null)
+   // val resultRdd=clustering(Global.hdfsUrl+"/user/hive/warehouse/loganalysis.db/url", 20,10,1)
+    val fs: FileSystem = FileSystem.get(new java.net.URI(Global.hdfsUrl),new Configuration())
+    //fs.delete(new Path(Global.hdfsUrl+"/LogAnalysis/clustering/resultmap"), true)
+    //fs.delete(new Path(modelPath,true)
+   // resultRdd.map(m=> m._1 + "\t" + m._2)
+    //    .saveAsTextFile("hdfs://scm001:9000/LogAnalysis/clustering/resultmap")
+    val urltitlepair=PrepareUrlData(Global.rawUrlPath)
+    val resultRdd=sc.textFile(Global.outputRoot+"/clustering/resultmap").map{m=>
+      val splits=m.split('\t')
+      (splits(1),splits(0).toInt)
+   }.join(urltitlepair).map(m=>(m._2._1,m._1,m._2._2))
+    resultRdd.take(20).foreach(m=>println(m._1+"\t"+m._2+"\t"+m._3))
+    val labelRdd=labeling(resultRdd.map(m=>(m._1,m._3)),20)
+    fs.delete(new Path(Global.outputRoot+"/clustering/labelmap"))
+    labelRdd.map(m=>(m._1+"\t"+m._2+"\t"+m._3)).saveAsTextFile(Global.outputRoot+"/clustering/labelmap")
+    fs.close()
   }
-
-  def clustering(inputPath: String, outputPath: String): Unit = {
-    val conf = new SparkConf().setAppName("UrlClustering").setMaster("local").set("spark.executor.memory", "1g")
-    val sc = new SparkContext(conf)
+  def labeling(src:RDD[(Int,String)],labelNum:Int): RDD[(Int,String,Int)]={
+    var result:Vector[(Int,String,Int)]=Vector()
+    for(i <- 0 to labelNum-1){
+      val devide=src.filter(_._1==i).map(m=>m._2).flatMap(_.split('\t'))
+        .map(m=>(m,1)).reduceByKey(_+_).sortBy(_._2,ascending = false).map(m=>(i,m._1,m._2)).take(10)
+        devide.foreach(m=>println(m._1+"\t"+m._2+"\t"+m._3))
+        for(record <- devide){
+            result=result++Vector(record)
+        }
+    }
+    sc.makeRDD(result)
+  }
+  def countWords(srcRdd:RDD[String]):Int={
+    val counts=srcRdd.flatMap(m=>m.split('\t')).distinct().count()
+    var result=counts.toInt
+    if(result<=0) result=500000
+    result
+  }
+//  def clustering(srcRDD:RDD[String]):RDD[(Int,String)]={
+//    val model=KMeansModel.load(sc,modelPath)
+//    val resultRDD=transform(srcRDD).map(m=>(model.predict(m._2),m._1))
+//    resultRDD
+//  }
+  def transform(srcRDD:RDD[(String,String)]):RDD[(String,String,org.apache.spark.mllib.linalg.Vector)]={
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
     import sqlContext.implicits._
-    val bcfields = sc.broadcast(Global.fields)
-    val data = sc.textFile(inputPath).map(_.split("\t"))
-    //read in url and get their title
-    val titleUrlPair = data.map { m =>
-      m(3)
-    } //.distinct().map(m => UrlUtil.getTitle(m)).filter(_ !=null) //delete elements whose title is null
-    val srcRDD = titleUrlPair
-      .map { m =>
-        val str = StringUtil.ListToString((new JiebaSegmenter).sentenceProcess(m))
-        RawDataRecord(str)
-      }
-    val trainingDF = srcRDD.toDF()
-
-    val tokenizer = new Tokenizer().setInputCol("text").setOutputCol("words")
+    val trainingDF = srcRDD.distinct().map{m=>
+      RawDataRecord(m._1,m._2)
+    }.toDF()
+    val tokenizer = new Tokenizer().setInputCol("title").setOutputCol("words")
     val wordsData = tokenizer.transform(trainingDF)
     println("output1：")
-    wordsData.select($"text", $"words").show(2)
+    wordsData.select($"title", $"words").show(2)
     //计算每个词在文档中的词频
-    val hashingTF = new HashingTF().setNumFeatures(10000).setInputCol("words").setOutputCol("rawFeatures")
+    val hashingTF = new HashingTF().setNumFeatures(100000).setInputCol("words").setOutputCol("rawFeatures")
     val featurizedData = hashingTF.transform(wordsData)
     println("output2：")
     featurizedData.select($"words", $"rawFeatures").show(2)
@@ -69,16 +103,24 @@ object UrlClustering {
     //normalize
     val normalizer = new Normalizer().setInputCol("features").setOutputCol("normFeatures").setP(1.0)
     val normData = normalizer.transform(rescaledData)
-    val normFeatures = normData.select($"normFeatures").rdd
+    val normFeatures = normData.select($"url",$"title",$"normFeatures").rdd
     val normDataRdd = normFeatures.map {
-      case Row(normFeatures: mlV) =>
-        Vectors.dense(normFeatures.toArray)
+      case Row(url:String,title:String,normFeatures: mlV) =>
+        (url,title,Vectors.dense(normFeatures.toArray))
     }
-    val gmm = new GaussianMixture().setK(5).run(normDataRdd)
-    val resultRdd = normDataRdd.map(m => (gmm.predict(m),m))
-    resultRdd.foreach(m => println(m._1+"\t"+m._2))
+    normDataRdd
+  }
+  def clustering(inputPath: String,k:Int,ite:Int,run:Int): RDD[(Int,String,String)] = {
+    val srcRDD = PrepareUrlData(inputPath)
+    val normDataRdd=transform(srcRDD)
+    val gmm = KMeans.train(normDataRdd.map(m=>m._3),k,ite,run)
+    val resultRdd = normDataRdd.map(m => (gmm.predict(m._3),m._1,m._2))
+    resultRdd.take(200).foreach(m => println(m._1+"\t"+m._2+"\t"+m._3))
+    //resultRdd.map(m=>(m._1+"\t"+m._2)).saveAsTextFile(outputPath+"/resultMap")
+    gmm.save(sc,modelPath)
+    resultRdd
   }
 
-  case class RawDataRecord(text: String)
+  case class RawDataRecord(url:String,title: String)
 
 }
