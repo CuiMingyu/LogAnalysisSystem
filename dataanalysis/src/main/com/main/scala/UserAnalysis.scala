@@ -13,16 +13,6 @@ object UserAnalysis {
   val inputPath=Global.rawDataPath
   val clusteringInfoPath=Global.outputRoot+"/clustering/resultmap"
   val outputPath=Global.outputRoot+"/useranalysis"
-  def devAnalysis(srcRDD:RDD[String]): RDD[(String,String)] ={
-    val bcfields=sc.broadcast(Global.fields)
-    val resultRDD=srcRDD.map{m=>
-      val splits=m.split('\t')
-      val phone =splits(bcfields.value.indexOf("Phone"))
-      val dev=splits(bcfields.value.indexOf("Device"))
-      (phone,dev)
-    }.distinct()
-    resultRDD
-  }
 
   /**
     * calculate the preference level of users
@@ -67,13 +57,14 @@ object UserAnalysis {
     }
     sc.makeRDD(result)
   }
-  def run(): Unit ={
+  def run(inputPath:String,outputPath:String): Unit ={
     val srcRDD=sc.textFile(inputPath)
-    val devMap=devAnalysis(srcRDD)
-    devMap.map(m=>m._1+"\t"+m._2).saveAsTextFile(outputPath+"/devMap")
     val resultRDD=userPreferenceStatistic(srcRDD,clusteringInfoPath,Global.labelNum)
     FileUtil.deletehdfsFile(outputPath+"/userpreference")
     resultRDD.map(m=>m._1+"\t"+m._2+"\t"+m._3).saveAsTextFile(outputPath+"/userpreference")
+  }
+  def run(): Unit ={
+    run(inputPath,outputPath)
   }
   def main(args:Array[String]): Unit ={
     run()
