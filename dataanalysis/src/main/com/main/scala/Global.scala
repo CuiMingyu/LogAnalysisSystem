@@ -11,6 +11,6 @@ object Global {
   val dbPath=hdfsUrl+"/user/hive/warehouse/loganalysis.db"
   val rawDataPath=dbPath+"/log"
   val rawUrlPath=dbPath+"/url"
-  val outputRoot=Global.hdfsUrl+"/LogAnalysis"
+  val outputRoot=Global.hdfsUrl+"/LogAnalysisSystem"
   val labelNum=20
 }

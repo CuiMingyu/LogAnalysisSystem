@@ -35,12 +35,15 @@ object UrlClustering {
     srcRDD
   }
   def run(): Unit ={
+    run(Global.rawUrlPath,Global.outputRoot+"/clustering",modelPath)
+  }
+  def run(inputPath:String,outputPath:String,modelPath:String): Unit ={
     FileUtil.deletehdfsFile(modelPath)
-    val resultRDD=clustering(Global.rawUrlPath, Global.labelNum,10,1)
+    val resultRDD=clustering(inputPath, Global.labelNum,10,1)
     val fs: FileSystem = FileSystem.get(new java.net.URI(Global.hdfsUrl),new Configuration())
-    FileUtil.deletehdfsFile(Global.outputRoot+"/clustering/resultmap")
+    FileUtil.deletehdfsFile(outputPath+"/resultmap")
     resultRDD.map(m=> m._1 + "\t" + m._2)
-        .saveAsTextFile(Global.outputRoot+"/clustering/resultmap")
+        .saveAsTextFile(outputPath+"/resultmap")
 //
 //    val urltitlepair=PrepareUrlData(Global.rawUrlPath)
 //    val resultRdd=sc.textFile(Global.outputRoot+"/clustering/resultmap").map{m=>
@@ -49,8 +52,8 @@ object UrlClustering {
 //    }.join(urltitlepair).map(m=>(m._2._1,m._1,m._2._2))
 //    resultRDD.take(20).foreach(m=>println(m._1+"\t"+m._2+"\t"+m._3))
     val labelRdd=labeling(resultRDD.map(m=>(m._1,m._3)),Global.labelNum)
-    FileUtil.deletehdfsFile(Global.outputRoot+"/clustering/labelmap")
-    labelRdd.map(m=>(m._1+"\t"+m._2+"\t"+m._3)).saveAsTextFile(Global.outputRoot+"/clustering/labelmap")
+    FileUtil.deletehdfsFile(outputPath+"/labelmap")
+    labelRdd.map(m=>(m._1+"\t"+m._2+"\t"+m._3)).saveAsTextFile(outputPath+"/labelmap")
   }
   def main(args: Array[String]): Unit = {
     run()

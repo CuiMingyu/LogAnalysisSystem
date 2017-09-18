@@ -23,6 +23,9 @@ object UserDevAnalysis {
     resultRDD
   }
   def run(): Unit ={
+    run(inputPath,outputPath)
+  }
+  def run(inputPath:String,outputPath:String): Unit ={
     val srcRDD=sc.textFile(inputPath)
     val devMap=devAnalysis(srcRDD)
     FileUtil.deletehdfsFile(outputPath+"/devMap")

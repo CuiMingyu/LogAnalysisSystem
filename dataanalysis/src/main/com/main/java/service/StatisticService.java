@@ -7,9 +7,7 @@ import main.java.mapreduce.devicestatistic.NDDMapReducer;
 import main.java.mapreduce.timestatistic.TimeIntervalMapReducer;
 import main.java.util.FileUtil;
 import main.java.util.Sqldb;
-import main.scala.IPCounter;
-import main.scala.PVCounter;
-import main.scala.UVCounter;
+import main.scala.*;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -33,10 +31,13 @@ public class StatisticService {
     static private String PVStatisticDir = "/PVOutput";
     static private String UVStatisticDir = "/UVOutput";
     static private String IPStatisticDir = "/IPOutput";
+    static private String UserAnalysisDir="/useranalysis/userpreference";
+    static private String UserDevAnalysisDir="/useranalysis/devMap";
     static private String ASOutputPath = outputPath + activityStatisticDir;
     static private String DFPDOutputPath = outputPath + DFPDStatisticDir;
     static private String NDDOutputPath = outputPath + NDDStatisticDir;
     static private String TIOutputPath = outputPath + TIStatisticDir;
+
 
     static private Configuration conf = new Configuration();
 
@@ -108,8 +109,17 @@ public class StatisticService {
         TimeIntervalStatistic();
         System.out.println("Time Interval Statistic ended");
         TopSiteStatistic();
+        runUserStatistic();
     }
-
+    public static void runUserStatistic()
+            throws IOException{
+        System.out.println("Starting User Preference Statistic...");
+        UserAnalysis.run(inputPath,outputPath);
+        System.out.println("User Preference Statistic ended");
+        System.out.println("Starting User Dev  Statistic...");
+        UserDevAnalysis.run(inputPath,outputPath);
+        System.out.println("User Dev Statistic ended");
+    }
     public static void loadIntoMysql() throws SQLException {
         Connection conn = null;
         try {
@@ -134,9 +144,14 @@ public class StatisticService {
             System.out.println("Load UVOutput into database...");
             LoadDataDAO.loadIntoUVTable(conn, localPath + UVStatisticDir + "/part-00000");
             System.out.println("Completed.");
-
             System.out.println("Load IPOutput into database...");
             LoadDataDAO.loadIntoIPTable(conn, localPath + IPStatisticDir + "/part-00000");
+            System.out.println("Completed.");
+            System.out.println("Load UserAnalysis Output into database...");
+            LoadDataDAO.loadIntoPreferenceTable(conn, localPath + UserAnalysisDir + "/*");
+            System.out.println("Completed.");
+            System.out.println("Load UserDev Output into database...");
+            LoadDataDAO.loadIntoUserTable(conn, localPath + UserDevAnalysisDir + "/*");
             System.out.println("Completed.");
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,46 +175,23 @@ public class StatisticService {
     public static void copyTolocal()
             throws IOException {
         FileSystem fs = FileSystem.get(conf);
-
         System.out.println("Starting for copying ASOutput to local..");
         HDFSTolocal(fs, ASOutputPath, localPath + activityStatisticDir);
-        /*Path srcPath=new Path(ASOutputPath);
-        Path dstPath=new Path(localPath+activityStatisticDir);
-        try {
-            FileUtil.deleteFile(localPath+activityStatisticDir);
-            fs.copyToLocalFile(false, srcPath, dstPath);
-            System.out.println("Completed.");
-        }catch(Exception e){
-            e.printStackTrace();
-        }*/
         System.out.println("Starting for copying NDDOutput to local..");
         HDFSTolocal(fs, NDDOutputPath, localPath + NDDStatisticDir);
-        /*dstPath=new Path(localPath+NDDStatisticDir);
-        srcPath=new Path(NDDOutputPath);
-        try {
-            FileUtil.deleteFile(localPath+NDDStatisticDir);
-            fs.copyToLocalFile(false, srcPath, dstPath);
-            System.out.println("Completed.");
-        }catch(Exception e){
-            e.printStackTrace();
-        }*/
         System.out.println("Starting for copying TIOutput to local..");
         HDFSTolocal(fs, TIOutputPath, localPath + TIStatisticDir);
-        /*dstPath=new Path(localPath+TIStatisticDir);
-        srcPath=new Path(TIOutputPath);
-        try {
-            FileUtil.deleteFile(localPath+TIStatisticDir);
-            fs.copyToLocalFile(false, srcPath, dstPath);
-            System.out.println("Completed.");
-        }catch(Exception e){
-            e.printStackTrace();
-        }*/
         System.out.println("Starting for copying PVOutput to local..");
         HDFSTolocal(fs, outputPath + PVStatisticDir, localPath + PVStatisticDir);
         System.out.println("Starting for copying UVOutput to local..");
         HDFSTolocal(fs, outputPath + UVStatisticDir, localPath + UVStatisticDir);
         System.out.println("Starting for copying IPOutput to local..");
         HDFSTolocal(fs, outputPath + IPStatisticDir, localPath + IPStatisticDir);
+        System.out.println("Starting for copying UserAnalysis Output to local..");
+        HDFSTolocal(fs,outputPath+UserAnalysisDir,localPath+UserAnalysisDir);
+        System.out.println("Starting for copying UserDevAnalysis Output to local..");
+        HDFSTolocal(fs,outputPath+UserDevAnalysisDir,localPath+UserDevAnalysisDir);
+        fs.close();
     }
 
     public static void init() {
@@ -211,8 +203,8 @@ public class StatisticService {
     public static void main(String[] args) {
         try {
             init();
-            //runStatistic();
-            //copyTolocal();
+            runStatistic();
+            copyTolocal();
             loadIntoMysql();
         } catch (Exception e) {
             e.printStackTrace();

@@ -17,6 +17,8 @@ public class LoadDataDAO {
     private static String mostpv = "mostpv";
     private static String mostuv = "mostuv";
     private static String mostip = "mostip";
+    private static String preference="preference";
+    private static String usertable="user";
 
     public static boolean createASTable(Connection conn)
             throws SQLException {
@@ -198,6 +200,55 @@ public class LoadDataDAO {
                 "' INTO TABLE " + mostip +
                 " FIELDS TERMINATED BY '\\t' " +
                 "(urlname,ip) " +
+                ";");
+        return result;
+    }
+    public static boolean createPreferenceTable(Connection conn)
+            throws SQLException {
+        Statement stat = conn.createStatement();
+        boolean result = stat.execute("DROP TABLE IF EXISTS " + preference);
+        result &= stat.execute("CREATE TABLE IF NOT EXISTS " + preference + "(" +
+                "id int auto_increment primary key," +
+                "phone varchar(255)," +
+                "label int," +
+                "type int" +
+                ");");
+        return result;
+    }
+
+    public static int loadIntoPreferenceTable(Connection conn, String inputPath)
+            throws SQLException {
+        createPreferenceTable(conn);
+        Statement stat = conn.createStatement();
+        int result = stat.executeUpdate("LOAD DATA LOCAL INFILE '" +
+                inputPath +
+                "' INTO TABLE " + titable +
+                " FIELDS TERMINATED BY '\\t' " +
+                "(phone, label,type) " +
+                ";");
+        return result;
+    }
+    public static boolean createUserTable(Connection conn)
+            throws SQLException {
+        Statement stat = conn.createStatement();
+        boolean result = stat.execute("DROP TABLE IF EXISTS " + usertable);
+        result &= stat.execute("CREATE TABLE IF NOT EXISTS " + usertable + "(" +
+                "id int auto_increment primary key," +
+                "phone varchar(255)," +
+                "device varchar(255)" +
+                ");");
+        return result;
+    }
+
+    public static int loadIntoUserTable(Connection conn, String inputPath)
+            throws SQLException {
+        createUserTable(conn);
+        Statement stat = conn.createStatement();
+        int result = stat.executeUpdate("LOAD DATA LOCAL INFILE '" +
+                inputPath +
+                "' INTO TABLE " + usertable +
+                " FIELDS TERMINATED BY '\\t' " +
+                "(phone, device) " +
                 ";");
         return result;
     }
