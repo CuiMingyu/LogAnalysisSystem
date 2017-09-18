@@ -1,7 +1,7 @@
 package main.scala
 
 import com.huaban.analysis.jieba.JiebaSegmenter
-import main.scala.util.{StringUtil, UrlUtil}
+import main.scala.util.{FileUtil, StringUtil, UrlUtil}
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.{FileSystem, Path}
 import org.apache.spark.ml.feature.{HashingTF, IDF, Normalizer, Tokenizer}
@@ -18,7 +18,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 object UrlClustering {
   val conf = new SparkConf().setAppName("UrlClustering").setMaster("local").set("spark.executor.memory", "1g")
   val sc = new SparkContext(conf)
-  val modelPath=Global.hdfsUrl+"/LogAnalysis/model"
+  val modelPath=Global.outputRoot+"/model"
   def PrepareUrlData(inputPath: String): RDD[(String,String)]= {
     val bcfields = sc.broadcast(List("title","url"))
     val data = sc.textFile(inputPath).map { m =>
@@ -34,26 +34,26 @@ object UrlClustering {
       }
     srcRDD
   }
-
-  def main(args: Array[String]): Unit = {
-    //PrepareUrlData("hdfs://scm001:9000/user/hive/warehouse/loganalysis.db/log/log.txt",
-    //"hdfs://scm001:9000/LogAnalysisSystem/TitleList/part1")
-   // val resultRdd=clustering(Global.hdfsUrl+"/user/hive/warehouse/loganalysis.db/url", Global.labelNum,10,1)
+  def run(): Unit ={
+    FileUtil.deletehdfsFile(modelPath)
+    val resultRDD=clustering(Global.rawUrlPath, Global.labelNum,10,1)
     val fs: FileSystem = FileSystem.get(new java.net.URI(Global.hdfsUrl),new Configuration())
-    //fs.delete(new Path(Global.hdfsUrl+"/LogAnalysis/clustering/resultmap"), true)
-    //fs.delete(new Path(modelPath,true)
-   // resultRdd.map(m=> m._1 + "\t" + m._2)
-    //    .saveAsTextFile("hdfs://scm001:9000/LogAnalysis/clustering/resultmap")
-    val urltitlepair=PrepareUrlData(Global.rawUrlPath)
-    val resultRdd=sc.textFile(Global.outputRoot+"/clustering/resultmap").map{m=>
-      val splits=m.split('\t')
-      (splits(1),splits(0).toInt)
-   }.join(urltitlepair).map(m=>(m._2._1,m._1,m._2._2))
-    resultRdd.take(20).foreach(m=>println(m._1+"\t"+m._2+"\t"+m._3))
-    val labelRdd=labeling(resultRdd.map(m=>(m._1,m._3)),Global.labelNum)
-    fs.delete(new Path(Global.outputRoot+"/clustering/labelmap"))
+    FileUtil.deletehdfsFile(Global.outputRoot+"/clustering/resultmap")
+    resultRDD.map(m=> m._1 + "\t" + m._2)
+        .saveAsTextFile(Global.outputRoot+"/clustering/resultmap")
+//
+//    val urltitlepair=PrepareUrlData(Global.rawUrlPath)
+//    val resultRdd=sc.textFile(Global.outputRoot+"/clustering/resultmap").map{m=>
+//      val splits=m.split('\t')
+//      (splits(1),splits(0).toInt)
+//    }.join(urltitlepair).map(m=>(m._2._1,m._1,m._2._2))
+//    resultRDD.take(20).foreach(m=>println(m._1+"\t"+m._2+"\t"+m._3))
+    val labelRdd=labeling(resultRDD.map(m=>(m._1,m._3)),Global.labelNum)
+    FileUtil.deletehdfsFile(Global.outputRoot+"/clustering/labelmap")
     labelRdd.map(m=>(m._1+"\t"+m._2+"\t"+m._3)).saveAsTextFile(Global.outputRoot+"/clustering/labelmap")
-    fs.close()
+  }
+  def main(args: Array[String]): Unit = {
+    run()
   }
   def labeling(src:RDD[(Int,String)],labelNum:Int): RDD[(Int,String,Int)]={
     var result:Vector[(Int,String,Int)]=Vector()
@@ -110,6 +110,15 @@ object UrlClustering {
     }
     normDataRdd
   }
+
+  /**
+    * return RDD[(custeringlabel,url,title)]
+    * @param inputPath
+    * @param k
+    * @param ite
+    * @param run
+    * @return
+    */
   def clustering(inputPath: String,k:Int,ite:Int,run:Int): RDD[(Int,String,String)] = {
     val srcRDD = PrepareUrlData(inputPath)
     val normDataRdd=transform(srcRDD)

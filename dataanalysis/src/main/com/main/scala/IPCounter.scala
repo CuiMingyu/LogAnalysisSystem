@@ -8,10 +8,12 @@ import org.apache.spark.sql.SparkSession
   */
 object IPCounter {
   def main(args: Array[String]): Unit = {
-    run("hdfs://scm001:9000/user/hive/warehouse/loganalysis.db/log",
-      "hdfs://scm001:9000/LogAnalysisSystem/IPOutput", 20)
+    run()
   }
-
+  def run(): Unit ={
+    run(Global.rawDataPath,
+      Global.outputRoot+"/IPOutput", 20)
+  }
   def run(inputPath: String, outputPath: String, num: Int) {
     val spark = SparkSession.builder().appName("MostUrl").master("local").enableHiveSupport().getOrCreate()
     val sc = spark.sparkContext

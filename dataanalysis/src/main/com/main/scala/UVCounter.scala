@@ -8,8 +8,8 @@ import org.apache.spark.sql.SparkSession
   */
 object UVCounter {
   def main(args: Array[String]): Unit = {
-    run("hdfs://scm001:9000/user/hive/warehouse/loganalysis.db/log",
-      "hdfs://scm001:9000/LogAnalysisSystem/UVOutput", 20)
+    run(Global.rawDataPath,
+      Global.outputRoot+"/UVOutput", 20)
   }
 
   def run(inputPath: String, outputPath: String, num: Int): Unit = {
