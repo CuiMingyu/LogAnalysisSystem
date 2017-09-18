@@ -21,7 +21,7 @@ object UVCounter {
     //counts the UV of each hosts and sorts by it, then take the top [num] (host,UV) pairs
     val uvcounts = data.map { m =>
       val url = m(bcfields.value.indexOf("Url"))
-      val mac = m(bcfields.value.indexOf("Devmac"))
+      val mac = m(bcfields.value.indexOf("Phone"))
       (UrlUtil.getHostName(url), mac)
     }.distinct().map(m => (m._1, 1)).reduceByKey(_ + _).map(m => (m._2, m._1)).sortByKey(ascending = false).take(num)
     //save on hdfs
