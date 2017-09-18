@@ -1,6 +1,7 @@
 package main.java.dao;
 
 import main.java.model.ByteSeries;
+import main.java.util.Sqldb;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -48,4 +49,5 @@ public class ByteSeriesDAO {
         }
         return bsList;
     }
+
 }

@@ -20,12 +20,12 @@ public class NewDeviceRecordService {
 
     public static void main(String args[]) {
         NewDeviceRecordService snrs = new NewDeviceRecordService();
-        List<NewDeviceMachine> ndmList = snrs.GetMachineByDate(new Date(117, 0, 1), new Date(117, 0, 1));
+        List<NewDeviceMachine> ndmList = snrs.GetMachineByDate(new Date(117, 0, 2), new Date(117, 0, 7));
         for (int i = 0; i < ndmList.size(); i++) {
             System.out.println(ndmList.get(i));
         }
         List<NewDeviceStyle> ndsList = snrs.GetStyleByDateMachine(new Date(117, 0, 1), new Date(117, 0, 1), "小米");
-        for (int i = 0; i < ndmList.size(); i++) {
+        for (int i = 0; i < ndsList.size(); i++) {
             System.out.println(ndsList.get(i));
         }
     }
@@ -40,14 +40,14 @@ public class NewDeviceRecordService {
                 NewDeviceMachine ndm = new NewDeviceMachine();
                 ndm.setMachinename(machineList.get(i));
                 List<NewDeviceRecord> ndrList = NewDeviceRecordDAO.SelectByDateAndMachine(conn, new java.sql.Date(date1.getTime()),
-                        new java.sql.Date(date2.getTime()), machineList.get(i));
+                        new java.sql.Date(date2.getTime()), machineList.get(i).substring(0,machineList.get(i).length()-1));
                 int newnum = 0;
                 for (int j = 0; j < ndrList.size(); j++) {
                     newnum += ndrList.get(j).getNumber();
                 }
                 ndm.setNewnum(newnum);
                 List<NewDeviceRecord> ndrList2 = NewDeviceRecordDAO.SelectByDateAndMachine(conn, new java.sql.Date(firstDay.getTime()),
-                        new java.sql.Date(date1.getTime()), machineList.get(i));
+                        new java.sql.Date(date1.getTime()), machineList.get(i).substring(0,machineList.get(i).length()-1));
                 int oldnum = 0;
                 for (int j = 0; j < ndrList2.size(); j++) {
                     oldnum += ndrList2.get(j).getNumber();
@@ -96,4 +96,5 @@ public class NewDeviceRecordService {
         }
         return ndsList;
     }
+
 }

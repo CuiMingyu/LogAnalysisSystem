@@ -24,4 +24,12 @@ public class ByteSeriesService {
         }
         return list;
     }
+
+    public static void main(String args[]){
+        ByteSeriesService bss=new ByteSeriesService();
+        List<ByteSeries> list=bss.SelectByUserName("13005267670");
+        for(int i=0;i<list.size();i++){
+            System.out.println(list.get(i));
+        }
+    }
 }
