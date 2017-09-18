@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LogAnalysisSystem.iml" filepath="$PROJECT_DIR$/LogAnalysisSystem.iml" />
       <module fileurl="file://$PROJECT_DIR$/dataanalysis/dataanalysis.iml" filepath="$PROJECT_DIR$/dataanalysis/dataanalysis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webserver/webserver.iml" filepath="$PROJECT_DIR$/webserver/webserver.iml" />
     </modules>
   </component>
 </project>
