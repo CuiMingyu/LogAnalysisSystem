@@ -11,4 +11,12 @@ object StringUtil {
     }
     return ans
   }
+  def toInt(num:String):Int={
+    try{
+      val res=num.toInt
+      res
+    }catch{
+      case e:Exception => 0
+    }
+  }
 }

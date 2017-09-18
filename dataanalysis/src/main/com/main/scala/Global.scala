@@ -12,4 +12,5 @@ object Global {
   val rawDataPath=dbPath+"/log"
   val rawUrlPath=dbPath+"/url"
   val outputRoot=Global.hdfsUrl+"/LogAnalysis"
+  val labelNum=20
 }

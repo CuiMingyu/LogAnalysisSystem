@@ -38,7 +38,7 @@ object UrlClustering {
   def main(args: Array[String]): Unit = {
     //PrepareUrlData("hdfs://scm001:9000/user/hive/warehouse/loganalysis.db/log/log.txt",
     //"hdfs://scm001:9000/LogAnalysisSystem/TitleList/part1")
-   // val resultRdd=clustering(Global.hdfsUrl+"/user/hive/warehouse/loganalysis.db/url", 20,10,1)
+   // val resultRdd=clustering(Global.hdfsUrl+"/user/hive/warehouse/loganalysis.db/url", Global.labelNum,10,1)
     val fs: FileSystem = FileSystem.get(new java.net.URI(Global.hdfsUrl),new Configuration())
     //fs.delete(new Path(Global.hdfsUrl+"/LogAnalysis/clustering/resultmap"), true)
     //fs.delete(new Path(modelPath,true)
@@ -50,7 +50,7 @@ object UrlClustering {
       (splits(1),splits(0).toInt)
    }.join(urltitlepair).map(m=>(m._2._1,m._1,m._2._2))
     resultRdd.take(20).foreach(m=>println(m._1+"\t"+m._2+"\t"+m._3))
-    val labelRdd=labeling(resultRdd.map(m=>(m._1,m._3)),20)
+    val labelRdd=labeling(resultRdd.map(m=>(m._1,m._3)),Global.labelNum)
     fs.delete(new Path(Global.outputRoot+"/clustering/labelmap"))
     labelRdd.map(m=>(m._1+"\t"+m._2+"\t"+m._3)).saveAsTextFile(Global.outputRoot+"/clustering/labelmap")
     fs.close()
