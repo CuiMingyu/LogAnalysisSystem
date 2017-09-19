@@ -81,18 +81,19 @@ public class UserDPServlet extends HttpServlet{
                     request.setAttribute("userdevicelist",udlist);
                     request.setAttribute("preferencelist",upflist);
                     request.setAttribute("preference",preference);
+                    request.setAttribute("phonelist",phonelist);
                 }
 
             }
             else
             {
-                phonelist.add(phone);
                 ud = uds.SelectByPhone(phone);
                 upflist = ups.SelectByUser(phone);
                 request.setAttribute("device",ud);
                 request.setAttribute("preferencelist",upflist);
+                request.setAttribute("phone",phone);
             }
-            request.setAttribute("phonelist",phonelist);
+
         }catch(Exception e){
             e.printStackTrace();
         }

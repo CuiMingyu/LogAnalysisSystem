@@ -67,7 +67,7 @@
            ArrayList userdevicelist=(ArrayList)request.getAttribute("userdevicelist");
            UserDev device=(UserDev) request.getAttribute("device");
 
-           ArrayList plist=(ArrayList)request.getAttribute("preferencelist");
+           ArrayList<UserPreference> plist=(ArrayList)request.getAttribute("preferencelist");
            ArrayList phonelist=(ArrayList)request.getAttribute("phonelist");
            String []userphone=new String[100];
            String []label=new String[100];
@@ -301,13 +301,14 @@
                         var res = [];
                         var len = 0;
                         res.push({
-                            name: '<%=phonelist%>',
+                            name: '<%=phone%>',
                             value:<%=plist.size()%>,
                             symbolSize: 30,
                             draggable: 'true'
                         });
                         res.push({
-                            name:'<%=device%>',
+                            name:'<%=device.getDevice()%>',
+                            value:0,
                             symbolSize:25,
                             draggable:'true'
                         });
@@ -317,7 +318,7 @@
                        List<Integer> sizeInt0 = new ArrayList<Integer>();
                        for(int i = 0;i < plist.size();i++)
                            {
-                               phoneString0.add(userphone[i]);
+                               phoneString0.add(plist.get(i).getLabel());
                                typeInt0.add(new Integer(type[i]));
                                if(type[i] == 0)
                                    sizeInt0.add(new Integer(12));
@@ -340,7 +341,7 @@
                                 draggable: 'true',
                                 symbolSize: sizeInt[len],
                                 //category:phoneString[len]
-                            })
+                            });
                             len++;
                         }
                         return res;
