@@ -15,6 +15,7 @@
 </head>
 
 <body>
+<div id="background">
 <header>
     <nav>
         <ul>
@@ -36,6 +37,7 @@
             <li><a href="phone.jsp">Phone analysis</a></li>
             <li><a href="timeline.jsp">Timeline analysis</a></li>
             <li><a href="personas.jsp">Personas analysis</a></li>
+            <li><a href="website.jsp">Hot20 websites</a></li>
         </ul>
     </div>
 </div>
@@ -47,7 +49,7 @@
         <p>
             Please input the range of date you want to query.
         </p>
-        <form id="form" action="phone2.jsp" method="post">
+        <form id="form" action="NewDeviceMachineServlet.do" method="post">
             <scan style="font-size:20px;color:#FFF">Start:</scan>
             <input type="text" name="date1" value="2017-01-01" id="date1">
             <scan style="font-size:20px;color:#FFF;margin-left:10px;">End:</scan>
@@ -55,6 +57,7 @@
             <input type="submit" value="query" id="querybutton">
         </form>
     </div>
+</div>
 </div>
 </body>
 </html>

@@ -34,14 +34,16 @@ public class NewDeviceRecordService {
                     newnum += ndrList.get(j).getNumber();
                 }
                 ndm.setNewnum(newnum);
+                //System.out.println("ndm: "+ndm);
                 List<NewDeviceRecord> ndrList2 = NewDeviceRecordDAO.SelectByDateAndMachine(conn,new java.sql.Date(firstDay.getTime()),
-                        new java.sql.Date(date1.getTime()), machineList.get(i));
+                        new java.sql.Date(date1.getTime()-24*60*60*1000), machineList.get(i));
                 int oldnum = 0;
                 for (int j = 0; j < ndrList2.size(); j++) {
                     oldnum += ndrList2.get(j).getNumber();
                 }
                 ndm.setOldnum(oldnum);
                 ndm.setAllnum(newnum + oldnum);
+                //System.out.println("ndm: "+ndm);
                 ndmList.add(ndm);
             }
 

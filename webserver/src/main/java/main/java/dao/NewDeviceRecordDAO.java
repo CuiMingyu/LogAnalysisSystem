@@ -80,6 +80,7 @@ public class NewDeviceRecordDAO {
             NewDeviceRecord ndr=new NewDeviceRecord();
             ndr.setNewDeviceRecord(rs.getDate("date"),rs.getString("style"),rs.getInt("number"));
             ndrList.add(ndr);
+            //System.out.println(ndr);
         }
         return ndrList;
     }

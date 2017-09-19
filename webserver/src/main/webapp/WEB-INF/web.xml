@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE web-app
         PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
         "http://java.sun.com/dtd/web-app_2_3.dtd">
@@ -6,4 +6,64 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <servlet>
+        <servlet-name>CityRateDataDateServlet</servlet-name>
+        <servlet-class>main.java.servlet.CityRateDataDateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CityRateDataDateServlet</servlet-name>
+        <url-pattern>/CityRateDataDateServlet.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CityRateDataNameServlet</servlet-name>
+        <servlet-class>main.java.servlet.CityRateDataNameServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CityRateDataNameServlet</servlet-name>
+        <url-pattern>/CityRateDataNameServlet.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NewDeviceMachineServlet</servlet-name>
+        <servlet-class>main.java.servlet.NewDeviceMachineServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NewDeviceMachineServlet</servlet-name>
+        <url-pattern>/NewDeviceMachineServlet.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NewDeviceStyleServlet</servlet-name>
+        <servlet-class>main.java.servlet.NewDeviceStyleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NewDeviceStyleServlet</servlet-name>
+        <url-pattern>/NewDeviceStyleServlet.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TimeRateDataDateServlet</servlet-name>
+        <servlet-class>main.java.servlet.TimeRateDataDateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TimeRateDataDateServlet</servlet-name>
+        <url-pattern>/TimeRateDataDateServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UserDPServlet</servlet-name>
+        <servlet-class>main.java.servlet.UserDPServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserDPServlet</servlet-name>
+        <url-pattern>/UserDPServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ByteSeriesServlet</servlet-name>
+        <servlet-class>main.java.servlet.ByteSeriesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ByteSeriesServlet</servlet-name>
+        <url-pattern>/ByteSeriesServlet.do</url-pattern>
+    </servlet-mapping>
 </web-app>

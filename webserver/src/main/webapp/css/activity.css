@@ -1,8 +1,19 @@
+#background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: url(images/bg.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 #querydiv {
   margin: 0;
   padding: 0;
   background: #1b1e2a;
   height: 815px;
+  opacity: 0.5;
 }
 
 #querydiv div {
@@ -43,7 +54,7 @@
   line-height: 40px;
   font-size: 20px;
   border: 0;
-  border-radius: 10px;
+  border-radius: 20px;
   background: #2e3141;
   color: #FFF;
   text-align: center;
@@ -56,17 +67,12 @@
   background: #2e3141;
   color: #FFF;
   border: 0;
-  border-radius: 10px;
-  font-size: 15px;
-}
-
-.activity-info {
-  background: #1b1e2a;
-  height: 820px;
-  margin: 0;
+  border-radius: 20px;
+  font-size: 18px;
 }
 
 .activity-echart {
+  margin-top: 300px;
   height: 700px;
   margin-top: 0;
   background: #000;

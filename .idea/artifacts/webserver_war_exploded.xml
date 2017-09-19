@@ -1,0 +1,78 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="webserver:war exploded">
+    <output-path>$PROJECT_DIR$/webserver/target/screen-display</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="webserver" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:4.2.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.2.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.2.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.2.6.RELEASE" />
+          <element id="library" level="project" name="Maven: com.google.guava:guava:17.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.7.3" />
+          <element id="library" level="project" name="Maven: com.google.code.findbugs:jsr305:2.0.0" />
+          <element id="library" level="project" name="Maven: com.github.fge:json-patch:1.9" />
+          <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.8.3" />
+          <element id="library" level="project" name="Maven: org.apache.hadoop:hadoop-yarn-api:2.7.2" />
+          <element id="library" level="project" name="Maven: org.apache.hadoop:hadoop-mapreduce-client-core:2.7.2" />
+          <element id="library" level="project" name="Maven: org.apache.hadoop:hadoop-yarn-common:2.7.2" />
+          <element id="library" level="project" name="Maven: org.apache.hadoop:hadoop-common:2.7.2" />
+          <element id="library" level="project" name="Maven: commons-cli:commons-cli:1.2" />
+          <element id="library" level="project" name="Maven: org.mortbay.jetty:jetty-util:6.1.26" />
+          <element id="library" level="project" name="Maven: com.sun.jersey:jersey-core:1.9" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" />
+          <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:2.5.0" />
+          <element id="library" level="project" name="Maven: org.apache.zookeeper:zookeeper:3.4.6" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-compress:1.4.1" />
+          <element id="library" level="project" name="Maven: org.apache.hadoop:hadoop-hdfs:2.7.2" />
+          <element id="library" level="project" name="Maven: org.fusesource.leveldbjni:leveldbjni-all:1.8" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-slf4j-impl:2.4.1" />
+          <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
+          <element id="library" level="project" name="Maven: org.apache.ant:ant:1.9.1" />
+          <element id="library" level="project" name="Maven: org.codehaus.janino:commons-compiler:2.7.6" />
+          <element id="library" level="project" name="Maven: org.apache.calcite:calcite-avatica:1.6.0" />
+          <element id="library" level="project" name="Maven: org.apache.hive:hive-service-rpc:2.1.0" />
+          <element id="library" level="project" name="Maven: org.apache.thrift:libthrift:0.9.3" />
+          <element id="library" level="project" name="Maven: org.apache.hive:hive-service:2.1.0" />
+          <element id="library" level="project" name="Maven: org.apache.hive:hive-llap-common:2.1.0" />
+          <element id="library" level="project" name="Maven: com.google.inject.extensions:guice-servlet:3.0" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+          <element id="library" level="project" name="Maven: tomcat:jasper-compiler:5.5.23" />
+          <element id="library" level="project" name="Maven: tomcat:jasper-runtime:5.5.23" />
+          <element id="library" level="project" name="Maven: org.apache.thrift:libfb303:0.9.3" />
+          <element id="library" level="project" name="Maven: org.apache.hive:hive-common:2.1.0" />
+          <element id="library" level="project" name="Maven: org.json:json:20090211" />
+          <element id="library" level="project" name="Maven: org.apache.hive:hive-metastore:2.1.0" />
+          <element id="library" level="project" name="Maven: com.google.inject:guice:3.0" />
+          <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
+          <element id="library" level="project" name="Maven: org.apache.twill:twill-discovery-api:0.6.0-incubating" />
+          <element id="library" level="project" name="Maven: org.apache.twill:twill-discovery-core:0.6.0-incubating" />
+          <element id="library" level="project" name="Maven: org.apache.twill:twill-zookeeper:0.6.0-incubating" />
+          <element id="library" level="project" name="Maven: com.twitter:chill-java:0.8.0" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.core:jersey-common:2.22.2" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.containers:jersey-container-servlet-core:2.22.2" />
+          <element id="library" level="project" name="Maven: oro:oro:2.0.8" />
+          <element id="library" level="project" name="Maven: org.apache.spark:spark-tags_2.11:2.0.1" />
+          <element id="library" level="project" name="Maven: org.spark-project.spark:unused:1.0.0" />
+          <element id="library" level="project" name="Maven: net.sourceforge.f2j:arpack_combined_all:0.1" />
+          <element id="library" level="project" name="Maven: org.scalanlp:breeze_2.11:0.11.2" />
+          <element id="library" level="project" name="Maven: org.jodd:jodd-core:3.5.2" />
+          <element id="library" level="project" name="Maven: org.apache.hbase:hbase-protocol:1.2.0" />
+          <element id="library" level="project" name="Maven: com.github.stephenc.findbugs:findbugs-annotations:1.3.9-1" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-math:2.2" />
+          <element id="library" level="project" name="Maven: org.mortbay.jetty:jsp-api-2.1:6.1.14" />
+          <element id="library" level="project" name="Maven: org.mortbay.jetty:servlet-api-2.5:6.1.14" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-jaxrs:1.9.13" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/webserver/target/screen-display/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="webserver/web/Web" />
+    </root>
+  </artifact>
+</component>
