@@ -48,7 +48,7 @@
             <p>
                 Please input the range of date you want to query.
             </p>
-            <form id="form" action="NewDeviceMachineServlet.do" method="post">
+            <form id="form" action="ByteSeriesServlet.do" method="post">
                 <scan style="font-size:20px;color:#FFF;margin-left:10px;">End:</scan>
                 <input type="text" name="name"  id="name">
                 <input type="submit" value="query" id="querybutton">

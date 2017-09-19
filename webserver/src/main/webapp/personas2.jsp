@@ -1,6 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
-<%@ page import="main.java.model.UserPreference" %><%--
+<%@ page import="main.java.model.UserPreference" %>
+<%@ page import="main.java.model.UserDev" %><%--
   Created by IntelliJ IDEA.
   User: swz
   Date: 2017/9/11
@@ -64,24 +65,30 @@
            String preference=(String) request.getAttribute("preference");
            Boolean message=(Boolean) request.getAttribute("message");
            ArrayList userdevicelist=(ArrayList)request.getAttribute("userdevicelist");
+           UserDev device=(UserDev) request.getAttribute("device");
+
            ArrayList plist=(ArrayList)request.getAttribute("preferencelist");
+           ArrayList phonelist=(ArrayList)request.getAttribute("phonelist");
            String []userphone=new String[100];
            String []label=new String[100];
            int []type=new int[100];
            for(int i=0;i<plist.size();i++){
                UserPreference userdlist=(UserPreference)plist.get(i);
                userphone[i]=userdlist.getPhone();
+               System.out.println(preference);
                label[i]=userdlist.getLabel();
                type[i]=userdlist.getType();
            }
-           ArrayList device=(ArrayList)request.getAttribute("device");
 
-           ArrayList list6=(ArrayList)request.getAttribute("phonelist");
 
          %>
 
         if(<%=phone==null||phone.equals("")%>){
-
+            if(<%=preference==null%>){
+                //提示框输入内容
+                alert("请输入内容");
+                }
+            else {
                 option = {
                     backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [{
                         offset: 0,
@@ -90,7 +97,7 @@
                         offset: 1,
                         color: '#cdd0d5'
                     }]),
-                    title:{
+                    title: {
                         text: "用户画像",
                         subtext: "用户喜好程度",
                         top: "top",
@@ -106,15 +113,34 @@
                             show: true
                         },
                         selectedMode: 'false',
-                        bottom: 20
-
+                        bottom: 20,
+                        data: (function () {
+                            var res = [];
+                            var len = 0;
+                            <%
+                            List<String> phoneString1 = new ArrayList<String>();
+                            for(int i = 0;i < plist.size();i++)
+                                {
+                                    phoneString1.add(userphone[i]);
+                                }
+                            %>
+                            var phoneString = [];
+                            phoneString = <%=phoneString1%>;
+                            while (len <<%=plist.size()%>) {
+                                res.push({
+                                    name: phoneString[len],
+                                })
+                                len++;
+                            }
+                            return res;
+                        })()
                     }],
                     toolbox: {
-                        show : true,
-                        feature : {
-                            dataView : {show: true, readOnly: true},
-                            restore : {show: true},
-                            saveAsImage : {show: true}
+                        show: true,
+                        feature: {
+                            dataView: {show: true, readOnly: true},
+                            restore: {show: true},
+                            saveAsImage: {show: true}
                         }
                     },
                     animationDuration: 3000,
@@ -127,41 +153,83 @@
                         force: {
                             repulsion: 50
                         },
-                        data:(function (){
-                            var res=[];
-                            var item={"name": "<%=label[0]%>",
-                                "value": 0,
-                                "symbolSize":24,
-                                "category":"<%=label[0]%>" ,
-                                "draggable": "true"};
-                            res.push(item);
 
-                           // alert(res);
-
-                            <% int temp=0;%>
-                            for(var i=0;i<<%=plist.size()%>;i++){
-                                var temp={
-                                    "name": "<%=userphone[temp]%>",
-                                    "value": <%=type[temp]%>,
-                                    "symbolSize":18,
-                                    "category":"<%=label[0]%>" ,
-                                    "draggable": "true"
+                        data: (function () {
+                            var res = [];
+                            var len = 0;
+                            res.push({
+                                name: '<%=preference%>',
+                                value:<%=plist.size()%>,
+                                symbolSize: 30,
+                                draggable: 'true',
+                                category: '<%=preference%>'
+                            });
+                            <%
+                            List<String> phoneString = new ArrayList<String>();
+                            List<Integer> typeInt = new ArrayList<Integer>();
+                            List<Integer> sizeInt = new ArrayList<Integer>();
+                            for(int i = 0;i < plist.size();i++)
+                                {
+                                    phoneString.add(userphone[i]);
+                                    typeInt.add(new Integer(type[i]));
+                                    if(type[i] == 0)
+                                        sizeInt.add(new Integer(12));
+                                    else if(type[i] == 1)
+                                        sizeInt.add(new Integer(18));
+                                    else
+                                        sizeInt.add(new Integer(24));
                                 }
-                                res.push(temp);
-                                <%temp++;%>
+                            %>
+                            var phoneString = [];
+                            phoneString = <%=phoneString%>;
+                            var typeInt = [];
+                            typeInt = <%=typeInt%>;
+                            var sizeInt = [];
+                            sizeInt = <%=sizeInt%>;
+                            while (len <<%=plist.size()%>) {
+                                res.push({
+                                    name: phoneString[len],
+                                    value: typeInt[len],
+                                    draggable: 'true',
+                                    symbolSize: sizeInt[len],
+                                    //category:phoneString[len]
+                                })
+                                len++;
                             }
-
-//            <th>res</th>
+                            return res;
+                        })(),
+                        <%--links: (function () {--%>
+                        <%--var res = [];--%>
+                        <%--var len = 0;--%>
+                        <%--var phoneString = [];--%>
+                        <%--phoneString = <%=phoneString%>;--%>
+                        <%--while(len<<%=plist.size()%>)--%>
+                        <%--{--%>
+                        <%--res.push({--%>
+                        <%--source:'<%=preference%>',--%>
+                        <%--target:phoneString[len]--%>
+                        <%--})--%>
+                        <%--len++;--%>
+                        <%--}--%>
+                        <%--return res;--%>
+                        <%--})(),--%>
+                        categories: (function () {
+                            var res = [];
+                            var len = 0;
+                            res.push({
+                                name: '<%=preference%>',
+                            });
+                            var phoneString = [];
+                            phoneString = <%=phoneString%>;
+                            while (len <<%=plist.size()%>) {
+                                res.push({
+                                    name: phoneString[len],
+                                })
+                                len++;
+                            }
                             return res;
                         })(),
 
-                        links: [{
-                            "source": "广州大学",
-                            "target": "计算机科学与教育软件学院"
-                        }],
-                        categories: [{
-                            'name': '丰田'
-                        }],
                         focusNodeAdjacency: true,
                         roam: true,
                         label: {
@@ -181,240 +249,128 @@
                         }
                     }]
                 };
+            }
+        }
+        else{
+            option = {
+                backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [{
+                    offset: 0,
+                    color: '#f7f8fa'
+                }, {
+                    offset: 1,
+                    color: '#cdd0d5'
+                }]),
+                title:{
+                    text: "用户画像",
+                    subtext: "用户喜好关系",
+                    top: "top",
+                    left: "center"
+                },
+                tooltip: {},
+                legend: [{
+                    formatter: function (name) {
+                        return echarts.format.truncateText(name, 40, '14px Microsoft Yahei', '…');
+                    },
 
+                    tooltip: {
+                        show: true
+                    },
+                    selectedMode: 'false',
+                    bottom: 20,
+
+                }],
+                toolbox: {
+                    show : true,
+                    feature : {
+                        dataView : {show: true, readOnly: true},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                animationDuration: 3000,
+                animationEasingUpdate: 'quinticInOut',
+                series: [{
+                    name: '具体用户画像',
+                    type: 'graph',
+                    layout: 'force',
+
+                    force: {
+                        repulsion: 50
+                    },
+                    data: (function () {
+                        var res = [];
+                        var len = 0;
+                        res.push({
+                            name: '<%=phonelist%>',
+                            value:<%=plist.size()%>,
+                            symbolSize: 30,
+                            draggable: 'true'
+                        });
+                        res.push({
+                            name:'<%=device%>',
+                            symbolSize:25,
+                            draggable:'true'
+                        });
+                        <%
+                       List<String> phoneString0 = new ArrayList<String>();
+                       List<Integer> typeInt0 = new ArrayList<Integer>();
+                       List<Integer> sizeInt0 = new ArrayList<Integer>();
+                       for(int i = 0;i < plist.size();i++)
+                           {
+                               phoneString0.add(userphone[i]);
+                               typeInt0.add(new Integer(type[i]));
+                               if(type[i] == 0)
+                                   sizeInt0.add(new Integer(12));
+                               else if(type[i] == 1)
+                                   sizeInt0.add(new Integer(18));
+                               else
+                                   sizeInt0.add(new Integer(24));
+                           }
+                       %>
+                        var phoneString = [];
+                        phoneString = <%=phoneString0%>;
+                        var typeInt = [];
+                        typeInt = <%=typeInt0%>;
+                        var sizeInt = [];
+                        sizeInt = <%=sizeInt0%>;
+                        while (len <<%=plist.size()%>) {
+                            res.push({
+                                name: phoneString[len],
+                                value: typeInt[len],
+                                draggable: 'true',
+                                symbolSize: sizeInt[len],
+                                //category:phoneString[len]
+                            })
+                            len++;
+                        }
+                        return res;
+                    })(),
+
+
+                    focusNodeAdjacency: true,
+                    roam: true,
+                    label: {
+                        normal: {
+
+                            show: true,
+                            position: 'top',
+
+                        }
+                    },
+                    lineStyle: {
+                        normal: {
+                            color: 'source',
+                            curveness: 0,
+                            type: "solid"
+                        }
+                    }
+                }]
+            };
         }
 
 
 
-//        option = {
-//            backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [{
-//                offset: 0,
-//                color: '#f7f8fa'
-//            }, {
-//                offset: 1,
-//                color: '#cdd0d5'
-//            }]),
-//            title:{
-//                text: "用户画像",
-//                subtext: "用户喜好关系",
-//                top: "top",
-//                left: "center"
-//            },
-//            tooltip: {},
-//            legend: [{
-//                formatter: function (name) {
-//                    return echarts.format.truncateText(name, 40, '14px Microsoft Yahei', '…');
-//                },
-//                tooltip: {
-//                    show: true
-//                },
-//                selectedMode: 'false',
-//                bottom: 20,
-//                data: ['下载', '신라인터넷면세점', '丰田', '维修', 'Sina', '阅文', '新浪网', '人才网', '人民政府', '山东', '服务平台', '秤', 'CA002', '未来', '小游戏', '404', '风行', '昆山', '百科', '旅游网']
-//            }],
-//            toolbox: {
-//                show : true,
-//                feature : {
-//                    dataView : {show: true, readOnly: true},
-//                    restore : {show: true},
-//                    saveAsImage : {show: true}
-//                }
-//            },
-//            animationDuration: 3000,
-//            animationEasingUpdate: 'quinticInOut',
-//            series: [{
-//                name: '用户画像',
-//                type: 'graph',
-//                layout: 'force',
-//
-//                force: {
-//                    repulsion: 50
-//                },
-//                data: [{
-//                    "name": "丰田",
-//                    "value": 3,
-//                    "symbolSize":24,
-//                    "category": "丰田",
-//                    "draggable": "true"
-//                },{
-//                    "name": "下载",
-//                    "value": 6,
-//                    "symbolSize": 24,
-//                    "category": "下载",
-//                    "draggable": "true"
-//                }, {
-//                    "name": "신라인터넷면세점",
-//                    "value": 5,
-//                    "symbolSize": 24,
-//                    "category": "신라인터넷면세점",
-//                    "draggable": "true"
-//                },{
-//                    "name": "维修",
-//                    "value": 6,
-//                    "symbolSize": 24,
-//                    "category": "维修",
-//                    "draggable": "true"
-//                }, {
-//                    "name": "Sina",
-//                    "value": 8,
-//                    "symbolSize": 24,
-//                    "category": "Sina",
-//                    "draggable": "true"
-//                }, {
-//                    "name": "阅文",
-//                    "value": 5,
-//                    "symbolSize": 24,
-//                    "category": "阅文",
-//                    "draggable": "true"
-//                }, {
-//                    "name": "新浪网",
-//                    "value": 6,
-//                    "symbolSize": 24,
-//                    "category": "新浪网",
-//                    "draggable": "true"
-//                },  {
-//                    "name": "人才网",
-//                    "value": 10,
-//                    "symbolSize": 24,
-//                    "category": "人才网",
-//                    "draggable": "true"
-//                },{
-//                    "name": "人民政府",
-//                    "value": 6,
-//                    "symbolSize": 24,
-//                    "category": "人民政府",
-//                    "draggable": "true"
-//                }, {
-//                    "name": "山东",
-//                    "value": 6,
-//                    "symbolSize": 24,
-//                    "category": "山东",
-//                    "draggable": "true"
-//                },{
-//                    "name": "服务平台",
-//                    "value": 2,
-//                    "symbolSize": 24,
-//                    "category": "服务平台",
-//                    "draggable": "true"
-//                },{
-//                    "name": "秤",
-//                    "value": 2,
-//                    "symbolSize": 24,
-//                    "category": "秤",
-//                    "draggable": "true"
-//                },{
-//                    "name": "CA002",
-//                    "value": 2,
-//                    "symbolSize": 24,
-//                    "category": "CA002",
-//                    "draggable": "true"
-//                },{
-//                    "name": "未来",
-//                    "value": 2,
-//                    "symbolSize":24,
-//                    "category": "未来",
-//                    "draggable": "true"
-//                },{
-//                    "name": "小游戏",
-//                    "value": 2,
-//                    "symbolSize": 24,
-//                    "category": "小游戏",
-//                    "draggable": "true"
-//                },{
-//                    "name": "404",
-//                    "value": 2,
-//                    "symbolSize": 24,
-//                    "category": "404",
-//                    "draggable": "true"
-//                },{
-//                    "name": "旅游网",
-//                    "value": 2,
-//                    "symbolSize": 24,
-//                    "category": "旅游网 ",
-//                    "draggable": "true"
-//                },{
-//                    "name": "风行",
-//                    "value": 2,
-//                    "symbolSize": 24,
-//                    "category": "风行",
-//                    "draggable": "true"
-//                },{
-//                    "name": "昆山",
-//                    "value": 2,
-//                    "symbolSize": 24,
-//                    "category": "昆山",
-//                    "draggable": "true"
-//                },{
-//                    "name": "百科",
-//                    "value": 2,
-//                    "symbolSize": 24,
-//                    "category": "百科",
-//                    "draggable": "true"
-//                }],
-//                links: [{
-//                    "source": "广州大学",
-//                    "target": "计算机科学与教育软件学院"
-//                },],
-//                categories: [{
-//                    'name': '下载'
-//                }, {
-//                    'name': '신라인터넷면세점'
-//                }, {
-//                    'name': '维修'
-//                }, {
-//                    'name': 'Sina'
-//                }, {
-//                    'name': '阅文'
-//                }, {
-//                    'name': '新浪网'
-//                }, {
-//                    'name': '人才网'
-//                }, {
-//                    'name': '人民政府'
-//                }, {
-//                    'name': '山东'
-//                }, {
-//                    'name': '服务平台'
-//                }, {
-//                    'name': '秤'
-//                }, {
-//                    'name': 'CA002'
-//                }, {
-//                    'name': '未来'
-//                }, {
-//                    'name': '小游戏'
-//                }, {
-//                    'name': '404'
-//                }, {
-//                    'name': '风行'
-//                }, {
-//                    'name': '昆山'
-//                }, {
-//                    'name': '百科'
-//                }, {
-//                    'name': '旅游网'
-//                },{
-//                    'name': '丰田'
-//                }],
-//                focusNodeAdjacency: true,
-//                roam: true,
-//                label: {
-//                    normal: {
-//
-//                        show: true,
-//                        position: 'top',
-//
-//                    }
-//                },
-//                lineStyle: {
-//                    normal: {
-//                        color: 'source',
-//                        curveness: 0,
-//                        type: "solid"
-//                    }
-//                }
-//            }]
-//        };
+
         myChart.setOption(option);
 
 

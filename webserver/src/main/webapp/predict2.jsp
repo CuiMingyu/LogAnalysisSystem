@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="main.java.model.ByteSeries" %><%--
   Created by IntelliJ IDEA.
   User: Mingyu
   Date: 2017/9/19
@@ -13,6 +14,109 @@
     <link rel="stylesheet" href="css/toolbar.css">
     <script src="js/toolbar.js"></script>
 </head>
+
+<div>
+    <body style="height:500px; top: 60px;">
+
+    <div id="container" style="width: 100%;height:1000px"></div>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+
+    <script type="text/javascript">
+
+        <%
+            ArrayList list=(ArrayList)request.getAttribute("bslist");
+
+            String []data =new String[25] ;
+            String []time=new String[25];
+
+            for(int i=0;i<list.size();i++){
+                 ByteSeries user=(ByteSeries) list.get(i);
+                data[i]=user.getData();
+                time[i]=user.getTime();
+
+            }
+            %>
+
+        var dom = document.getElementById("container");
+        var myChart = echarts.init(dom);
+
+        <%--ArrayList list=(ArrayList)request.getAttribute("ndmlist");--%>
+        <%--<%int i = 0;%>--%>
+
+        option = {
+            title: {
+                text: '三天内流量预测',
+                subtext: 'Group5'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['data']
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    dataView: {readOnly: false},
+                    magicType: {type: ['line', 'bar']},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            xAxis:  {
+                type: 'category',
+                boundaryGap: false,
+                data: ['<%=time[0]%>>','<%=time[1]%>','<%=time[2]%>']
+            },
+            yAxis: {
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value}'
+                }
+            },
+            series: [
+                {
+                    name:'PV',
+                    type:'line',
+                    data:[<%=data[0]%>, <%=data[1]%>, <%=data[2]%>],
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
+                }
+
+            ]
+        };
+
+
+        <%--option.series[0].data.push(<%phonename.getOldnum();%>);--%>
+        <%--<%}}%>--%>
+        <%--option.series[0].data=series--%>
+
+
+        myChart.setOption(option);
+
+
+    </script>
+
+    </body>
+</div>
 <body>
 <div id="background">
     <header>
@@ -41,22 +145,7 @@
         </div>
     </div>
 
-    <div id="querydiv">
-        <div>
-            <h1>Phone analysis system</h1>
-            <hr>
-            <p>
-                Please input the range of date you want to query.
-            </p>
-            <form id="form" action="NewDeviceMachineServlet.do" method="post">
-                <scan style="font-size:20px;color:#FFF">Start:</scan>
-                <input type="text" name="date1" value="2017-01-01" id="date1">
-                <scan style="font-size:20px;color:#FFF;margin-left:10px;">End:</scan>
-                <input type="text" name="date2" value="2017-01-01" id="date2">
-                <input type="submit" value="query" id="querybutton">
-            </form>
-        </div>
-    </div>
+
 </div>
 </body>
 </html>

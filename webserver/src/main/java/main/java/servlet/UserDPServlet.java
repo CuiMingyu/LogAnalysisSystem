@@ -80,6 +80,7 @@ public class UserDPServlet extends HttpServlet{
                     udlist = uds.SelectByPhoneList(phonelist);
                     request.setAttribute("userdevicelist",udlist);
                     request.setAttribute("preferencelist",upflist);
+                    request.setAttribute("preference",preference);
                 }
 
             }
