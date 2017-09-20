@@ -73,9 +73,13 @@
 </div>
 
 <div>
-    <body style="height:500px; top: 60px;">
+    <div style="height:500px; top: 60px;">
 
-    <div id="container" style="width: 100%;height:1000px"></div>
+        <div id="container" style="width: 100%;height:1000px"></div>
+        <a href="activity.jsp" style="display:block;margin:15px auto;
+          width:150px;line-height:50px;background:#000;color:#FFF;
+          text-decoration:none;text-align:center;border-radius:15px;
+          font-size:28px;">Back</a>
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
@@ -192,7 +196,7 @@
 
     </script>
 
-    </body>
+    </div>
 </div>
 </div>
 </body>

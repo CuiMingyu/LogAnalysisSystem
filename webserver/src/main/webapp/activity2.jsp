@@ -46,13 +46,6 @@
 </div>
 </header>
 
-<div>
-    <div class="activity-info">
-
-    </div>
-</div>
-
-
     <%
         ArrayList list=(ArrayList)request.getAttribute("crdlist");
 
