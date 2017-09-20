@@ -47,7 +47,7 @@
             <h1>Phone analysis system</h1>
             <hr>
             <p>
-                Please input the range of date you want to query.
+                Please input the phone number you want to query.
             </p>
             <form id="form" action="ByteSeriesServlet.do" method="post">
                 <scan style="font-size:20px;color:#FFF;margin-left:10px;">Phone:</scan>
