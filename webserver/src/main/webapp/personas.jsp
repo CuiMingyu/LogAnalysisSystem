@@ -15,6 +15,7 @@
 </head>
 
 <body>
+<div id="background" >
 <header>
     <nav>
         <ul>
@@ -36,19 +37,31 @@
             <li><a href="phone.jsp">Phone analysis</a></li>
             <li><a href="timeline.jsp">Timeline analysis</a></li>
             <li><a href="personas.jsp">Personas analysis</a></li>
+            <li><a href="website.jsp">Hot20 websites</a></li>
+            <li><a href="predict.jsp">Traffic forecast</a></li>
         </ul>
     </div>
 </div>
 
 <div>
     <div id="querydiv">
-        <h1>Personas analysis system</h1>
-        <hr>
-        <p>
-            Please input the information of the personas you want to query.
-        </p>
+        <div>
+            <h1>Personas analysis system</h1>
+            <hr>
+            <form action="UserDPServlet.do" method="post">
+                <scan style="color:#FFF;font-size:20px;">Region:</scan>
+                <input type="text" name="region" id="region">
+                <scan style="color:#FFF;font-size:20px;">Behaviour preferences:</scan>
+                <select name="preference" id="preference">
+                    <option value="下载">下载</option>
+                    <option value="丰田">丰田</option>
+                </select>
+
+                <input type="submit" value="query" id="querybutton">
+            </form>
+        </div>
     </div>
 </div>
-
+</div>
 </body>
 </html>

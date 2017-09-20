@@ -15,6 +15,7 @@
 </head>
 
 <body>
+<div id="background" >
 <header>
     <nav>
         <ul>
@@ -36,6 +37,8 @@
             <li><a href="phone.jsp">Phone analysis</a></li>
             <li><a href="timeline.jsp">Timeline analysis</a></li>
             <li><a href="personas.jsp">Personas analysis</a></li>
+            <li><a href="website.jsp">Hot20 websites</a></li>
+            <li><a href="predict.jsp">Traffic forecast</a></li>
         </ul>
     </div>
 </div>
@@ -47,12 +50,12 @@
         <p>
             Please input the date you want to query.
         </p>
-        <form id="form" action="timeline2.jsp" method="post">
+        <form id="form" action="TimeRateDataDateServlet.do" method="post">
             <input type="text" name="date" value="2017-01-01" id="date">
             <input type="submit" value="query" id="querybutton">
         </form>
     </div>
 </div>
-
+</div>
 </body>
 </html>

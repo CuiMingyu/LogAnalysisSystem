@@ -56,10 +56,10 @@ public class TimeRateDataDateServlet extends HttpServlet{
             TimeRateDataService crds=new TimeRateDataService();
             Date date= DateUtils.parseDate(dateString,"yyyy-MM-dd");
             trdlist=crds.SelectByDate(date);
+            request.setAttribute("trdlist",trdlist);
         }catch(Exception e){
             e.printStackTrace();
         }
-        getJson(request,response,trdlist);
+        request.getRequestDispatcher("timeline2.jsp").forward(request,response);
     }
-
 }

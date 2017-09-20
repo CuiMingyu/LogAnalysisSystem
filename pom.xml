@@ -7,6 +7,7 @@
     <groupId>org.maven</groupId>
     <artifactId>LogAnalysisSystem</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <modules>
         <module>dataanalysis</module>
         <module>webserver</module>

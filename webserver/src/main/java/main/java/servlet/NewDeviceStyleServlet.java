@@ -6,6 +6,7 @@ import main.java.model.NewDeviceStyle;
 import main.java.util.DateUtils;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -17,7 +18,7 @@ import java.util.List;
  * Created by yxy on 9/10/17.
  * 给出两个日期和品牌名称，传递所有该品牌机型的新增数量
  */
-public class NewDeviceStyleServlet {
+public class NewDeviceStyleServlet extends HttpServlet{
     protected void getJson(HttpServletRequest request, HttpServletResponse response, Object object){
         response.setContentType("text/html;charset=UTF-8");
         //禁用缓存，确保网页信息是最新数据
@@ -57,10 +58,11 @@ public class NewDeviceStyleServlet {
             Date date1= DateUtils.parseDate(dateString1,"yyyy-MM-dd");
             Date date2= DateUtils.parseDate(dateString2,"yyyy-MM-dd");
             ndslist=service.GetStyleByDateMachine(date1,date2,machinename);
+            request.setAttribute("ndslist",ndslist);
         }catch(Exception e){
             e.printStackTrace();
         }
 
-        getJson(request, response, ndslist);//retrun a list
+        request.getRequestDispatcher("phone2.jsp").forward(request,response);
     }
 }

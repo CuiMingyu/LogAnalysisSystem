@@ -1,32 +1,45 @@
+#background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: url(images/bg.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 #banner {
-  background: #242735;
-  height: 820px;
+    background: #242735;
+    height: 820px;
+    opacity: 0.5;
 }
 
 #banner .inner {
-  max-width: 700px;
-  text-align: center;
-  margin: 0 auto;
-  position: relative;
-  top: 300px;
+    max-width: 800px;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    top: 300px;
 }
 
 #banner .inner .a1 {
-  color: #FFF;
-  font-size: 30px;
-  display: block;
-  line-height: 70px;
-  text-decoration: none;
+    color: #FFF;
+    font-size: 40px;
+    display: block;
+    line-height: 70px;
+    text-decoration: none;
 }
 
 #banner .inner .a2 {
-  display: block;
-  line-height: 40px;
-  text-decoration: none;
-  color: #FFF;
-  margin-top: 20px;
+    display: block;
+    font-size: 18px;
+    line-height: 40px;
+    text-decoration: none;
+    color: #FFF;
+    margin-top: 20px;
 }
 
+/*
 #activity-div {
   background: #1b1e2a;
   height: 820px;
@@ -57,4 +70,70 @@
   text-decoration: none;
   color: #FFF;
   margin-top: 20px;
+}
+*/
+
+#content {
+    margin: 0;
+    background: #1b1e2a;
+    height: 1100px;
+    opacity: 0.5;
+}
+
+#content .content-title {
+    margin-top: 0;
+    padding-top: 30px;
+    height: 200px;
+    width: 100%;
+    font-size: 50px;
+    color: #FFFFFF;
+    letter-spacing: 2px;
+}
+
+#content p {
+    text-align: center;
+    margin: 0 auto;
+}
+
+#content div {
+    width: 25%;
+    height: 500px;
+    float: left;
+    background: #1b1e2a;
+    /*border: 1px solid #333;*/
+    color: #FFF;
+}
+
+#content img {
+    height:250px;
+    margin: 0 auto;
+}
+
+#content1, #content4, #content7 {
+    margin-left: 12%;
+}
+
+#content2, #content5, #content8 {
+    margin-left: 2%;
+}
+
+#content3, #content6 {
+    margin-left: 2%;
+}
+
+#content .a1 {
+    color: #FFF;
+    font-size: 30px;
+    display: block;
+    line-height: 70px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+#content .a2 {
+    display: block;
+    line-height: 40px;
+    text-decoration: none;
+    color: #FFF;
+    margin-top: 20px;
 }
