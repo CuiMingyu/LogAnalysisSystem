@@ -15,6 +15,6 @@ function showMenu() {
     newMenu.style.width = '400px';
     newMenu.style.background = '#2c3544';
     newMenu.style.top = '150px';
-    newMenu.style.left = '700px';
+    newMenu.style.left = '500px';
     newMenu.style.padding = '0';
 }
