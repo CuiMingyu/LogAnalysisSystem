@@ -118,7 +118,7 @@
     </body>
 </div>
 <body>
-<div id="background">
+<div id="background2">
     <header>
         <nav>
             <ul>

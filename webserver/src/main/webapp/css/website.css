@@ -1,11 +1,11 @@
 #background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: url(images/bg.jpg);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /*background: url(images/bg.jpg);*/
+    /*background-repeat: no-repeat;*/
+    /*background-attachment: fixed;*/
 }
 
 /*#background-1 {
@@ -17,26 +17,26 @@
 }*/
 
 h1 {
-  letter-spacing: 1px;
-  text-align: center;
-  font-size: 30px;
-  margin-top: 100px;
-  position: relative;
-  top: 0;
+    letter-spacing: 1px;
+    text-align: center;
+    font-size: 30px;
+    margin-top: 100px;
+    position: relative;
+    top: 0;
 }
 
 hr {
-  width: 40%;
+    width: 40%;
 }
 
 #container1 {
-  height: 800px;
+    height: 800px;
 }
 
 #container2 {
-  height: 800px;
+    height: 800px;
 }
 
 #container3 {
-  height: 800px;
+    height: 800px;
 }

@@ -45,8 +45,8 @@
 
 #querydiv div form {
   margin-top:50px;
-  margin-left: 600px;
-  width: 500px;
+  margin-left: 35%;
+  width: 30%;
 }
 
 #date {
@@ -63,7 +63,7 @@
 #querybutton {
   width: 100px;
   height: 45px;
-  margin-left: 50px;
+  margin-left: 10%;
   background: #2e3141;
   color: #FFF;
   border: 0;

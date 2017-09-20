@@ -37,6 +37,7 @@
                 <li><a href="timeline.jsp">Timeline analysis</a></li>
                 <li><a href="personas.jsp">Personas analysis</a></li>
                 <li><a href="website.jsp">Hot20 websites</a></li>
+                <li><a href="predict.jsp">Traffic forecast</a></li>
             </ul>
         </div>
     </div>

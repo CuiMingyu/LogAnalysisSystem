@@ -17,7 +17,7 @@
 </head>
 
 <body>
-<div id="background" >
+<div id="background2" >
 <header>
     <nav>
         <ul>
@@ -40,6 +40,7 @@
             <li><a href="timeline.jsp">Timeline analysis</a></li>
             <li><a href="personas.jsp">Personas analysis</a></li>
             <li><a href="website.jsp">Hot20 websites</a></li>
+            <li><a href="predict.jsp">Traffic forecast</a></li>
         </ul>
     </div>
 </div>
@@ -68,7 +69,7 @@
             ana[i]=city.getRate();
         }
     %>
-    <div style="width:100%;height:1050px;margin:0;opacity:.5;">
+    <div style="width:100%;height:1050px;margin:0;">
 
         <div style="width:100%;position:relative;top:60px;">
             <div id="container" style="width: 100%;height:900px;"></div>
