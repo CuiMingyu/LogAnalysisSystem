@@ -177,16 +177,28 @@
                             List<String> phoneString = new ArrayList<String>();
                             List<Integer> typeInt = new ArrayList<Integer>();
                             List<Integer> sizeInt = new ArrayList<Integer>();
+//                            List<String> freqString = new ArrayList<String>();
                             for(int i = 0;i < plist.size();i++)
                                 {
                                     phoneString.add(userphone[i].toString());
                                     typeInt.add(new Integer(type[i]));
                                     if(type[i] == 0)
-                                        sizeInt.add(new Integer(12));
+                                    {
+//                                       freqString.add('"'+"低频"+'"');
+                                       sizeInt.add(new Integer(12));
+                                    }
                                     else if(type[i] == 1)
-                                        sizeInt.add(new Integer(18));
+                                    {
+//                                       freqString.add('"'+"中频"+'"');
+                                       sizeInt.add(new Integer(18));
+                                    }
+
                                     else
-                                        sizeInt.add(new Integer(24));
+                                    {
+//                                       freqString.add('"'+"高频"+'"');
+                                       sizeInt.add(new Integer(24));
+                                    }
+
                                 }
                             %>
                             var phoneString = [];
@@ -196,6 +208,8 @@
                             typeInt = <%=typeInt%>;
                             var sizeInt = [];
                             sizeInt = <%=sizeInt%>;
+                            var freqString = [];
+                            <%--freqString = <%=freqString%>--%>
                             while (len <<%=plist.size()%>) {
                                 res.push({
                                     name: phoneString[len],
@@ -325,27 +339,39 @@
                         });
                         <%
                        List<String> phoneString0 = new ArrayList<String>();
+//                       List<String> freqString0 = new ArrayList<String>();
                        List<Integer> typeInt0 = new ArrayList<Integer>();
                        List<Integer> sizeInt0 = new ArrayList<Integer>();
                        for(int i = 0;i < plist.size();i++)
                            {
-                               phoneString0.add(plist.get(i).getLabel());
+                               phoneString0.add('"'+ plist.get(i).getLabel() + '"');
                                typeInt0.add(new Integer(type[i]));
                                if(type[i] == 0)
+                                   {
+//                                   freqString0.add('"'+"低频"+'"');
                                    sizeInt0.add(new Integer(12));
+                                   }
                                else if(type[i] == 1)
-                                   sizeInt0.add(new Integer(18));
+                                   {
+//                                    freqString0.add('"'+"中频"+'"');
+                                    sizeInt0.add(new Integer(18));
+                                   }
+
                                else
+                                   {
+//                                   freqString0.add('"'+"高频"+'"');
                                    sizeInt0.add(new Integer(24));
+                                   }
                            }
                        %>
                         var phoneString = [];
                         phoneString = <%=phoneString0%>;
-                        console.log(phoneString);
                         var typeInt = [];
                         typeInt = <%=typeInt0%>;
                         var sizeInt = [];
                         sizeInt = <%=sizeInt0%>;
+                        var freqString = [];
+                        <%--freqString = <%=freqString0%>;--%>
                         while (len <<%=plist.size()%>) {
                             res.push({
                                 name: phoneString[len],
