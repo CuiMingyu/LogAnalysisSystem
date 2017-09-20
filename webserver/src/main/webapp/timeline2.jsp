@@ -31,7 +31,7 @@
 </header>
     <div style="height:500px; top: 60px;">
         <div id="container" style="width: 100%;height:1000px"></div>
-        <a href="activity.jsp" style="display:block;margin:15px auto;
+        <a href="timeline.jsp" style="display:block;margin:15px auto;
           width:150px;line-height:50px;background:#000;color:#FFF;
           text-decoration:none;text-align:center;border-radius:15px;
           font-size:28px;">Back</a>
