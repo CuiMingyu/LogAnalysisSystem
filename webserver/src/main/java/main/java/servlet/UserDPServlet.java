@@ -82,6 +82,7 @@ public class UserDPServlet extends HttpServlet{
                     request.setAttribute("preferencelist",upflist);
                     request.setAttribute("preference",preference);
                     request.setAttribute("phonelist",phonelist);
+                    request.setAttribute("device",null);
                 }
 
             }

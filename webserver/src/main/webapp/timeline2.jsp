@@ -67,6 +67,9 @@
                     text: '一天内PU、UV变化',
                     subtext: 'Group5'
                 },
+                grid: {
+
+                },
                 tooltip: {
                     trigger: 'axis'
                 },
@@ -146,17 +149,7 @@
                     }
                 ]
             };
-
-
-
-
-
-
-
-
             myChart.setOption(option);
-
-
         </script>
     </div>
 <div id="newMenu">

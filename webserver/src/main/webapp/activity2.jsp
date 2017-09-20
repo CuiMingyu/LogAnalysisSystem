@@ -62,11 +62,11 @@
             ana[i]=city.getRate();
         }
     %>
-    <div style="width:100%;height:1050px;margin:0;">
+    <div style="width:100%;height:120%;margin:0;">
 
         <div style="width:100%;position:relative;top:60px;">
-            <div id="container" style="width: 100%;height:900px;"></div>
-            <a href="activity.jsp" style="display:block;margin:15px auto;
+            <div id="container" style="padding-left:10%;width:80%;height:80%;"></div>
+            <a href="activity.jsp" style="display:block;margin:30px auto;
           width:150px;line-height:50px;background:#000;color:#FFF;
           text-decoration:none;text-align:center;border-radius:15px;
           font-size:28px;">Back</a>
@@ -373,7 +373,7 @@
         };
 
         option = {
-            backgroundColor: '#1b1e2a',
+            //backgroundColor: '#1b1e2a',
             title: {
                 text: '各地用户活跃度分析',
                 subtext: 'data from telecom',
@@ -382,6 +382,15 @@
                     color: '#fff'
                 }
             },
+
+            grid: {
+                top: '10%',
+                left: '10%',
+                right: '10%',
+                width: '80%',
+                height: '100%'
+            },
+
             tooltip: {
                 trigger: 'item'
             },
@@ -412,11 +421,11 @@
                 },
                 itemStyle: {
                     normal: {
-                        areaColor: '#323c48',
+                        areaColor: '#2a333d',//#323c48
                         borderColor: '#111'
                     },
                     emphasis: {
-                        areaColor: '#2a333d'
+                        areaColor: '#1b1e2a'//#2a333d
                     }
                 }
             },

@@ -75,7 +75,7 @@
 <div>
     <div style="position:relative;top:60px;width:100%;">
 
-        <div id="container" style="width:100%;height:1000px"></div>
+        <div id="container" style="width:100%;height:80%"></div>
         <a href="phone.jsp" style="display:block;margin:15px auto;
           width:150px;line-height:50px;background:#000;color:#FFF;
           text-decoration:none;text-align:center;border-radius:15px;
@@ -125,9 +125,12 @@
                     data:['初始数量','新增数量','总数量']
                 },
                 grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
+                    top: '10%',
+                    left: '10%',
+                    right: '10%',
+                    bottom: '10%',
+                    width: '80%',
+                    height: '85%',
                     containLabel: true
                 },
                 xAxis : [

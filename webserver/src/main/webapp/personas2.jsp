@@ -67,11 +67,13 @@
         var myChart = echarts.init(dom);
         <%
            String phone=(String)request.getAttribute("phone");
+           System.out.println(phone);
            String preference=(String) request.getAttribute("preference");
            Boolean message=(Boolean) request.getAttribute("message");
            ArrayList userdevicelist=(ArrayList)request.getAttribute("userdevicelist");
-           UserDev device=(UserDev) request.getAttribute("device");
-
+           UserDev device = null;
+           if(request.getAttribute("device")!=null)
+               device =(UserDev)request.getAttribute("device");
            ArrayList<UserPreference> plist=(ArrayList)request.getAttribute("preferencelist");
            ArrayList phonelist=(ArrayList)request.getAttribute("phonelist");
            String []userphone=new String[100];
@@ -88,12 +90,14 @@
 
          %>
 
-        if(<%=phone==null||phone.equals("")%>){
+        if(<%=phone==null||phone.equals("")%>)
+        {
             if(<%=preference==null%>){
                 //提示框输入内容
                 alert("请输入内容");
                 }
             else {
+                <%System.out.println(phone);%>;
                 option = {
                     backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [{
                         offset: 0,
@@ -126,7 +130,7 @@
                             List<String> phoneString1 = new ArrayList<String>();
                             for(int i = 0;i < plist.size();i++)
                                 {
-                                    phoneString1.add(userphone[i]);
+                                    phoneString1.add(userphone[i].toString());
                                 }
                             %>
                             var phoneString = [];
@@ -175,7 +179,7 @@
                             List<Integer> sizeInt = new ArrayList<Integer>();
                             for(int i = 0;i < plist.size();i++)
                                 {
-                                    phoneString.add(userphone[i]);
+                                    phoneString.add(userphone[i].toString());
                                     typeInt.add(new Integer(type[i]));
                                     if(type[i] == 0)
                                         sizeInt.add(new Integer(12));
@@ -187,6 +191,7 @@
                             %>
                             var phoneString = [];
                             phoneString = <%=phoneString%>;
+
                             var typeInt = [];
                             typeInt = <%=typeInt%>;
                             var sizeInt = [];
@@ -257,6 +262,7 @@
             }
         }
         else{
+            <%System.out.println(1);%>
             option = {
                 backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [{
                     offset: 0,
@@ -312,7 +318,7 @@
                             draggable: 'true'
                         });
                         res.push({
-                            name:'<%=device.getDevice()%>',
+                            name:'<%=(device!=null?device.getDevice():"none")%>',
                             value:0,
                             symbolSize:25,
                             draggable:'true'
@@ -335,6 +341,7 @@
                        %>
                         var phoneString = [];
                         phoneString = <%=phoneString0%>;
+                        console.log(phoneString);
                         var typeInt = [];
                         typeInt = <%=typeInt0%>;
                         var sizeInt = [];
