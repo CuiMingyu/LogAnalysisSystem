@@ -49,27 +49,14 @@
   border: 0;
 }
 
-#region, #phone, #activity {
+#region {
   width: 20%;
   height: 30px;
   margin-right: 4%;
 }
 
-#starttime, #endtime {
-  width: 32%;
-  height: 30px;
-  margin-top: 20px;
-  margin-right: 4%;
-}
 
-#content1, #content2, #content3 {
-  width: 20%;
-  height: 30px;
-  margin-top: 20px;
-  margin-right: 3%;
-}
-
-#behaviour1, #behaviour2, #behaviour3 {
+#preference {
   width: 20%;
   height: 30px;
   margin-top: 20px;

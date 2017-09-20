@@ -50,12 +50,7 @@
             <hr>
             <form action="UserDPServlet.do" method="post">
                 <scan style="color:#FFF;font-size:20px;">Region:</scan>
-
                 <input type="text" name="phone" id="phone">
-                <scan style="color:#FFF;font-size:20px;">Activity:</scan>
-
-
-
                 <scan style="color:#FFF;font-size:20px;">Behaviour preferences:</scan>
                 <select name="preference" id="preference">
                     <option value="下载">下载</option>
