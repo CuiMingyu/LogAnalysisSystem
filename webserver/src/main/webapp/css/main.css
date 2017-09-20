@@ -81,7 +81,8 @@
 }
 
 #content .content-title {
-    margin: 0 auto;
+    margin-top: 0;
+    margin-left: 500px;
     padding-top: 30px;
     height: 200px;
     width: 500px;
