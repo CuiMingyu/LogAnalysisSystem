@@ -33,14 +33,8 @@ hr {
     width: 40%;
 }
 
-#container1 {
-    height: 800px;
-}
-
-#container2 {
-    height: 800px;
-}
-
-#container3 {
-    height: 800px;
+#content {
+    width: 80%;
+    padding-left: 10%;
+    padding-right: 10%;
 }
