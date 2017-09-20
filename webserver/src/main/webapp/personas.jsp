@@ -49,9 +49,9 @@
             <h1>Personas analysis system</h1>
             <hr>
             <form action="UserDPServlet.do" method="post">
-                <scan style="color:#FFF;font-size:20px;">Region:</scan>
-                <input type="text" name="region" id="region">
-                <scan style="color:#FFF;font-size:20px;">Behaviour preferences:</scan>
+                <scan style="color:#FFF;font-size:20px;">Phone:</scan>
+                <input type="text" name="phone" id="phone">
+                <scan style="color:#FFF;font-size:20px;">Behaviour preferences:<region/scan>
                 <select name="preference" id="preference">
                     <option value="下载">下载</option>
                     <option value="丰田">丰田</option>
