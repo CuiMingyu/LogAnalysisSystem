@@ -38,7 +38,7 @@
 
     <div id="content">
         <div id="contenttitle">
-            <h1>Hot100 Websites</h1>
+            <h1>Hot20 Websites</h1>
             <hr>
         </div>
 
