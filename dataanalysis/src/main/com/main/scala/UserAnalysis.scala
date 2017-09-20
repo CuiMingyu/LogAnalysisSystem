@@ -57,16 +57,18 @@ object UserAnalysis {
     }
     sc.makeRDD(result)
   }
-  def run(inputPath:String,outputPath:String): Unit ={
+  def run(inputPath:String,outputPath:String,clusteringInfoPath:String,labelNum:Int): Unit ={
     val srcRDD=sc.textFile(inputPath)
-    val resultRDD=userPreferenceStatistic(srcRDD,clusteringInfoPath,Global.labelNum)
+    val resultRDD=userPreferenceStatistic(srcRDD,clusteringInfoPath,labelNum)
     FileUtil.deletehdfsFile(outputPath+"/userpreference")
     resultRDD.map(m=>m._1+"\t"+m._2+"\t"+m._3).saveAsTextFile(outputPath+"/userpreference")
   }
   def run(): Unit ={
-    run(inputPath,outputPath)
+    run(inputPath,outputPath,clusteringInfoPath,Global.labelNum)
   }
   def main(args:Array[String]): Unit ={
-    run()
+    if(args.length==5)
+      run(args(1),args(2),args(3),args(4).toInt)
+    else run()
   }
 }
