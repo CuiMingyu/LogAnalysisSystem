@@ -50,20 +50,20 @@
 
 #region {
   width: 15%;
-  height: 30px;
+  line-height: 40px;
   margin-right: 4%;
 }
 
 
 #preference {
   width: 15%;
-  height: 30px;
+  line-height: 40px;
   margin-right: 3%;
 }
 
 #querybutton {
   width: 10%;
-  height: 30px;
+  height: 45px;
   margin: 20px auto;
   background: #2e3141;
   color: #FFF;
