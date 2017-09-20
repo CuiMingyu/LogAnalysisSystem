@@ -12,9 +12,9 @@ function showMenu() {
     event.cancelBubble = true;
     newMenu.style.display = 'block';
     newMenu.style.position = 'fixed';
-    newMenu.style.width = '400px';
+    newMenu.style.width = '20%';
     newMenu.style.background = '#2c3544';
-    newMenu.style.top = '150px';
-    newMenu.style.left = '500px';
+    newMenu.style.top = '15%';
+    newMenu.style.left = '40%';
     newMenu.style.padding = '0';
 }
