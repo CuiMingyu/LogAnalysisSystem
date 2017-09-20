@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/phone.css">
+    <link rel="stylesheet" href="css/predict.css">
     <link rel="stylesheet" href="css/toolbar.css">
     <script src="js/toolbar.js"></script>
 </head>
@@ -50,8 +50,8 @@
                 Please input the range of date you want to query.
             </p>
             <form id="form" action="ByteSeriesServlet.do" method="post">
-                <scan style="font-size:20px;color:#FFF;margin-left:10px;">End:</scan>
-                <input type="text" name="name"  id="name">
+                <scan style="font-size:20px;color:#FFF;margin-left:10px;">Phone:</scan>
+                <input type="text" name="phone"  id="phone">
                 <input type="submit" value="query" id="querybutton">
             </form>
         </div>
