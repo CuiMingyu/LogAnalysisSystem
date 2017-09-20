@@ -81,8 +81,7 @@
 }
 
 #content .content-title {
-    margin-top: 0;
-    margin-left: 600px;
+    margin: 0 auto;
     padding-top: 30px;
     height: 200px;
     width: 500px;
@@ -105,9 +104,8 @@
 }
 
 #content img {
-    width:90%;
-    height:50%;
-    margin-left:50px;
+    height:250px;
+    margin: 0 auto;
 }
 
 #content1, #content4, #content7 {
@@ -136,4 +134,5 @@
     line-height: 40px;
     text-decoration: none;
     color: #FFF;
-    margin-top: 20px;}
+    margin-top: 20px;
+}
