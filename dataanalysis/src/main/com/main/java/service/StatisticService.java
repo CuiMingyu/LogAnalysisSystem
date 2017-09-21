@@ -20,24 +20,24 @@ import java.sql.SQLException;
  * Created by root on 9/8/17.
  */
 public class StatisticService {
-    static private String inputPath = "/user/hive/warehouse/loganalysis.db/log";
-    static private String outputPath = "/LogAnalysisSystem";
-    static private String hdfsUrl = "hdfs://scm001:9000";
-    static private String localPath = "/tmp/LogAnalysisSystem";
-    static private String activityStatisticDir = "/ASOutput";
-    static private String DFPDStatisticDir = "/DFPDOutput";
-    static private String NDDStatisticDir = "/NDDOutput";
-    static private String TIStatisticDir = "/TimeIntervalOutput";
-    static private String PVStatisticDir = "/PVOutput";
-    static private String UVStatisticDir = "/UVOutput";
-    static private String IPStatisticDir = "/IPOutput";
-    static private String UserAnalysisDir="/useranalysis/userpreference";
-    static private String UserDevAnalysisDir="/useranalysis/devMap";
+    static private String inputPath = Global.rawDataPath();
+    static private String outputPath = Global.outputRoot();
+    static private String hdfsUrl =Global.hdfsUrl();
+    static private String localPath = Global.localPath();
+    static private String activityStatisticDir = Global.activityStatisticDir();
+    static private String DFPDStatisticDir = Global.DFPDStatisticDir();
+    static private String NDDStatisticDir = Global.NDDStatisticDir();
+    static private String TIStatisticDir = Global.TIStatisticDir();
+    static private String PVStatisticDir = Global.PVStatisticDir();
+    static private String UVStatisticDir = Global.UVStatisticDir();
+    static private String IPStatisticDir = Global.IPStatisticDir();
+    static private String UserAnalysisDir=Global.UserAnalysisDir();
+    static private String UserDevAnalysisDir=Global.UserDevAnalysisDir();
     static private String ASOutputPath = outputPath + activityStatisticDir;
     static private String DFPDOutputPath = outputPath + DFPDStatisticDir;
     static private String NDDOutputPath = outputPath + NDDStatisticDir;
     static private String TIOutputPath = outputPath + TIStatisticDir;
-
+    static private String clusteringPath=outputPath+Global.clusteringDir();
 
     static private Configuration conf = new Configuration();
 
@@ -114,7 +114,7 @@ public class StatisticService {
     public static void runUserStatistic()
             throws IOException{
         System.out.println("Starting User Preference Statistic...");
-        UserAnalysis.run(inputPath,outputPath);
+        UserAnalysis.run(inputPath,outputPath,clusteringPath,20);
         System.out.println("User Preference Statistic ended");
         System.out.println("Starting User Dev  Statistic...");
         UserDevAnalysis.run(inputPath,outputPath);

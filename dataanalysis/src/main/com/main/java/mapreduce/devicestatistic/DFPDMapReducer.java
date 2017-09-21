@@ -4,6 +4,7 @@ import main.java.mapreduce.writable.DateWritable;
 import main.java.mapreduce.writable.PhoneDevWritable;
 import main.java.mapreduce.writable.TextComparable;
 import main.java.util.DateUtil;
+import main.scala.Global;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -33,8 +34,8 @@ public class DFPDMapReducer {
 
     static {
         setJobName("Earliest present date of device");
-        setInputPath(System.getProperty("user.dir"));
-        setOutputPath(inputPath + "/DFPDoutput");
+        setInputPath(Global.rawDataPath());
+        setOutputPath(Global.outputRoot() + Global.DFPDStatisticDir());
         setGmt(8);
         setDateFormatPattern("yyyy-MM-dd");
     }

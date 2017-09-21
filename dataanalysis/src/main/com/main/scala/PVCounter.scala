@@ -12,7 +12,7 @@ object PVCounter {
   }
   def run(): Unit ={
     run(Global.rawDataPath,
-      Global.outputRoot+"/PVOutput", 20)
+      Global.outputRoot+Global.PVStatisticDir, 20)
   }
   def run(inputPath: String, outputPath: String, num: Int) {
     val spark = SparkSession.builder().appName("MostUrl").master("local").enableHiveSupport().getOrCreate()

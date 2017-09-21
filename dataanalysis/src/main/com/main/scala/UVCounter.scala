@@ -9,7 +9,7 @@ import org.apache.spark.sql.SparkSession
 object UVCounter {
   def main(args: Array[String]): Unit = {
     run(Global.rawDataPath,
-      Global.outputRoot+"/UVOutput", 20)
+      Global.outputRoot+Global.UVStatisticDir, 20)
   }
 
   def run(inputPath: String, outputPath: String, num: Int): Unit = {

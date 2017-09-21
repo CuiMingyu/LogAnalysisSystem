@@ -3,6 +3,7 @@ package main.java.mapreduce.devicestatistic;
 import main.java.mapreduce.writable.DateDevWritable;
 import main.java.mapreduce.writable.DateWritable;
 import main.java.mapreduce.writable.TextComparable;
+import main.scala.Global;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -35,9 +36,8 @@ public class NDDMapReducer {
 
     static {
         setJobName("Calculate New Device Amount of Date");
-        String currentDir = System.getProperty("user.dir");
-        setInputPath(currentDir);
-        setOutputPath(currentDir + "/NDDoutput");
+        setInputPath(Global.rawDataPath());
+        setOutputPath(Global.outputRoot() + Global.NDDStatisticDir());
         setGmt(8);
         setDateFormatPattern("yyyy-MM-dd");
     }

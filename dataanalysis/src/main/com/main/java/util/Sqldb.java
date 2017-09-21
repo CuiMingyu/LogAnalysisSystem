@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Sqldb {
-    static private String dbUrl = "45.77.17.214:3306/loganalysis";
-    static private String username = "admin";
-    static private String password = "s8xnc22";
+    static private String dbUrl = "localhost:3306/loganalysis";
+    static private String username = "loganalysis";
+    static private String password = "123456";
 
     public static Connection getDefaultConnection()
             throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException {

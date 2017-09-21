@@ -230,7 +230,7 @@
             <artifactId>jdk.tools</artifactId>
             <version>1.7</version>
             <scope>system</scope>
-            <systemPath>C:\Program Files\Java\jdk1.7.0_80\lib\tools.jar</systemPath>
+            <systemPath>/user/java/jdk1.7.0_45/lib/tools.jar</systemPath>
         </dependency>
 
 

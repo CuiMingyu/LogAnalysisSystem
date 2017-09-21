@@ -1,6 +1,11 @@
 package main.scala
 
+import main.java.dao.LoadDataDAO
+import main.java.service.StatisticService
+import main.java.util.Sqldb
 import main.scala.util.{FileUtil, StringUtil}
+import org.apache.hadoop.conf.Configuration
+import org.apache.hadoop.fs.FileSystem
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.rdd.RDD
 
@@ -10,10 +15,10 @@ import org.apache.spark.rdd.RDD
 object UserAnalysis {
   val conf = new SparkConf().setAppName("UserAnalysis").setMaster("local").set("spark.executor.memory", "1g")
   val sc = new SparkContext(conf)
-  val inputPath=Global.rawDataPath
-  val clusteringInfoPath=Global.outputRoot+"/clustering/resultmap"
-  val outputPath=Global.outputRoot+"/useranalysis"
-
+  var inputPath=Global.rawDataPath
+  var clusteringInfoPath=Global.outputRoot+Global.clusteringDir
+  var outputPath=Global.outputRoot
+  var labelNum=Global.labelNum
   /**
     * calculate the preference level of users
     * @param srcRDD
@@ -57,16 +62,22 @@ object UserAnalysis {
     }
     sc.makeRDD(result)
   }
-  def run(inputPath:String,outputPath:String): Unit ={
+  def run(inputPath:String,outputPath:String,clusteringInfoPath:String,labelNum:Int): Unit ={
     val srcRDD=sc.textFile(inputPath)
-    val resultRDD=userPreferenceStatistic(srcRDD,clusteringInfoPath,Global.labelNum)
-    FileUtil.deletehdfsFile(outputPath+"/userpreference")
-    resultRDD.map(m=>m._1+"\t"+m._2+"\t"+m._3).saveAsTextFile(outputPath+"/userpreference")
+    val resultRDD=userPreferenceStatistic(srcRDD,clusteringInfoPath,labelNum)
+    FileUtil.deletehdfsFile(outputPath+Global.UserAnalysisDir)
+    resultRDD.map(m=>m._1+"\t"+m._2+"\t"+m._3).saveAsTextFile(outputPath+Global.UserAnalysisDir)
   }
   def run(): Unit ={
-    run(inputPath,outputPath)
+    run(inputPath,outputPath,clusteringInfoPath,labelNum)
   }
   def main(args:Array[String]): Unit ={
     run()
+    val fs: FileSystem = FileSystem.get(new java.net.URI(Global.hdfsUrl),new Configuration())
+    StatisticService.HDFSTolocal(fs,outputPath,Global.localPath+Global.UserAnalysisDir)
+    var conn = Sqldb.getDefaultConnection
+    LoadDataDAO.loadIntoPreferenceTable(conn,Global.localPath+Global.UserAnalysisDir)
+    Sqldb.closeConnection(conn)
+
   }
 }

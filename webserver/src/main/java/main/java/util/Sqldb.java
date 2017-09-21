@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Sqldb {
-    static private String dbUrl="45.77.17.214:3306/loganalysis";//"localhost:3306/loganalysis";
-    static private String username="admin";//"loganalysis";
-    static private String password="s8xnc22";//"123456";
+    static private String dbUrl="localhost:3306/loganalysis";
+    static private String username="loganalysis";
+    static private String password="123456";
     public static Connection getDefaultConnection()
             throws SQLException,ClassNotFoundException,IllegalAccessException,InstantiationException{
         return getConnection(dbUrl,username,password);
