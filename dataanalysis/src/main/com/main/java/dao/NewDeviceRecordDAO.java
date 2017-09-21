@@ -69,7 +69,7 @@ public class NewDeviceRecordDAO {
         ResultSet rs = null;
         List<NewDeviceRecord> ndrList = new ArrayList<>();
         ps = con.prepareStatement("select * from newstyle where style like ? and date between ? and ?");
-        ps.setString(1, machinename + "%");
+        ps.setString(1, machinename+"%");
         ps.setDate(2, date1);
         ps.setDate(3, date2);
         rs = ps.executeQuery();

@@ -1,14 +1,25 @@
+#background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: url(images/bg.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 #querydiv {
   margin: 0;
   padding: 0;
   background: #1b1e2a;
   height: 815px;
+  opacity: 0.5;
 }
 
 #querydiv div {
   text-align: center;
   position: relative;
-  top: 300px;
+  top: 30%;
 }
 
 #querydiv h1 {
@@ -34,39 +45,33 @@
 
 #querydiv div form {
   margin-top:50px;
-  margin-left: 30px;
-
 }
 
 #date1 {
-  width: 200px;
+  width: 13%;
   line-height: 40px;
   font-size: 20px;
   border: 0;
-  border-radius: 10px;
-  background: #2e3141;
-  color: #FFF;
+  border-radius: 20px;
   text-align: center;
 }
 
 #date2 {
-  width: 200px;
+  width: 13%;
   line-height: 40px;
   font-size: 20px;
   border: 0;
-  border-radius: 10px;
-  background: #2e3141;
-  color: #FFF;
+  border-radius: 20px;
   text-align: center;
 }
 
 #querybutton {
-  width: 100px;
+  width: 7%;
   height: 45px;
   margin-left: 50px;
   background: #2e3141;
   color: #FFF;
   border: 0;
-  border-radius: 10px;
-  font-size: 15px;
+  border-radius: 20px;
+  font-size: 18px;
 }

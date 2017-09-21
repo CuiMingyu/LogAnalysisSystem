@@ -24,7 +24,7 @@ public class CityRateDataDateServlet extends HttpServlet{
 
 
     protected void getJson(HttpServletRequest request,HttpServletResponse response,Object object){
-        //response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         //禁用缓存，确保网页信息是最新数据
         response.setHeader("Pragma","No-cache");
         response.setHeader("Cache-Control","no-cache");
@@ -35,6 +35,7 @@ public class CityRateDataDateServlet extends HttpServlet{
             String jsonStr= JSON.toJSONString(object);
             out.print(jsonStr);
             out.flush();
+            System.out.println("out");
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -60,6 +61,7 @@ public class CityRateDataDateServlet extends HttpServlet{
             CityRateDataService crds=new CityRateDataService();
             Date date=DateUtils.parseDate(dateString,"yyyy-MM-dd");
             crdlist=crds.SelectByDate(date);
+            request.setAttribute("crdlist",crdlist);
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -67,16 +69,17 @@ public class CityRateDataDateServlet extends HttpServlet{
         CityRateData cd=new CityRateData();
         cd.setCityRateData(date,"南京",10,20,0.5);
         crdlist.add(cd);*/
-        getJson(request,response,crdlist);
+//        getJson(request,response,crdlist);
+       request.getRequestDispatcher("activity2.jsp").forward(request,response);
     }
 
 
-    public static void main(String args[]){
-        List<CityRateData> crdlist=null;
-        java.sql.Date date= java.sql.Date.valueOf("2017-01-01");
-        CityRateDataService crds=new CityRateDataService();
-        crdlist=crds.SelectByDate(date);
-        String jsonStr= JSON.toJSONString(crdlist);
-        System.out.println(jsonStr);
-    }
+//    public static void main(String args[]){
+//        List<CityRateData> crdlist=null;
+//        java.sql.Date date= java.sql.Date.valueOf("2017-01-01");
+//        CityRateDataService crds=new CityRateDataService();
+//        crdlist=crds.SelectByDate(date);
+//        String jsonStr= JSON.toJSONString(crdlist);
+//        System.out.println(jsonStr);
+//    }
 }

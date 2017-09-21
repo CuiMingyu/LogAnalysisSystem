@@ -1,9 +1,6 @@
 body {
   margin: 0;
   padding: 0;
-  background: url(images/bg.jpg);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
 }
 
 nav {
@@ -12,6 +9,7 @@ nav {
   width: 100%;
   position: fixed;
   z-index: 100;
+  opacity: 0.6;
 }
 
 nav ul {
@@ -22,17 +20,23 @@ nav ul {
 nav ul li {
   display: inline-block;
   float: right;
-  line-height: 60px;
   margin-right: 70px;
 }
 
 nav ul li a {
-  line-height: 60px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  text-align: center;
+  width: 100px;
+  line-height: 40px;
   text-decoration: none;
   display: inline-block;
   letter-spacing: 1px;
   font-size: 20px;
   color: #FFF;
+  -webkit-transition: color 3s;
+  -webkit-transition: background 1s;
 }
 
 nav ul li.logo {
@@ -42,12 +46,21 @@ nav ul li.logo {
 }
 
 nav ul li.logo a {
+  text-align: center;
   color: #FFF;
+  width: 200px;
+}
+
+nav a:hover, .logo a:hover {
+  background: #FFF;
+  color: #000;
 }
 
 #newMenu {
+  background: #323142;
   z-index: 100;
   border-radius: 40px;
+  opacity: 0.8;
 }
 
 #newMenu div {
@@ -84,9 +97,11 @@ nav ul li.logo a {
   text-align: center;
   letter-spacing: 1px;
   z-index: 100;
-  border-radius: 10px;
+  border-radius: 20px;
+  -webkit-transition: background 0.5s;
 }
 
 #newMenu ul li a:hover {
-  background: #ccc;
+  background: #000;
+  color: #FFF;
 }

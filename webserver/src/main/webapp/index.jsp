@@ -24,7 +24,20 @@
             </ul>
         </nav>
         <!-- 顶栏结束 -->
-
+        <div id="newMenu">
+            <div>
+                <h2>Menu</h2>
+                <hr>
+                <ul>
+                    <li><a href="activity.jsp">Activity analysis</a></li>
+                    <li><a href="phone.jsp">Phone analysis</a></li>
+                    <li><a href="timeline.jsp">Timeline analysis</a></li>
+                    <li><a href="personas.jsp">Personas analysis</a></li>
+                    <li><a href="website.jsp">Hot20 websites</a></li>
+                    <li><a href="predict.jsp">Traffic forecast</a></li>
+                </ul>
+            </div>
+        </div>
         <!-- 欢迎模块开始 -->
         <div id="banner">
             <div class="inner">
@@ -40,36 +53,80 @@
         </div>
         <!-- 欢迎模块结束 -->
 
-        <div id="newMenu">
-            <div>
-                <h2>Menu</h2>
-                <hr>
-                <ul>
-                    <li><a href="activity.jsp">Activity analysis</a></li>
-                    <li><a href="phone.jsp">Phone analysis</a></li>
-                    <li><a href="timeline.jsp">Timeline analysis</a></li>
-                    <li><a href="personas.jsp">Personas analysis</a></li>
-                </ul>
-            </div>
-        </div>
+
     </header>
 
     <!-- 主页内容模块开始 -->
     <div id="content">
         <!-- 地区活跃度介绍模块开始 -->
-        <div id="activity-div">
-            <div class="wrapper1">
-                <div>
-                    <a href="activity.jsp" class="a1">Retional activity analysis</a>
-                    <hr>
-                    <a href="activity.jsp" class="a2">
-                        Welcome to Log Analse System!
-                        The early bird catches worm.
-                        God helps those who help themselves.
-                        We can both of God and the devil.
-                    </a>
-                </div>
-            </div>
+        <div class="content-title">
+            <p>Our Features</p>
+        </div>
+
+        <div id="content1">
+            <img src="">
+            <a href="activity.jsp" class="a1">Retional activity analysis</a>
+            <a href="activity.jsp" class="a2">
+                Welcome to Log Analse System!
+                The early bird catches worm.
+                God helps those who help themselves.
+                We can both of God and the devil.
+            </a>
+        </div>
+
+        <div id="content2">
+            <img src="">
+            <a href="phone.jsp" class="a1">Phone analysis</a>
+            <a href="phone.jsp" class="a2">
+                Welcome to Log Analse System!
+                The early bird catches worm.
+                God helps those who help themselves.
+                We can both of God and the devil.
+            </a>
+        </div>
+
+        <div id="content3">
+            <img src="">
+            <a href="timeline.jsp" class="a1">Timeline analysis</a>
+            <a href="timeline.jsp" class="a2">
+                Welcome to Log Analse System!
+                The early bird catches worm.
+                God helps those who help themselves.
+                We can both of God and the devil.
+            </a>
+        </div>
+
+        <div id="content4">
+            <img src="">
+            <a href="personas.jsp" class="a1">Personas analysis</a>
+            <a href="personas.jsp" class="a2">
+                Welcome to Log Analse System!
+                The early bird catches worm.
+                God helps those who help themselves.
+                We can both of God and the devil.
+            </a>
+        </div>
+
+        <div id="content5">
+            <img src="">
+            <a href="website.jsp" class="a1">Top 100 Websites</a>
+            <a href="website.jsp" class="a2">
+                Welcome to Log Analse System!
+                The early bird catches worm.
+                God helps those who help themselves.
+                We can both of God and the devil.
+            </a>
+        </div>
+
+        <div id="content6">
+            <img src="">
+            <a href="predict.jsp" class="a1">Predict activity analysis</a>
+            <a href="predict.jsp" class="a2">
+                Welcome to Log Analse System!
+                The early bird catches worm.
+                God helps those who help themselves.
+                We can both of God and the devil.
+            </a>
         </div>
         <!-- 地区活跃度介绍模块开始 -->
     </div>

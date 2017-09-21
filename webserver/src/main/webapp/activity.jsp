@@ -12,28 +12,25 @@
     <link rel="stylesheet" href="css/activity.css">
     <link rel="stylesheet" href="css/toolbar.css">
     <script src="js/toolbar.js"></script>
-	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script>
-      function show( data,status)
-      {
-         alert(data+status);
-      }
-            $(document).ready(function()
-            {
-            $("form").submit(function()
-    {
-    $.post("192.168.157.1",$("#date").value,
-          show(data,status)
-//          {
-//                alert(data+status);
-//          }
-    );
-    });
-    });
-  </script>
+	<%--<script src="jquery/jquery-3.2.1.min.js"></script>--%>
+    <%--<script>--%>
+            <%--$("#form").submit(function showData() {--%>
+                <%--var date = $("#date").value;--%>
+                <%--alert(0);--%>
+                <%--$.ajax({--%>
+                    <%--url: "CityRateDataDateServlet.do",--%>
+                    <%--data: {date: date},--%>
+                    <%--dataType: "json",--%>
+                    <%--success: function (data) {--%>
+                        <%--alert(data.toString());--%>
+                    <%--}--%>
+                <%--})--%>
+            <%--})--%>
+  <%--</script>--%>
 </head>
 
 <body>
+<div id="background" >
 <header>
     <nav>
         <ul>
@@ -55,6 +52,8 @@
             <li><a href="phone.jsp">Phone analysis</a></li>
             <li><a href="timeline.jsp">Timeline analysis</a></li>
             <li><a href="personas.jsp">Personas analysis</a></li>
+            <li><a href="website.jsp">Hot20 websites</a></li>
+            <li><a href="predict.jsp">Traffic forecast</a></li>
         </ul>
     </div>
 </div>
@@ -66,12 +65,12 @@
         <p>
             Please input the date you want to query.
         </p>
-        <form id="form" action="activity2.jsp" method="post">
+        <form id="form" action="CityRateDataDateServlet.do" method="post">
             <input type="text" name="date" value="2017-01-01" id="date">
             <input type="submit" value="query" id="querybutton">
         </form>
     </div>
 </div>
-
+</div>
 </body>
 </html>

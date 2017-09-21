@@ -57,10 +57,13 @@ public class NewDeviceMachineServlet extends HttpServlet{
             Date date1= DateUtils.parseDate(dateString1,"yyyy-MM-dd");
             Date date2= DateUtils.parseDate(dateString2,"yyyy-MM-dd");
             ndmlist=service.GetMachineByDate(date1,date2);
+            System.out.println(ndmlist);
+            request.setAttribute("ndmlist",ndmlist);
+
         }catch(Exception e){
             e.printStackTrace();
         }
 
-        getJson(request, response, ndmlist);//retrun a list
+        request.getRequestDispatcher("phone2.jsp").forward(request,response);
     }
 }
