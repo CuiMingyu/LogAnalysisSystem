@@ -24,7 +24,6 @@
             <li class="logo"><a href="index.jsp">Home page</a></li>
 
             <li><a href="#menu" id="menu" onclick="showMenu()">Menu</a></li>
-            <li><a href="">Contact</a></li>
             <li><a href="">Top</a></li>
         </ul>
     </nav>
@@ -62,7 +61,7 @@
             ana[i]=city.getRate();
         }
     %>
-    <div style="width:100%;height:120%;margin:0;">
+    <div style="width:100%;height:120%;margin:0;background:#ccc">
 
         <div style="width:100%;position:relative;top:60px;">
             <div id="container" style="padding-left:10%;width:80%;height:80%;"></div>
@@ -373,7 +372,7 @@
         };
 
         option = {
-            //backgroundColor: '#1b1e2a',
+            backgroundColor: '#CCC',
             title: {
                 text: '各地用户活跃度分析',
                 subtext: 'data from telecom',
@@ -385,9 +384,7 @@
 
             grid: {
                 top: '10%',
-                left: '10%',
-                right: '10%',
-                width: '80%',
+                width:'80%',
                 height: '100%'
             },
 
@@ -415,8 +412,9 @@
             geo: {
                 map: 'china',
                 label: {
+                    normal:{show:true},
                     emphasis: {
-                        show: false
+                        show: true
                     }
                 },
                 itemStyle: {
@@ -442,67 +440,69 @@
                     type: 'scatter',
                     coordinateSystem: 'geo',
                     data: convertData([
-                        {name: "<%=cityname[0]%>", value:<%=pv[0]%>},
-                        {name: "<%=cityname[1]%>", value:<%=pv[1]%>},
-                        {name: "<%=cityname[2]%>", value:<%=pv[2]%>},
-                        {name: "<%=cityname[3]%>", value:<%=pv[3]%>},
-                        {name: "<%=cityname[4]%>", value:<%=pv[4]%>},
-                        {name: "<%=cityname[5]%>", value:<%=pv[5]%>},
-                        {name: "<%=cityname[6]%>", value:<%=pv[6]%>},
-                        {name: "<%=cityname[7]%>", value:<%=pv[7]%>},
-                        {name: "<%=cityname[8]%>", value:<%=pv[8]%>},
-                        {name: "<%=cityname[9]%>", value:<%=pv[9]%>},
-                        {name: "<%=cityname[10]%>", value:<%=pv[10]%>},
-                        {name: "<%=cityname[11]%>", value:<%=pv[11]%>},
-                        {name: "<%=cityname[12]%>", value:<%=pv[12]%>},
-                        {name: "<%=cityname[13]%>", value:<%=pv[13]%>},
-                        {name: "<%=cityname[14]%>", value:<%=pv[14]%>},
-                        {name: "<%=cityname[15]%>", value:<%=pv[15]%>},
-                        {name: "<%=cityname[16]%>", value:<%=pv[16]%>},
-                        {name: "<%=cityname[17]%>", value:<%=pv[17]%>},
-                        {name: "<%=cityname[18]%>", value:<%=pv[18]%>},
-                        {name: "<%=cityname[19]%>", value:<%=pv[19]%>},
-                        {name: "<%=cityname[20]%>", value:<%=pv[20]%>},
-                        {name: "<%=cityname[21]%>", value:<%=pv[21]%>},
-                        {name: "<%=cityname[22]%>", value:<%=pv[22]%>},
-                        {name: "<%=cityname[23]%>", value:<%=pv[23]%>},
-                        {name: "<%=cityname[24]%>", value:<%=pv[24]%>},
-                        {name: "<%=cityname[25]%>", value:<%=pv[25]%>},
-                        {name: "<%=cityname[26]%>", value:<%=pv[26]%>},
-                        {name: "<%=cityname[27]%>", value:<%=pv[27]%>},
-                        {name: "<%=cityname[28]%>", value:<%=pv[28]%>},
-                        {name: "<%=cityname[29]%>", value:<%=pv[29]%>},
-                        {name: "<%=cityname[30]%>", value:<%=pv[30]%>},
-                        {name: "<%=cityname[31]%>", value:<%=pv[31]%>},
-                        {name: "<%=cityname[32]%>", value:<%=pv[32]%>},
-                        {name: "<%=cityname[33]%>", value:<%=pv[33]%>},
-                        {name: "<%=cityname[34]%>", value:<%=pv[34]%>},
-                        {name: "<%=cityname[35]%>", value:<%=pv[35]%>},
-                        {name: "<%=cityname[36]%>", value:<%=pv[36]%>},
-                        {name: "<%=cityname[37]%>", value:<%=pv[37]%>},
-                        {name: "<%=cityname[38]%>", value:<%=pv[38]%>},
-                        {name: "<%=cityname[39]%>", value:<%=pv[39]%>},
-                        {name: "<%=cityname[40]%>", value:<%=pv[40]%>},
-                        {name: "<%=cityname[41]%>", value:<%=pv[41]%>},
-                        {name: "<%=cityname[42]%>", value:<%=pv[42]%>},
-                        {name: "<%=cityname[43]%>", value:<%=pv[43]%>},
-                        {name: "<%=cityname[44]%>", value:<%=pv[44]%>},
-                        {name: "<%=cityname[45]%>", value:<%=pv[45]%>},
-                        {name: "<%=cityname[46]%>", value:<%=pv[46]%>},
-                        {name: "<%=cityname[47]%>", value:<%=pv[47]%>},
-                        {name: "<%=cityname[48]%>", value:<%=pv[48]%>},
-                        {name: "<%=cityname[49]%>", value:<%=pv[49]%>},
-                        {name: "<%=cityname[50]%>", value:<%=pv[50]%>},
-                        {name: "<%=cityname[51]%>", value:<%=pv[51]%>},
-                        {name: "<%=cityname[52]%>", value:<%=pv[52]%>},
-                        {name: "<%=cityname[53]%>", value:<%=pv[53]%>},
-                        {name: "<%=cityname[54]%>", value:<%=pv[54]%>},
-                        {name: "<%=cityname[55]%>", value:<%=pv[55]%>},
-                        {name: "<%=cityname[56]%>", value:<%=pv[56]%>},
-                        {name: "<%=cityname[57]%>", value:<%=pv[57]%>},
-                        {name: "<%=cityname[58]%>", value:<%=pv[58]%>},
-                        {name: "<%=cityname[59]%>", value:<%=pv[59]%>},
-                        {name: "<%=cityname[60]%>", value:<%=pv[60]%>}
+                        {name: "<%=cityname[0]%>", value:<%=ana[0]%>},
+                        {name: "<%=cityname[1]%>", value:<%=ana[1]%>},
+                        {name: "<%=cityname[2]%>", value:<%=ana[2]%>},
+                        {name: "<%=cityname[3]%>", value:<%=ana[3]%>},
+                        {name: "<%=cityname[4]%>", value:<%=ana[4]%>},
+                        {name: "<%=cityname[5]%>", value:<%=ana[5]%>},
+                        {name: "<%=cityname[6]%>", value:<%=ana[6]%>},
+                        {name: "<%=cityname[7]%>", value:<%=ana[7]%>},
+                        {name: "<%=cityname[8]%>", value:<%=ana[8]%>},
+                        {name: "<%=cityname[9]%>", value:<%=ana[9]%>},
+                        {name: "<%=cityname[10]%>", value:<%=ana[10]%>},
+                        {name: "<%=cityname[11]%>", value:<%=ana[11]%>},
+                        {name: "<%=cityname[12]%>", value:<%=ana[12]%>},
+                        {name: "<%=cityname[13]%>", value:<%=ana[13]%>},
+                        {name: "<%=cityname[14]%>", value:<%=ana[14]%>},
+                        {name: "<%=cityname[15]%>", value:<%=ana[15]%>},
+                        {name: "<%=cityname[16]%>", value:<%=ana[16]%>},
+                        {name: "<%=cityname[17]%>", value:<%=ana[17]%>},
+                        {name: "<%=cityname[18]%>", value:<%=ana[18]%>},
+                        {name: "<%=cityname[19]%>", value:<%=ana[19]%>},
+                        {name: "<%=cityname[20]%>", value:<%=ana[20]%>},
+                        {name: "<%=cityname[21]%>", value:<%=ana[21]%>},
+                        {name: "<%=cityname[22]%>", value:<%=ana[22]%>},
+                        {name: "<%=cityname[23]%>", value:<%=ana[23]%>},
+                        {name: "<%=cityname[24]%>", value:<%=ana[24]%>},
+                        {name: "<%=cityname[25]%>", value:<%=ana[25]%>},
+                        {name: "<%=cityname[26]%>", value:<%=ana[26]%>},
+                        {name: "<%=cityname[27]%>", value:<%=ana[27]%>},
+                        {name: "<%=cityname[28]%>", value:<%=ana[28]%>},
+                        {name: "<%=cityname[29]%>", value:<%=ana[29]%>},
+                        {name: "<%=cityname[30]%>", value:<%=ana[30]%>},
+                        {name: "<%=cityname[31]%>", value:<%=ana[31]%>},
+                        {name: "<%=cityname[32]%>", value:<%=ana[32]%>},
+                        {name: "<%=cityname[33]%>", value:<%=ana[33]%>},
+                        {name: "<%=cityname[34]%>", value:<%=ana[34]%>},
+                        {name: "<%=cityname[35]%>", value:<%=ana[35]%>},
+                        {name: "<%=cityname[36]%>", value:<%=ana[36]%>},
+                        {name: "<%=cityname[37]%>", value:<%=ana[37]%>},
+                        {name: "<%=cityname[38]%>", value:<%=ana[38]%>},
+                        {name: "<%=cityname[39]%>", value:<%=ana[39]%>},
+                        {name: "<%=cityname[40]%>", value:<%=ana[40]%>},
+                        {name: "<%=cityname[41]%>", value:<%=ana[41]%>},
+                        {name: "<%=cityname[42]%>", value:<%=ana[42]%>},
+                        {name: "<%=cityname[43]%>", value:<%=ana[43]%>},
+                        {name: "<%=cityname[44]%>", value:<%=ana[44]%>},
+                        {name: "<%=cityname[45]%>", value:<%=ana[45]%>},
+                        {name: "<%=cityname[46]%>", value:<%=ana[46]%>},
+                        {name: "<%=cityname[47]%>", value:<%=ana[47]%>},
+                        {name: "<%=cityname[48]%>", value:<%=ana[48]%>},
+                        {name: "<%=cityname[49]%>", value:<%=ana[49]%>},
+                        {name: "<%=cityname[50]%>", value:<%=ana[50]%>},
+                        {name: "<%=cityname[51]%>", value:<%=ana[51]%>},
+                        {name: "<%=cityname[52]%>", value:<%=ana[52]%>},
+                        {name: "<%=cityname[53]%>", value:<%=ana[53]%>},
+                        {name: "<%=cityname[54]%>", value:<%=ana[54]%>},
+                        {name: "<%=cityname[55]%>", value:<%=ana[55]%>},
+                        {name: "<%=cityname[56]%>", value:<%=ana[56]%>},
+                        {name: "<%=cityname[57]%>", value:<%=ana[57]%>},
+                        {name: "<%=cityname[58]%>", value:<%=ana[58]%>},
+                        {name: "<%=cityname[59]%>", value:<%=ana[59]%>},
+                        {name: "<%=cityname[60]%>", value:<%=ana[60]%>}
+
+
 
 
                     ]),

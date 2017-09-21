@@ -24,7 +24,6 @@
                 <li class="logo"><a href="index.jsp">Home page</a></li>
 
                 <li><a href="javascript:void(0)" id="menu" onclick="showMenu()">Menu</a></li>
-                <li><a href="">Contact</a></li>
                 <li><a href="">Top</a></li>
             </ul>
         </nav>
@@ -109,7 +108,7 @@
                     xAxis:  {
                         type: 'category',
                         boundaryGap: false,
-                        data: ['<%=time[0]%>>','<%=time[1]%>','<%=time[2]%>']
+                        data: ['<%=time[0]%>','<%=time[1]%>','<%=time[2]%>']
                     },
                     yAxis: {
                         type: 'value',

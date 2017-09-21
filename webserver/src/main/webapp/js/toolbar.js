@@ -18,3 +18,4 @@ function showMenu() {
     newMenu.style.left = '40%';
     newMenu.style.padding = '0';
 }
+

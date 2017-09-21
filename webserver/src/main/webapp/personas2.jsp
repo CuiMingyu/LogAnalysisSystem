@@ -25,7 +25,6 @@
                 <li class="logo"><a href="index.jsp">Home page</a></li>
 
                 <li><a href="javascript:void(0)" id="menu" onclick="showMenu()">Menu</a></li>
-                <li><a href="">Contact</a></li>
                 <li><a href="">Top</a></li>
             </ul>
         </nav>
@@ -278,7 +277,7 @@
         else{
             <%System.out.println(1);%>
             option = {
-                backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [{
+                backgroundColor: new echarts.graphic.RadialGradient(0, 0, 0, [{
                     offset: 0,
                     color: '#f7f8fa'
                 }, {

@@ -24,7 +24,6 @@
             <li class="logo"><a href="index.jsp">Home page</a></li>
 
             <li><a href="javascript:void(0)" id="menu" onclick="showMenu()">Menu</a></li>
-            <li><a href="">Contact</a></li>
             <li><a href="">Top</a></li>
         </ul>
     </nav>

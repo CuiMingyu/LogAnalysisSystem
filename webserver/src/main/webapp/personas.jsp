@@ -22,7 +22,6 @@
             <li class="logo"><a href="index.jsp">Home page</a></li>
 
             <li><a href="javascript:void(0)" id="menu" onclick="showMenu()">Menu</a></li>
-            <li><a href="">Contact</a></li>
             <li><a href="">Top</a></li>
         </ul>
     </nav>
@@ -48,7 +47,7 @@
         <div>
             <h1>Personas analysis system</h1>
             <hr>
-            <form action="UserDPServlet.do" method="post">
+            <form id="form" action="UserDPServlet.do" method="post">
                 <scan style="color:#FFF;font-size:20px;">Phone:</scan>
                 <input type="text" name="phone" id="phone">
                 <scan style="color:#FFF;font-size:20px;">Behaviour preferences:</scan>
