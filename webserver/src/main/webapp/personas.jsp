@@ -22,7 +22,6 @@
             <li class="logo"><a href="index.jsp">Home page</a></li>
 
             <li><a href="javascript:void(0)" id="menu" onclick="showMenu()">Menu</a></li>
-            <li><a href="">Contact</a></li>
             <li><a href="">Top</a></li>
         </ul>
     </nav>
@@ -48,13 +47,31 @@
         <div>
             <h1>Personas analysis system</h1>
             <hr>
-            <form action="UserDPServlet.do" method="post">
-                <scan style="color:#FFF;font-size:20px;">Region:</scan>
-                <input type="text" name="region" id="region">
+            <form id="form" action="UserDPServlet.do" method="post">
+                <scan style="color:#FFF;font-size:20px;">Phone:</scan>
+                <input type="text" name="phone" id="phone">
                 <scan style="color:#FFF;font-size:20px;">Behaviour preferences:</scan>
                 <select name="preference" id="preference">
                     <option value="下载">下载</option>
-                    <option value="丰田">丰田</option>
+                    <option value="火车">火车</option>
+                    <option value="腾讯">腾讯</option>
+                    <option value="404">404</option>
+                    <option value="淘宝网">淘宝网</option>
+                    <option value="开采">开采</option>
+                    <option value="新闻">新闻</option>
+                    <option value="首页">首页</option>
+                    <option value="提示信息">提示信息</option>
+                    <option value="百度">百度</option>
+                    <option value="百家讲坛">百家讲坛</option>
+                    <option value="快递">快递</option>
+                    <option value="新浪">新浪</option>
+                    <option value="爱">爱</option>
+                    <option value="云币">云币</option>
+                    <option value="PANDORA">PANDORA</option>
+                    <option value="手抄报">手抄报</option>
+                    <option value="解梦">解梦</option>
+                    <option value="人才网">人才网</option>
+                    <option value="加载">加载</option>
                 </select>
 
                 <input type="submit" value="query" id="querybutton">

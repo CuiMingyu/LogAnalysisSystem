@@ -48,7 +48,7 @@
   border: 0;
 }
 
-#region {
+#phone {
   width: 15%;
   line-height: 40px;
   margin-right: 4%;
@@ -57,7 +57,7 @@
 
 #preference {
   width: 15%;
-  line-height: 40px;
+  height: 40px;
   margin-right: 3%;
 }
 

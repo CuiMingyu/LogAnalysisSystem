@@ -25,7 +25,6 @@
                 <li class="logo"><a href="index.jsp">Home page</a></li>
 
                 <li><a href="javascript:void(0)" id="menu" onclick="showMenu()">Menu</a></li>
-                <li><a href="">Contact</a></li>
                 <li><a href="">Top</a></li>
             </ul>
         </nav>
@@ -47,9 +46,9 @@
     </div>
 </div>
 <div>
-    <div style="height:500px; top: 60px;">
+    <div style="position:relative; width: 100%; top: 80px;">
 
-    <div id="container" style="width: 100%;height:1000px"></div>
+    <div id="container" style="width: 100%;height: 130%"></div>
     <a href="personas.jsp" style="display:block;margin:15px auto;
           width:150px;line-height:50px;background:#000;color:#FFF;
           text-decoration:none;text-align:center;border-radius:15px;
@@ -67,11 +66,13 @@
         var myChart = echarts.init(dom);
         <%
            String phone=(String)request.getAttribute("phone");
+           System.out.println(phone);
            String preference=(String) request.getAttribute("preference");
            Boolean message=(Boolean) request.getAttribute("message");
            ArrayList userdevicelist=(ArrayList)request.getAttribute("userdevicelist");
-           UserDev device=(UserDev) request.getAttribute("device");
-
+           UserDev device = null;
+           if(request.getAttribute("device")!=null)
+               device =(UserDev)request.getAttribute("device");
            ArrayList<UserPreference> plist=(ArrayList)request.getAttribute("preferencelist");
            ArrayList phonelist=(ArrayList)request.getAttribute("phonelist");
            String []userphone=new String[100];
@@ -88,14 +89,16 @@
 
          %>
 
-        if(<%=phone==null||phone.equals("")%>){
+        if(<%=phone==null||phone.equals("")%>)
+        {
             if(<%=preference==null%>){
                 //提示框输入内容
                 alert("请输入内容");
                 }
             else {
+                <%System.out.println(phone);%>;
                 option = {
-                    backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [{
+                    backgroundColor: new echarts.graphic.RadialGradient(0, 0, 0, [{
                         offset: 0,
                         color: '#f7f8fa'
                     }, {
@@ -126,7 +129,7 @@
                             List<String> phoneString1 = new ArrayList<String>();
                             for(int i = 0;i < plist.size();i++)
                                 {
-                                    phoneString1.add(userphone[i]);
+                                    phoneString1.add(userphone[i].toString());
                                 }
                             %>
                             var phoneString = [];
@@ -173,24 +176,39 @@
                             List<String> phoneString = new ArrayList<String>();
                             List<Integer> typeInt = new ArrayList<Integer>();
                             List<Integer> sizeInt = new ArrayList<Integer>();
+//                            List<String> freqString = new ArrayList<String>();
                             for(int i = 0;i < plist.size();i++)
                                 {
-                                    phoneString.add(userphone[i]);
+                                    phoneString.add(userphone[i].toString());
                                     typeInt.add(new Integer(type[i]));
                                     if(type[i] == 0)
-                                        sizeInt.add(new Integer(12));
+                                    {
+//                                       freqString.add('"'+"低频"+'"');
+                                       sizeInt.add(new Integer(12));
+                                    }
                                     else if(type[i] == 1)
-                                        sizeInt.add(new Integer(18));
+                                    {
+//                                       freqString.add('"'+"中频"+'"');
+                                       sizeInt.add(new Integer(18));
+                                    }
+
                                     else
-                                        sizeInt.add(new Integer(24));
+                                    {
+//                                       freqString.add('"'+"高频"+'"');
+                                       sizeInt.add(new Integer(24));
+                                    }
+
                                 }
                             %>
                             var phoneString = [];
                             phoneString = <%=phoneString%>;
+
                             var typeInt = [];
                             typeInt = <%=typeInt%>;
                             var sizeInt = [];
                             sizeInt = <%=sizeInt%>;
+                            var freqString = [];
+                            <%--freqString = <%=freqString%>--%>
                             while (len <<%=plist.size()%>) {
                                 res.push({
                                     name: phoneString[len],
@@ -257,8 +275,9 @@
             }
         }
         else{
+            <%System.out.println(1);%>
             option = {
-                backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [{
+                backgroundColor: new echarts.graphic.RadialGradient(0, 0, 0, [{
                     offset: 0,
                     color: '#f7f8fa'
                 }, {
@@ -312,25 +331,36 @@
                             draggable: 'true'
                         });
                         res.push({
-                            name:'<%=device.getDevice()%>',
+                            name:'<%=(device!=null?device.getDevice():"none")%>',
                             value:0,
                             symbolSize:25,
                             draggable:'true'
                         });
                         <%
                        List<String> phoneString0 = new ArrayList<String>();
+//                       List<String> freqString0 = new ArrayList<String>();
                        List<Integer> typeInt0 = new ArrayList<Integer>();
                        List<Integer> sizeInt0 = new ArrayList<Integer>();
                        for(int i = 0;i < plist.size();i++)
                            {
-                               phoneString0.add(plist.get(i).getLabel());
+                               phoneString0.add('"'+ plist.get(i).getLabel() + '"');
                                typeInt0.add(new Integer(type[i]));
                                if(type[i] == 0)
+                                   {
+//                                   freqString0.add('"'+"低频"+'"');
                                    sizeInt0.add(new Integer(12));
+                                   }
                                else if(type[i] == 1)
-                                   sizeInt0.add(new Integer(18));
+                                   {
+//                                    freqString0.add('"'+"中频"+'"');
+                                    sizeInt0.add(new Integer(18));
+                                   }
+
                                else
+                                   {
+//                                   freqString0.add('"'+"高频"+'"');
                                    sizeInt0.add(new Integer(24));
+                                   }
                            }
                        %>
                         var phoneString = [];
@@ -339,6 +369,8 @@
                         typeInt = <%=typeInt0%>;
                         var sizeInt = [];
                         sizeInt = <%=sizeInt0%>;
+                        var freqString = [];
+                        <%--freqString = <%=freqString0%>;--%>
                         while (len <<%=plist.size()%>) {
                             res.push({
                                 name: phoneString[len],

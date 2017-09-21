@@ -24,7 +24,6 @@
                 <li class="logo"><a href="index.jsp">Home page</a></li>
 
                 <li><a href="javascript:void(0)" id="menu" onclick="showMenu()">Menu</a></li>
-                <li><a href="">Contact</a></li>
                 <li><a href="">Top</a></li>
             </ul>
         </nav>
@@ -46,10 +45,10 @@
     </div>
 
     <div>
-        <div style="height:500px; top: 60px;">
+        <div style="width: 100%; position: relative; top: 75px;">
 
-            <div id="container" style="width: 100%;height:1000px"></div>
-            <a href="predict.jsp" style="display:block;margin:15px auto;
+            <div id="container" style="width: 100%;height:80%"></div>
+            <a href="predict.jsp" style="display:block;margin:10px auto;
           width:150px;line-height:50px;background:#000;color:#FFF;
           text-decoration:none;text-align:center;border-radius:15px;
           font-size:28px;">Back</a>
@@ -109,7 +108,7 @@
                     xAxis:  {
                         type: 'category',
                         boundaryGap: false,
-                        data: ['<%=time[0]%>>','<%=time[1]%>','<%=time[2]%>']
+                        data: ['<%=time[0]%>','<%=time[1]%>','<%=time[2]%>']
                     },
                     yAxis: {
                         type: 'value',

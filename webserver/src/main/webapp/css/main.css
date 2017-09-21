@@ -76,8 +76,8 @@
 #content {
     margin: 0;
     background: #1b1e2a;
-    height: 1100px;
-    opacity: 0.5;
+    height: 1250px;
+    opacity: 1;
 }
 
 #content .content-title {
@@ -106,7 +106,9 @@
 
 #content img {
     height:250px;
+    max-width: 95%;
     margin: 0 auto;
+    border: 0;
 }
 
 #content1, #content4, #content7 {

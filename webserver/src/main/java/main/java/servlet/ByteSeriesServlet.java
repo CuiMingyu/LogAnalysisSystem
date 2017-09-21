@@ -51,7 +51,7 @@ public class ByteSeriesServlet extends HttpServlet{
             throws  ServletException , IOException{
         request.setCharacterEncoding("utf-8");
 
-        String name=request.getParameter("name");
+        String name=request.getParameter("phone");
 
         List<ByteSeries> bslist=null;
         try{
