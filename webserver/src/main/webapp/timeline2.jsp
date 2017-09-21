@@ -29,9 +29,9 @@
         </ul>
     </nav>
 </header>
-    <div style="height:500px; top: 60px;">
-        <div id="container" style="position:relative;top:15%;width: 100%;height:1000px"></div>
-        <a href="timeline.jsp" style="position:relative;top:10%;display:block;margin:15px auto;
+    <div style="position:relative; width:100%; top: 75px;">
+        <div id="container" style="position:relative;width: 100%;height:80%;"></div>
+        <a href="timeline.jsp" style="position:relative;top:10%;display:block;margin:10px auto;
           width:150px;line-height:50px;background:#000;color:#FFF;
           text-decoration:none;text-align:center;border-radius:15px;
           font-size:28px;">Back</a>
@@ -68,7 +68,11 @@
                     subtext: 'Group5'
                 },
                 grid: {
-
+                    y: '10%',
+                    x:'10%',
+                    x2:'10%',
+                    width: '80%',
+                    height: '75%'
                 },
                 tooltip: {
                     trigger: 'axis'

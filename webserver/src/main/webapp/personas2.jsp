@@ -47,9 +47,9 @@
     </div>
 </div>
 <div>
-    <div style="height:500px; top: 60px;">
+    <div style="position:relative; width: 100%; top: 80px;">
 
-    <div id="container" style="width: 100%;height:1000px"></div>
+    <div id="container" style="width: 100%;height: 130%"></div>
     <a href="personas.jsp" style="display:block;margin:15px auto;
           width:150px;line-height:50px;background:#000;color:#FFF;
           text-decoration:none;text-align:center;border-radius:15px;
@@ -99,7 +99,7 @@
             else {
                 <%System.out.println(phone);%>;
                 option = {
-                    backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [{
+                    backgroundColor: new echarts.graphic.RadialGradient(0, 0, 0, [{
                         offset: 0,
                         color: '#f7f8fa'
                     }, {
