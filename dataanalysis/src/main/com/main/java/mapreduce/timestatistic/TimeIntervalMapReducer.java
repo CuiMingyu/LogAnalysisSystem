@@ -4,6 +4,7 @@ import main.java.mapreduce.devicestatistic.DFPDMapReducer;
 import main.java.mapreduce.writable.DateWritable;
 import main.java.mapreduce.writable.IntPairWritable;
 import main.java.util.DateUtil;
+import main.scala.Global;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -36,9 +37,8 @@ public class TimeIntervalMapReducer {
 
     static {
         setJobName("Time interval statistic");
-        String currentDir = System.getProperty("user.dir");
-        setInputPath(currentDir);
-        setOutputPath(currentDir + "/TimeIntervalOutput");
+        setInputPath(Global.rawDataPath());
+        setOutputPath(Global.outputRoot() + Global.TIStatisticDir());
         setGmt(8);
         setDateFormatPattern("yyyy-MM-dd\tHH");
     }

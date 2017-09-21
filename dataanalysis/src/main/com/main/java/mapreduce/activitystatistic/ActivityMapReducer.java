@@ -4,6 +4,7 @@ import main.java.mapreduce.writable.DateCityWritable;
 import main.java.mapreduce.writable.DateWritable;
 import main.java.mapreduce.writable.IntPairWritable;
 import main.java.util.DateUtil;
+import main.scala.Global;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -35,9 +36,9 @@ public class ActivityMapReducer {
 
     static {
 
-        setJobName("Activity Statistic");
+        setJobName(Global.rawDataPath());
         setInputPath(System.getProperty("user.dir"));
-        setOutputPath(inputPath + "/ASoutput");
+        setOutputPath(Global.outputRoot() + Global.activityStatisticDir());
         setGmt(8);
         setDateFormatPattern("yyyy-MM-dd");
     }

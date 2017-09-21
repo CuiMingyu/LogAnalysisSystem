@@ -12,7 +12,7 @@ object IPCounter {
   }
   def run(): Unit ={
     run(Global.rawDataPath,
-      Global.outputRoot+"/IPOutput", 20)
+      Global.outputRoot+Global.IPStatisticDir, 20)
   }
   def run(inputPath: String, outputPath: String, num: Int) {
     val spark = SparkSession.builder().appName("MostUrl").master("local").enableHiveSupport().getOrCreate()

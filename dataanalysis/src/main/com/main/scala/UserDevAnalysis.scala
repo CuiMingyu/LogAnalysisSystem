@@ -11,7 +11,7 @@ object UserDevAnalysis {
   val conf = new SparkConf().setAppName("UserAnalysis").setMaster("local").set("spark.executor.memory", "1g")
   val sc = new SparkContext(conf)
   val inputPath=Global.rawDataPath
-  val outputPath=Global.outputRoot+"/useranalysis"
+  val outputPath=Global.outputRoot
   def devAnalysis(srcRDD:RDD[String]): RDD[(String,String)] ={
     val bcfields=sc.broadcast(Global.fields)
     val resultRDD=srcRDD.map{m=>
@@ -28,8 +28,8 @@ object UserDevAnalysis {
   def run(inputPath:String,outputPath:String): Unit ={
     val srcRDD=sc.textFile(inputPath)
     val devMap=devAnalysis(srcRDD)
-    FileUtil.deletehdfsFile(outputPath+"/devMap")
-    devMap.map(m=>m._1+"\t"+m._2).saveAsTextFile(outputPath+"/devMap")
+    FileUtil.deletehdfsFile(outputPath+Global.UserDevAnalysisDir)
+    devMap.map(m=>m._1+"\t"+m._2).saveAsTextFile(outputPath+Global.UserDevAnalysisDir)
   }
   def main(args:Array[String]): Unit ={
     run()

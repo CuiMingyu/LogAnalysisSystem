@@ -18,7 +18,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 object UrlClustering {
   val conf = new SparkConf().setAppName("UrlClustering").setMaster("local").set("spark.executor.memory", "1g")
   val sc = new SparkContext(conf)
-  val modelPath=Global.outputRoot+"/model"
+  val modelPath=Global.outputRoot+Global.modelDir
   def PrepareUrlData(inputPath: String): RDD[(String,String)]= {
     val bcfields = sc.broadcast(List("title","url"))
     val data = sc.textFile(inputPath).map { m =>
@@ -35,15 +35,15 @@ object UrlClustering {
     srcRDD
   }
   def run(): Unit ={
-    run(Global.rawUrlPath,Global.outputRoot+"/clustering",modelPath)
+    run(Global.rawUrlPath,Global.outputRoot,modelPath)
   }
   def run(inputPath:String,outputPath:String,modelPath:String): Unit ={
     FileUtil.deletehdfsFile(modelPath)
     val resultRDD=clustering(inputPath, Global.labelNum,10,1)
     val fs: FileSystem = FileSystem.get(new java.net.URI(Global.hdfsUrl),new Configuration())
-    FileUtil.deletehdfsFile(outputPath+"/resultmap")
+    FileUtil.deletehdfsFile(outputPath+Global.clusteringDir)
     resultRDD.map(m=> m._1 + "\t" + m._2)
-        .saveAsTextFile(outputPath+"/resultmap")
+        .saveAsTextFile(outputPath+Global.clusteringDir)
 //
 //    val urltitlepair=PrepareUrlData(Global.rawUrlPath)
 //    val resultRdd=sc.textFile(Global.outputRoot+"/clustering/resultmap").map{m=>
@@ -52,8 +52,8 @@ object UrlClustering {
 //    }.join(urltitlepair).map(m=>(m._2._1,m._1,m._2._2))
 //    resultRDD.take(20).foreach(m=>println(m._1+"\t"+m._2+"\t"+m._3))
     val labelRdd=labeling(resultRDD.map(m=>(m._1,m._3)),Global.labelNum)
-    FileUtil.deletehdfsFile(outputPath+"/labelmap")
-    labelRdd.map(m=>(m._1+"\t"+m._2+"\t"+m._3)).saveAsTextFile(outputPath+"/labelmap")
+    FileUtil.deletehdfsFile(outputPath+Global.labelingDir)
+    labelRdd.map(m=>(m._1+"\t"+m._2+"\t"+m._3)).saveAsTextFile(outputPath+Global.labelingDir)
   }
   def main(args: Array[String]): Unit = {
     run()
